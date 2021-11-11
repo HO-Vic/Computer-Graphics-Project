@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\main">
+      <UniqueIdentifier>{0fceed5f-29c4-4a13-b862-bf7af5edb5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\obj">
+      <UniqueIdentifier>{8be8bbe0-a8d6-4225-82aa-a3b17fad9320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\weapon">
+      <UniqueIdentifier>{c83be2dc-0fec-4eb5-b7e6-a7162bc914d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\map">
+      <UniqueIdentifier>{0ac9c73e-fb97-45a7-942a-c8788b919bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\obj">
+      <UniqueIdentifier>{8db7bf14-2624-453d-ac53-261fca491038}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\map">
+      <UniqueIdentifier>{aa1c48c5-ed1b-4503-b269-8f56e4674171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\weapon">
+      <UniqueIdentifier>{2d9fdeed-02a5-4ae0-b355-fa897d7e46b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\func">
+      <UniqueIdentifier>{12ab24e8-b843-4643-b6ee-a9a4f087f756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\func">
+      <UniqueIdentifier>{1d74ba8e-910c-48c5-a7b4-9c097ce4a3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\camera">
+      <UniqueIdentifier>{59d5ab76-5014-4172-86c3-076be67c6be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\camera">
+      <UniqueIdentifier>{190bce81-24b5-477c-911f-a00ec40a7ab3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일\main</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>소스 파일\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>소스 파일\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFunc.cpp">
+      <Filter>소스 파일\func</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>소스 파일\camera</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Gun.h">
+      <Filter>헤더 파일\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>헤더 파일\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>헤더 파일\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFunc.h">
+      <Filter>헤더 파일\func</Filter>
+    </ClInclude>
+    <ClInclude Include="fileName.h">
+      <Filter>헤더 파일\func</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>헤더 파일\camera</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
