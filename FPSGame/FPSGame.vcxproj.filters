@@ -46,6 +46,12 @@
     <Filter Include="헤더 파일\camera">
       <UniqueIdentifier>{190bce81-24b5-477c-911f-a00ec40a7ab3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\readFunc">
+      <UniqueIdentifier>{fc963f41-a883-4d69-b96e-a8838e08fa41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\readFunc">
+      <UniqueIdentifier>{e1d6fd57-ec73-456c-9d7a-703954feb24b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +75,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일\camera</Filter>
     </ClCompile>
+    <ClCompile Include="readObj.cpp">
+      <Filter>소스 파일\readFunc</Filter>
+    </ClCompile>
+    <ClCompile Include="filetobuf.cpp">
+      <Filter>소스 파일\readFunc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -91,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>헤더 파일\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="readObj.h">
+      <Filter>헤더 파일\readFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="filetobuf.h">
+      <Filter>헤더 파일\readFunc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
