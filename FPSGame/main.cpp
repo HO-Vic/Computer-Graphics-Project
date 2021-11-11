@@ -10,6 +10,7 @@
 #include"readObj.h"
 #include"Camera.h"
 #include"ShaderFunc.h"
+#include"Player.h"
 
 using namespace std;
 
