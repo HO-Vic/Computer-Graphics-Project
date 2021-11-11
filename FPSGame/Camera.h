@@ -7,13 +7,16 @@
 class Camera
 {
 	glm::vec3 pos = glm::vec3(0,0,0);
+	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+private:
 	glm::vec3 cameraDir;
-	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::vec3 cameraRight = glm::cross(up, cameraDir);//v
-	glm::vec3 cameraUp = glm::cross(cameraDir, cameraRight);
-	glm::mat4 cameraView = glm::mat4(1.0f);
+	glm::vec3 cameraRight;
+	glm::vec3 cameraUp;
 
 public:
 	void setCameraDir(glm::vec3 AT);
+	void setCameraRight();
+	void setCameraUp();
+	glm::mat4 getCameraViewMatrix(glm::vec3 AT);
 };
 

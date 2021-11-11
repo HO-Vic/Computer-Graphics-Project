@@ -8,7 +8,7 @@
 #include"filetobuf.h"
 class ShaderFunc
 {
-	GLuint ShaderID;
+	GLuint shaderID;
 	GLuint fragmentShader;
 	GLuint modelvertexShader;
 	char* vertexSource;
@@ -18,5 +18,7 @@ public:
 	void makeFragmentShader();
 	void makeShaderID();
 	void InitBuffer(GLuint VAO, GLuint VBO, std::vector<glm::vec4> modelVertex);
+public:
+	GLuint getShaderID();
 };
 

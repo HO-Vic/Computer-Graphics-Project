@@ -4,10 +4,13 @@
 #include<glm/glm/ext.hpp>
 #include<glm/glm/gtc/matrix_transform.hpp>
 #include<iostream>
-#include"filetobuf.h"
-#include<vector>
-#include"readObj.h"
 #include<random>
+#include<vector>
+#include"filetobuf.h"
+#include"readObj.h"
+#include"Camera.h"
+#include"ShaderFunc.h"
+
 using namespace std;
 
 //call_back
@@ -20,6 +23,9 @@ void specialkeycall(int key, int x, int y);
 
 int Wwidth = 800;
 int Wheight = 600;
+
+ShaderFunc shaderfunc;
+Camera camera;
 
 
 int main(int argc, char** argv)
@@ -58,14 +64,9 @@ void DrawSceneCall()
 	glEnable(GL_DEPTH_TEST);
 
 	//카메라
-	glm::vec3 objCenter = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 cameraDir = glm::normalize(cameraPos - objCenter);//n
-	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::vec3 cameraRight = glm::cross(up, cameraDir);//v
-	glm::vec3 cameraUp = glm::cross(cameraDir, cameraRight);
-	glm::mat4 cameraView = glm::mat4(1.0f);
-	cameraView = glm::lookAt(cameraPos, objCenter, cameraUp);
-	unsigned int cameraViewLocation = glGetUniformLocation(ShaderID, "viewTransform");
+	
+	glm::mat4 cameraView = camera.getCameraViewMatrix(glm::vec3 AT);//오브젝트 위치 인자로 넣어야 됨
+	unsigned int cameraViewLocation = glGetUniformLocation(shaderfunc.getShaderID(), "viewTransform");
 	glUniformMatrix4fv(cameraViewLocation, 1, GL_FALSE, glm::value_ptr(cameraView));
 	//카메라#
 	//투영
@@ -73,7 +74,7 @@ void DrawSceneCall()
 	glm::mat4 projection = glm::mat4(1.0f);
 	projection = glm::translate(projection, glm::vec3(0, 0, -5.0f));
 	projection = glm::perspective(glm::radians(45.0f), (float)Wwidth / (float)Wheight, 0.1f, 50.0f);
-	unsigned int projectionLocation = glGetUniformLocation(ShaderID, "projectionTransform");
+	unsigned int projectionLocation = glGetUniformLocation(shaderfunc.getShaderID(), "projectionTransform");
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
 	glutSwapBuffers();
