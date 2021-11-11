@@ -81,6 +81,9 @@
     <ClCompile Include="filetobuf.cpp">
       <Filter>소스 파일\readFunc</Filter>
     </ClCompile>
+    <ClCompile Include="ImplemetMap.cpp">
+      <Filter>소스 파일\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -110,5 +113,10 @@
     <ClInclude Include="filetobuf.h">
       <Filter>헤더 파일\readFunc</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMap.txt">
+      <Filter>소스 파일\map</Filter>
+    </Text>
   </ItemGroup>
 </Project>

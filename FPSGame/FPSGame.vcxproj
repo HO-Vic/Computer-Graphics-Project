@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="filetobuf.cpp" />
+    <ClCompile Include="ImplemetMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Gun.cpp" />
@@ -161,6 +162,9 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="readObj.h" />
     <ClInclude Include="ShaderFunc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMap.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
