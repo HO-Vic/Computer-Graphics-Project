@@ -27,8 +27,6 @@ int Wheight = 600;
 
 ShaderFunc shaderfunc;
 Camera camera;
-
-
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
