@@ -59,15 +59,20 @@ void ShaderFunc::makeShaderID()
 	glUseProgram(shaderID);
 }
 
-void ShaderFunc::InitBuffer(GLuint VAO, GLuint VBO, std::vector<glm::vec4> modelVertex)
+void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& normalVBO, std::vector<glm::vec3>& modelVertex, std::vector<glm::vec3>& modelNormal)
 {
 	glUseProgram(shaderID);
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, modelVertex.size() * sizeof(glm::vec4), &modelVertex[0], GL_STREAM_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec4), (void*)0);
+	glGenBuffers(1, &vertexVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexVBO);
+	glBufferData(GL_ARRAY_BUFFER, modelVertex.size() * sizeof(glm::vec3), &modelVertex[0], GL_STREAM_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+	glEnableVertexAttribArray(0);
+	glGenBuffers(1, &normalVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
+	glBufferData(GL_ARRAY_BUFFER, modelNormal.size() * sizeof(glm::vec3), &modelNormal[0], GL_STREAM_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 	glEnableVertexAttribArray(0);
 }
 

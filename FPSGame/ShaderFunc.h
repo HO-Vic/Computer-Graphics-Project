@@ -17,7 +17,7 @@ public:
 	void makeVertexShader();
 	void makeFragmentShader();
 	void makeShaderID();
-	void InitBuffer(GLuint VAO, GLuint VBO, std::vector<glm::vec4> modelVertex);
+	void InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& normalVBO, std::vector<glm::vec3>& modelVertex, std::vector<glm::vec3>& modelNormal);
 public:
 	GLuint getShaderID();
 };

@@ -7,10 +7,12 @@
 #include<random>
 #include<vector>
 #include"filetobuf.h"
-#include"readQuadObj.h"
-#include"Camera.h"
+#include"readQuadObj.h"//임시
 #include"ShaderFunc.h"
+#include"Camera.h"
 #include"Player.h"
+#include"Light.h"
+#include"Projection.h"
 
 using namespace std;
 
@@ -27,6 +29,10 @@ int Wheight = 600;
 
 ShaderFunc shaderfunc;
 Camera camera;
+Light defaultLight;
+Projection perspective;
+
+GLuint shaderID;
 
 //임시
 GLuint planeVao;
@@ -50,12 +56,20 @@ int main(int argc, char** argv)
 		cerr << "fail Initialize" << endl;
 	else cout << "Initialize" << endl;
 
+	shaderfunc.makeVertexShader();
+	shaderfunc.makeFragmentShader();
+	shaderfunc.makeShaderID();
+
+
+	//임시
+	InitBuffer();
+
 
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
-	glutKeyboardFunc(keyboardCall);
-	glutSpecialFunc(specialkeycall);
-	glutTimerFunc(1, timercall, 1);
+	//glutKeyboardFunc(keyboardCall);
+	//glutSpecialFunc(specialkeycall);
+	//glutTimerFunc(1, timercall, 1);
 	glutMainLoop();
 }
 
@@ -68,26 +82,17 @@ void timercall(int value)
 
 void DrawSceneCall()
 {
-	glClearColor(1, 1, 1, 1);
+	glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 
-	//카메라
-	
-	glm::mat4 cameraView = camera.getCameraViewMatrix(glm::vec3 AT);//오브젝트 위치 인자로 넣어야 됨
-	unsigned int cameraViewLocation = glGetUniformLocation(shaderfunc.getShaderID(), "viewTransform");
-	glUniformMatrix4fv(cameraViewLocation, 1, GL_FALSE, glm::value_ptr(cameraView));
-	//카메라#
-	//투영
-	//원근 투영
-	glm::mat4 projection = glm::mat4(1.0f);
-	projection = glm::translate(projection, glm::vec3(0, 0, -5.0f));
-	projection = glm::perspective(glm::radians(45.0f), (float)Wwidth / (float)Wheight, 0.1f, 50.0f);
-	unsigned int projectionLocation = glGetUniformLocation(shaderfunc.getShaderID(), "projectionTransform");
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+	defaultLight.renderLight(shaderfunc);
+	camera.renderCamera(shaderfunc, glm::vec3(0, 0, 0));
+	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
 
-
+	//임시
 	drawPlane();
 
 
@@ -127,7 +132,7 @@ void specialkeycall(int key, int x, int y)
 //임시
 void InitBuffer()
 {
-	readQuadsObj("plane3.obj", planeVertexData, planeNormalData);
+	readQuadsObj("obj_plane.obj", planeVertexData, planeNormalData);
 	glGenVertexArrays(1, &planeVao);
 	glBindVertexArray(planeVao);
 	glGenBuffers(1, &planeVertexVbo);
@@ -152,6 +157,9 @@ void drawPlane()
 	unsigned int planeNormalLocation = glGetUniformLocation(shaderfunc.getShaderID(), "normalTransform");
 	glUniformMatrix4fv(planeNormalLocation, 1, GL_FALSE, glm::value_ptr(planeNormalMatrix));
 	glBindVertexArray(planeVao);
+	glm::vec3 planeColor = glm::vec3(1, 0, 0);
+	unsigned int planeColorLocation = glGetUniformLocation(shaderfunc.getShaderID(), "objColor");
+	glUniform3fv(planeColorLocation, 1, glm::value_ptr(planeColor));
 	glDrawArrays(GL_QUADS, 0, planeVertexData.size());
 }
 

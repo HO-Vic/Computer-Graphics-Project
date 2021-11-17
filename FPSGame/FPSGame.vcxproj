@@ -144,12 +144,15 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="filetobuf.cpp" />
     <ClCompile Include="ImplemetMap.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="readObj.cpp" />
+    <ClCompile Include="Projection.cpp" />
+    <ClCompile Include="readQuadObj.cpp" />
+    <ClCompile Include="readTriangleObj.cpp" />
     <ClCompile Include="ShaderFunc.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +161,12 @@
     <ClInclude Include="fileName.h" />
     <ClInclude Include="filetobuf.h" />
     <ClInclude Include="Gun.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="readObj.h" />
+    <ClInclude Include="Projection.h" />
+    <ClInclude Include="readQuadObj.h" />
+    <ClInclude Include="readTriangleObj.h" />
     <ClInclude Include="ShaderFunc.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,14 +1,19 @@
 #version 330 core
 
-in vec3 vertex;
-uniform vec3 fragment;	
-uniform mat4 Matrix;
+layout(location = 0)in vec3 vertex;
+layout(location = 1)in vec3 vertexNormal;
+	
+uniform mat4 modelTransform;
 uniform mat4 viewTransform;
 uniform mat4 projectionTransform;
-out vec3 outFrag;
+uniform mat4 normalTransform;
+
+out vec3 fragPos;
+out vec3 normal;
 
 void main()
 {
-	gl_Position = projectionTransform * viewTransform * Matrix * vec4(vertex, 1.0f);
-	outFrag = fragment;
+	gl_Position = projectionTransform * viewTransform * modelTransform * vec4(vertex, 1.0f);
+	fragPos = vec3(modelTransform * vec4(vertex, 1));
+	normal = vec3(normalTransform * vec4(vertexNormal, 1));
 }

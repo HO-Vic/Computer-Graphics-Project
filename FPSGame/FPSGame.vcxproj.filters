@@ -52,6 +52,12 @@
     <Filter Include="소스 파일\readFunc">
       <UniqueIdentifier>{e1d6fd57-ec73-456c-9d7a-703954feb24b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\light">
+      <UniqueIdentifier>{d5926950-bb9e-4d67-b0c3-23b3ab809c44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\light">
+      <UniqueIdentifier>{3910723f-49f9-487e-9611-f6ab6af58ff3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,14 +81,23 @@
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일\camera</Filter>
     </ClCompile>
-    <ClCompile Include="readObj.cpp">
-      <Filter>소스 파일\readFunc</Filter>
-    </ClCompile>
     <ClCompile Include="filetobuf.cpp">
       <Filter>소스 파일\readFunc</Filter>
     </ClCompile>
     <ClCompile Include="ImplemetMap.cpp">
       <Filter>소스 파일\map</Filter>
+    </ClCompile>
+    <ClCompile Include="readTriangleObj.cpp">
+      <Filter>소스 파일\readFunc</Filter>
+    </ClCompile>
+    <ClCompile Include="readQuadObj.cpp">
+      <Filter>소스 파일\readFunc</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>소스 파일\light</Filter>
+    </ClCompile>
+    <ClCompile Include="Projection.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,11 +122,20 @@
     <ClInclude Include="Camera.h">
       <Filter>헤더 파일\camera</Filter>
     </ClInclude>
-    <ClInclude Include="readObj.h">
-      <Filter>헤더 파일\readFunc</Filter>
-    </ClInclude>
     <ClInclude Include="filetobuf.h">
       <Filter>헤더 파일\readFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="readQuadObj.h">
+      <Filter>헤더 파일\readFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="readTriangleObj.h">
+      <Filter>헤더 파일\readFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>헤더 파일\light</Filter>
+    </ClInclude>
+    <ClInclude Include="Projection.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
-#include "ReadObjQuads.h"
-#include "readTriangleObj.h"
+#include "readQuadObj.h""
 //triangle polygon
 void readQuadsObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec3>& vertexNomal)
 {

@@ -2,8 +2,8 @@
 //triangle polygon
 void readTriangleObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec3>& vertexNomal)
 {
-	std::vector<glm::vec4> vertexFace;
-	std::vector<glm::vec4> vertexNomalFace;
+	std::vector<glm::vec3> vertexFace;
+	std::vector<glm::vec3> vertexNomalFace;
 	std::string line;
 	int vertexNum = 0;
 	int vertexNomalNum = 0;
@@ -62,8 +62,8 @@ void readTriangleObj(const std::string objfilename, std::vector<glm::vec3>& vert
 				inFile >> std::skipws >> tempi;
 				inFile >> std::skipws >> tempC;
 				inFile >> std::skipws >> vertexNomalFaceNum[2];				
-				glm::vec4 vertexFaceTemp = { vertexFaceNum[0], vertexFaceNum[1], vertexFaceNum[2], 1};
-				glm::vec4 vertexNomalFaceTemp = { vertexNomalFaceNum[0], vertexNomalFaceNum[1], vertexNomalFaceNum[2],1};
+				glm::vec3 vertexFaceTemp = { vertexFaceNum[0], vertexFaceNum[1], vertexFaceNum[2]};
+				glm::vec3 vertexNomalFaceTemp = { vertexNomalFaceNum[0], vertexNomalFaceNum[1], vertexNomalFaceNum[2]};
 				vertexFace.push_back(vertexFaceTemp);
 				vertexNomalFace.push_back(vertexNomalFaceTemp);
 			}

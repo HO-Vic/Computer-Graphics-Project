@@ -15,12 +15,14 @@ void Camera::setCameraUp()
 	cameraUp = glm::cross(cameraDir, cameraRight);
 }
 
-glm::mat4 Camera::getCameraViewMatrix(glm::vec3 AT)
+void Camera::renderCamera(ShaderFunc&  ShaderID, glm::vec3 AT)
 {
 	setCameraDir(AT);
 	setCameraRight();
 	setCameraUp();
 	glm::mat4 cameraView = glm::mat4(1.0f);
 	cameraView = glm::lookAt(pos, AT, cameraUp);
-	return cameraView;
+	unsigned int cameraViewLocation = glGetUniformLocation(ShaderID.getShaderID(), "viewTransform");
+	glUniformMatrix4fv(cameraViewLocation, 1, GL_FALSE, glm::value_ptr(cameraView));
+	unsigned int cameraPosLocation = glGetUniformLocation(ShaderID.getShaderID(), "cameraPos");
 }
