@@ -7,7 +7,7 @@
 #include<random>
 #include<vector>
 #include"filetobuf.h"
-#include"readObj.h"
+#include"readQuadObj.h"
 #include"Camera.h"
 #include"ShaderFunc.h"
 #include"Player.h"
@@ -27,6 +27,16 @@ int Wheight = 600;
 
 ShaderFunc shaderfunc;
 Camera camera;
+
+//임시
+GLuint planeVao;
+GLuint planeVertexVbo;
+GLuint planeNormalVbo;
+vector<glm::vec3> planeVertexData;
+vector<glm::vec3> planeNormalData;
+void InitBuffer();
+void drawPlane();
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -76,6 +86,11 @@ void DrawSceneCall()
 	unsigned int projectionLocation = glGetUniformLocation(shaderfunc.getShaderID(), "projectionTransform");
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
+
+
+	drawPlane();
+
+
 	glutSwapBuffers();
 }
 
@@ -107,6 +122,37 @@ void specialkeycall(int key, int x, int y)
 	default:
 		break;
 	}
+}
+
+//임시
+void InitBuffer()
+{
+	readQuadsObj("plane3.obj", planeVertexData, planeNormalData);
+	glGenVertexArrays(1, &planeVao);
+	glBindVertexArray(planeVao);
+	glGenBuffers(1, &planeVertexVbo);
+	glBindBuffer(GL_ARRAY_BUFFER, planeVertexVbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * planeVertexData.size(), &planeVertexData[0], GL_STREAM_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+	glEnableVertexAttribArray(0);
+	glGenBuffers(1, &planeNormalVbo);
+	glBindBuffer(GL_ARRAY_BUFFER, planeNormalVbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * planeNormalData.size(), &planeNormalData[0], GL_STREAM_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+	glEnableVertexAttribArray(1);
+}
+
+//임시
+void drawPlane()
+{
+	glm::mat4 planeMatrix = glm::mat4(1.0f);
+	unsigned int planeMatrixLocation = glGetUniformLocation(shaderfunc.getShaderID(), "modelTransform");
+	glUniformMatrix4fv(planeMatrixLocation, 1, GL_FALSE, glm::value_ptr(planeMatrix));
+	glm::mat4 planeNormalMatrix = glm::mat4(1.0f);
+	unsigned int planeNormalLocation = glGetUniformLocation(shaderfunc.getShaderID(), "normalTransform");
+	glUniformMatrix4fv(planeNormalLocation, 1, GL_FALSE, glm::value_ptr(planeNormalMatrix));
+	glBindVertexArray(planeVao);
+	glDrawArrays(GL_QUADS, 0, planeVertexData.size());
 }
 
 
