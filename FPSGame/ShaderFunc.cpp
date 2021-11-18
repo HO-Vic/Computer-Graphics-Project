@@ -78,14 +78,21 @@ void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& textureVBO, 
 
 void ShaderFunc::setTransMatrix(glm::mat4& transMatrix)
 {
+	unsigned int transMatrixLocation = glGetUniformLocation(shaderID, "modelTransform");
+	glUniformMatrix4fv(transMatrixLocation, 1, GL_FALSE, glm::value_ptr(transMatrix));
 }
 
 void ShaderFunc::setColorVec(glm::vec3 colorVec)
 {
+	//юс╫ц
+	unsigned int colorLocation = glGetUniformLocation(shaderID, "objColor");
+	glUniform3fv(colorLocation, 1, glm::value_ptr(colorVec));
 }
 
 void ShaderFunc::setNormalMatrix(glm::mat4& normalMatrix)
 {
+	unsigned int normalMatrixLocation = glGetUniformLocation(shaderID, "normalTransform");
+	glUniformMatrix4fv(normalMatrixLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 }
 
 GLuint ShaderFunc::getShaderID()

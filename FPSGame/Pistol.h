@@ -7,6 +7,7 @@
 #include"Gun.h"
 #include"ShaderFunc.h"
 #include"readQuadObj.h"
+
 class Pistol : public Gun
 {
 public://virtual func - status

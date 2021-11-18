@@ -21,7 +21,7 @@ void Camera::renderCamera(ShaderFunc&  ShaderID, glm::vec3 AT)
 	setCameraRight();
 	setCameraUp();
 	glm::mat4 cameraView = glm::mat4(1.0f);
-	cameraView = glm::lookAt(pos, AT, cameraUp);
+	cameraView = glm::lookAt(pos, -cameraDir, cameraUp);
 	unsigned int cameraViewLocation = glGetUniformLocation(ShaderID.getShaderID(), "viewTransform");
 	glUniformMatrix4fv(cameraViewLocation, 1, GL_FALSE, glm::value_ptr(cameraView));
 	unsigned int cameraPosLocation = glGetUniformLocation(ShaderID.getShaderID(), "cameraPos");

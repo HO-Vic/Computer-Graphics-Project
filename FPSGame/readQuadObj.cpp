@@ -14,7 +14,7 @@ void readQuadObj(const std::string objfilename, std::vector<glm::vec3>& vertex, 
 			vertexNum++;
 		else if (line[0] == 'v' && line[1] == 'n' && line[2] == ' ')
 			vertexNomalNum++;
-		std::cout << line << std::endl;
+		//std::cout << line << std::endl;
 	}
 	glm::vec4* vertexData = new glm::vec4[vertexNum];
 	glm::vec4* vertexNomalData = new glm::vec4[vertexNomalNum];
@@ -25,7 +25,6 @@ void readQuadObj(const std::string objfilename, std::vector<glm::vec3>& vertex, 
 	char head[3];
 	int vertexFaceNum[4];
 	int vertexNomalFaceNum[4];
-	std::string nt;
 	while (inFile >> std::noskipws >> head[0]) {
 		if (head[0] == 'v') {
 			inFile >> std::noskipws >> head[1];

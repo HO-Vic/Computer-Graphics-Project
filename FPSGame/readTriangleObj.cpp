@@ -14,7 +14,7 @@ void readTriangleObj(const std::string objfilename, std::vector<glm::vec3>& vert
 			vertexNum++;
 		else if (line[0] == 'v' && line[1] == 'n' && line[2] == ' ')
 			vertexNomalNum++;
-		std::cout << line << std::endl;
+		//std::cout << line << std::endl;
 	}
 	glm::vec4* vertexData = new glm::vec4[vertexNum];
 	glm::vec4* vertexNomalData = new glm::vec4[vertexNomalNum];
@@ -25,7 +25,7 @@ void readTriangleObj(const std::string objfilename, std::vector<glm::vec3>& vert
 	char head[3];
 	int vertexFaceNum[3];
 	int vertexNomalFaceNum[3];
-	std::string nt;
+	int faceCount = 0;
 	while (inFile >> std::noskipws >> head[0]) {
 		if (head[0] == 'v') {
 			inFile >> std::noskipws >> head[1];
@@ -66,10 +66,12 @@ void readTriangleObj(const std::string objfilename, std::vector<glm::vec3>& vert
 				glm::vec3 vertexNomalFaceTemp = { vertexNomalFaceNum[0], vertexNomalFaceNum[1], vertexNomalFaceNum[2]};
 				vertexFace.push_back(vertexFaceTemp);
 				vertexNomalFace.push_back(vertexNomalFaceTemp);
+				faceCount++;
 			}
 			head[1] = '\0';
 		}
 	}
+	std::cout << faceCount << std::endl;
 	for (auto iter = vertexFace.begin(); iter < vertexFace.end(); iter++) {
 		vertex.push_back(vertexData[(int)(iter->x) - 1]);
 		vertex.push_back(vertexData[(int)(iter->y) - 1]);
