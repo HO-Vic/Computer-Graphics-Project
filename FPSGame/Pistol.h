@@ -6,8 +6,7 @@
 #include<glm/glm/gtc/matrix_transform.hpp>
 #include"Gun.h"
 #include"ShaderFunc.h"
-#include"readQuadObj.h"
-
+#include"readTriangleObj.h"
 class Pistol : public Gun
 {
 public://virtual func - status

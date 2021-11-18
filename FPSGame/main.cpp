@@ -49,6 +49,7 @@ void drawPlane();
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
+	
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(Wwidth, Wheight);
@@ -63,16 +64,15 @@ int main(int argc, char** argv)
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
 	pistol->bindingGun(shaderfunc);
-
 	//임시
 	InitBuffer();
-
+	
 
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
 	//glutKeyboardFunc(keyboardCall);
 	//glutSpecialFunc(specialkeycall);
-	//glutTimerFunc(1, timercall, 1);
+	glutTimerFunc(1, timercall, 1);
 	glutMainLoop();
 }
 
@@ -95,8 +95,9 @@ void DrawSceneCall()
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
 	pistol->renderGun(shaderfunc);
+
 	//임시
-	//drawPlane();
+	drawPlane();
 
 
 	glutSwapBuffers();
