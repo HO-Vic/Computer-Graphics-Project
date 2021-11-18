@@ -72,8 +72,20 @@ void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& textureVBO, 
 	glGenBuffers(1, &normalVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
 	glBufferData(GL_ARRAY_BUFFER, modelNormal.size() * sizeof(glm::vec3), &modelNormal[0], GL_STREAM_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+	glEnableVertexAttribArray(1);
+}
+
+void ShaderFunc::setTransMatrix(glm::mat4& transMatrix)
+{
+}
+
+void ShaderFunc::setColorVec(glm::vec3 colorVec)
+{
+}
+
+void ShaderFunc::setNormalMatrix(glm::mat4& normalMatrix)
+{
 }
 
 GLuint ShaderFunc::getShaderID()
@@ -81,6 +93,3 @@ GLuint ShaderFunc::getShaderID()
 	return shaderID;
 }
 
-void ShaderFunc::setColorVec(glm::vec3 colorVec)
-{
-}

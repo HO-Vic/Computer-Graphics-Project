@@ -19,6 +19,6 @@ public://virtual func - sound
 public://render
 	void renderGun(ShaderFunc& shaderID) override;
 public://binding
-	void bindingGun(ShaderFunc& shaderID) override;
+	void bindingGun(ShaderFunc& ) override;
 };
 

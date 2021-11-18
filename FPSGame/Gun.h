@@ -17,18 +17,20 @@ protected://shader binding
 	GLuint gunVAO;
 	GLuint gunVertexVBO;
 	GLuint gunNormalVBO;
+	GLuint gunTextureVBO;
 	std::vector<glm::vec3> gunVertexData;
 	std::vector<glm::vec3> gunNormalData;
+	std::vector<glm::vec3> gunTextureData;
 public://virtual func - status
-	virtual void AttackMotion();
-	virtual void reroad();
-	virtual void playerRun();
+	virtual void AttackMotion() = 0;
+	virtual void reroad() = 0;
+	virtual void playerRun() = 0;
 public://virtual func - sound
-	virtual void shootSound();
-	virtual void reroadSound();
+	virtual void shootSound() = 0;
+	virtual void reroadSound() = 0;
 public://render
-	virtual void renderGun(ShaderFunc& shaderID);
+	virtual void renderGun(ShaderFunc& shaderID) = 0;
 public://binding
-	virtual void bindingGun(ShaderFunc& shaderID);
+	virtual void bindingGun(ShaderFunc& shaderID) = 0;
 };
 
