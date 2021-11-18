@@ -6,4 +6,4 @@
 #include<string>
 #include<glm/glm/glm.hpp>
 #include<iostream>
-void readQuadsObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec3>& vertexNomal);
+void readQuadObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec3>& vertexNomal);

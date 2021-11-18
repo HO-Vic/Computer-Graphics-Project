@@ -99,6 +99,9 @@
     <ClCompile Include="Projection.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Pistol.cpp">
+      <Filter>소스 파일\weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="Projection.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Pistol.h">
+      <Filter>헤더 파일\weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

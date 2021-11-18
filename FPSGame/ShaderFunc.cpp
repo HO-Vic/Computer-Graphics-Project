@@ -59,7 +59,7 @@ void ShaderFunc::makeShaderID()
 	glUseProgram(shaderID);
 }
 
-void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& normalVBO, std::vector<glm::vec3>& modelVertex, std::vector<glm::vec3>& modelNormal)
+void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& textureVBO, GLuint& normalVBO, std::vector<glm::vec3>& modelVertex, std::vector<glm::vec3>& modelTexture, std::vector<glm::vec3>& modelNormal)
 {
 	glUseProgram(shaderID);
 	glGenVertexArrays(1, &VAO);
@@ -79,4 +79,8 @@ void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& normalVBO, s
 GLuint ShaderFunc::getShaderID()
 {
 	return shaderID;
+}
+
+void ShaderFunc::setColorVec(glm::vec3 colorVec)
+{
 }

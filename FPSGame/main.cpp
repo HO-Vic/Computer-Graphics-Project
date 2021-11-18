@@ -13,6 +13,7 @@
 #include"Player.h"
 #include"Light.h"
 #include"Projection.h"
+#include"Pistol.h"
 
 using namespace std;
 
@@ -32,7 +33,9 @@ Camera camera;
 Light defaultLight;
 Projection perspective;
 
-GLuint shaderID;
+//weapon
+Pistol* pistol = new Pistol();
+
 
 //임시
 GLuint planeVao;
@@ -59,7 +62,7 @@ int main(int argc, char** argv)
 	shaderfunc.makeVertexShader();
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
-
+	pistol->bindingGun();
 
 	//임시
 	InitBuffer();
@@ -91,7 +94,7 @@ void DrawSceneCall()
 	camera.renderCamera(shaderfunc, glm::vec3(0, 0, 0));
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
-
+	pistol->renderGun(shaderfunc);
 	//임시
 	drawPlane();
 
@@ -132,7 +135,7 @@ void specialkeycall(int key, int x, int y)
 //임시
 void InitBuffer()
 {
-	readQuadsObj("obj_plane.obj", planeVertexData, planeNormalData);
+	readQuadObj("obj_plane.obj", planeVertexData, planeNormalData);
 	glGenVertexArrays(1, &planeVao);
 	glBindVertexArray(planeVao);
 	glGenBuffers(1, &planeVertexVbo);

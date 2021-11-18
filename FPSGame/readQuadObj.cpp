@@ -1,6 +1,6 @@
 #include "readQuadObj.h""
 //triangle polygon
-void readQuadsObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec3>& vertexNomal)
+void readQuadObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec3>& vertexNomal)
 {
 	std::vector<glm::vec4> vertexFace;
 	std::vector<glm::vec4> vertexNomalFace;

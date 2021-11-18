@@ -149,6 +149,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projection.cpp" />
     <ClCompile Include="readQuadObj.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projection.h" />
     <ClInclude Include="readQuadObj.h" />
