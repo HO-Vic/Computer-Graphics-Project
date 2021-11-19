@@ -9,6 +9,10 @@
 #include"readTriangleObj.h"
 class Pistol : public Gun
 {
+private://default trans
+	glm::vec3 defaultScale = glm::vec3(0.7f, 0.7f, 0.7f);
+	float defaultRotateAngleY = 90.0f;
+
 public://virtual func - status
 	void  AttackMotion() override;
 	void  reroad() override;

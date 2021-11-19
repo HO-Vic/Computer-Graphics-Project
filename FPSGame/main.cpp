@@ -155,13 +155,14 @@ void InitBuffer()
 void drawPlane()
 {
 	glm::mat4 planeMatrix = glm::mat4(1.0f);
+	planeMatrix = glm::scale(planeMatrix, glm::vec3(20, 20, 20));
 	unsigned int planeMatrixLocation = glGetUniformLocation(shaderfunc.getShaderID(), "modelTransform");
 	glUniformMatrix4fv(planeMatrixLocation, 1, GL_FALSE, glm::value_ptr(planeMatrix));
 	glm::mat4 planeNormalMatrix = glm::mat4(1.0f);
 	unsigned int planeNormalLocation = glGetUniformLocation(shaderfunc.getShaderID(), "normalTransform");
 	glUniformMatrix4fv(planeNormalLocation, 1, GL_FALSE, glm::value_ptr(planeNormalMatrix));
 	glBindVertexArray(planeVao);
-	glm::vec3 planeColor = glm::vec3(1, 0, 0);
+	glm::vec3 planeColor = glm::vec3(0, 0.5, 0);
 	unsigned int planeColorLocation = glGetUniformLocation(shaderfunc.getShaderID(), "objColor");
 	glUniform3fv(planeColorLocation, 1, glm::value_ptr(planeColor));
 	glDrawArrays(GL_QUADS, 0, planeVertexData.size());
