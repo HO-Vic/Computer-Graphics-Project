@@ -8,8 +8,9 @@
 class Camera
 {
 private:
-	glm::vec3 pos = glm::vec3(0,1.0f,3.0f);
+	glm::vec3 pos = glm::vec3(0, 1.0f, 3.0f);
 	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 rotateAngle = glm::vec3(0.0f, 0.0f, 0.0f);
 private:
 	glm::vec3 cameraDir;
 	glm::vec3 cameraRight;
@@ -21,5 +22,8 @@ private:
 public:
 	void setCameraDir(glm::vec3 AT);
 	void renderCamera(ShaderFunc& shaderID, glm::vec3 AT);
+public:
+	void moveCamera(glm::vec3 movePos);
+	void rotateCamera(glm::vec3 rotateA);
 };
 

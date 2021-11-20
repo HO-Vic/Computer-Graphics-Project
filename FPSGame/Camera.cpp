@@ -26,3 +26,13 @@ void Camera::renderCamera(ShaderFunc&  ShaderID, glm::vec3 AT)
 	glUniformMatrix4fv(cameraViewLocation, 1, GL_FALSE, glm::value_ptr(cameraView));
 	unsigned int cameraPosLocation = glGetUniformLocation(ShaderID.getShaderID(), "cameraPos");
 }
+
+void Camera::moveCamera(glm::vec3 movePos)
+{
+	pos += movePos;
+}
+
+void Camera::rotateCamera(glm::vec3 rotateA)
+{
+	rotateAngle += rotateA;
+}
