@@ -7,13 +7,15 @@
 #include"Gun.h"
 #include"ShaderFunc.h"
 #include"readTriangleObj.h"
-class Pistol : public Gun
+class Rifle : public Gun
 {
 private://default trans
-	glm::vec3 defaultScale = glm::vec3(0.1f, 0.1f, 0.1f);
-	float defaultRotateAngleY = 90.0f;
+	glm::vec3 defaultScale = glm::vec3(0.07f, 0.07f, 0.07f);
+	glm::vec3 defaultTrans = glm::vec3(0, -0.1f, -0.5f);
+	float defaultRotateAngleY = 0.0f;
+	
 public:
-	Pistol(glm::vec3 playerPos): Gun(playerPos) {}
+	Rifle(glm::vec3 playerPos) : Gun(playerPos) {}
 public://virtual func - status
 	void  AttackMotion() override;
 	void  reroad() override;
@@ -24,6 +26,6 @@ public://virtual func - sound
 public://render
 	void renderGun(ShaderFunc& shaderID) override;
 public://binding
-	void bindingGun(ShaderFunc& ) override;
+	void bindingGun(ShaderFunc&) override;
 };
 

@@ -14,6 +14,8 @@
 #include"Light.h"
 #include"Projection.h"
 #include"Pistol.h"
+#include"Rifle.h"
+
 
 using namespace std;
 
@@ -36,8 +38,10 @@ Projection perspective;
 //weapon
 
 Camera camera(glm::vec3(0, 1.0f, 3.0f));
-Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.15f, -0.2f));
 
+Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.15f, -0.2f));
+Rifle* rifle = new Rifle(camera.getPos() + glm::vec3(0, -0.1f, -0.5f) + glm::vec3(0.05f, -0.15f, -0.2f));
+Gun* myGun = pistol;
 
 //임시
 GLuint planeVao;
@@ -72,6 +76,8 @@ int main(int argc, char** argv)
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
 	pistol->bindingGun(shaderfunc);
+	rifle->bindingGun(shaderfunc);
+	
 	//임시
 	InitBuffer();
 	
@@ -103,8 +109,8 @@ void DrawSceneCall()
 	camera.renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
-	pistol->renderGun(shaderfunc);
-
+	//pistol->renderGun(shaderfunc);
+	myGun->renderGun(shaderfunc);
 	//임시
 	drawPlane();
 
@@ -123,21 +129,31 @@ void keyboardCall(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
+	case'1':
+		myGun = dynamic_cast<Pistol*> (pistol);
+		break;
+	case'2':
+		myGun = dynamic_cast<Rifle*> (rifle);
+		break;
 	case'w':
 		camera.moveFrontCamera();
 		pistol->setPos(camera.getPos());
+		rifle->setPos(camera.getPos());
 		break;
 	case's':
 		camera.moveBackCamera();
 		pistol->setPos(camera.getPos());
+		rifle->setPos(camera.getPos());
 		break;
 	case'a':
 		camera.moveLeftCamera();
 		pistol->setPos(camera.getPos());
+		rifle->setPos(camera.getPos());
 		break;
 	case'd':
 		camera.moveRightCamera();
 		pistol->setPos(camera.getPos());
+		rifle->setPos(camera.getPos());
 		break;
 	default:
 		break;

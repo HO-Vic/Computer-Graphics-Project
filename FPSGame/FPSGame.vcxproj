@@ -154,6 +154,7 @@
     <ClCompile Include="Projection.cpp" />
     <ClCompile Include="readQuadObj.cpp" />
     <ClCompile Include="readTriangleObj.cpp" />
+    <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="ShaderFunc.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="Projection.h" />
     <ClInclude Include="readQuadObj.h" />
     <ClInclude Include="readTriangleObj.h" />
+    <ClInclude Include="Rifle.h" />
     <ClInclude Include="ShaderFunc.h" />
   </ItemGroup>
   <ItemGroup>
