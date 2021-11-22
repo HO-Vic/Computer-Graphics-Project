@@ -9,9 +9,8 @@ class Gun
 {
 protected:
 	glm::vec3 pos = glm::vec3(0, 0, 0);
-	float gunAngleX = 0.0f;
-	float gunAngleY = 0.0f;
-	float gunAngleZ = 0.0f;
+	glm::vec3 rotateAngle = glm::vec3(0, 0, 0);
+	glm::vec3 revoluAngle = glm::vec3(0, 0, 0);
 	bool isAttack = false;
 protected://shader binding
 	GLuint gunVAO;
@@ -21,6 +20,12 @@ protected://shader binding
 	std::vector<glm::vec3> gunVertexData;
 	std::vector<glm::vec3> gunNormalData;
 	std::vector<glm::vec3> gunTextureData;
+public:
+	Gun(glm::vec3 playerPos): pos(playerPos) {}
+public:
+	void setPos(glm::vec3 inPutpos);
+	void setRotate(glm::vec3 rotateA);
+	void setRevolu(glm::vec3 revoluA);
 public://virtual func - status
 	virtual void AttackMotion() = 0;
 	virtual void reroad() = 0;

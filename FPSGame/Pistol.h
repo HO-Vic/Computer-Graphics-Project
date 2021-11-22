@@ -9,10 +9,12 @@
 #include"readTriangleObj.h"
 class Pistol : public Gun
 {
+	//총은 공전으로 해야됨 수정
 private://default trans
-	glm::vec3 defaultScale = glm::vec3(0.7f, 0.7f, 0.7f);
+	glm::vec3 defaultScale = glm::vec3(0.1f, 0.1f, 0.1f);
 	float defaultRotateAngleY = 90.0f;
-
+public:
+	Pistol(glm::vec3 playerPos): Gun(playerPos) {}
 public://virtual func - status
 	void  AttackMotion() override;
 	void  reroad() override;

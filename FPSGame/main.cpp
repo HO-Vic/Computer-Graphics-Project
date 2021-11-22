@@ -23,18 +23,20 @@ void DrawSceneCall();
 void ReshapeCall(int w, int h);
 void keyboardCall(unsigned char key, int x, int y);
 void specialkeycall(int key, int x, int y);
-
+void mouseCall(int button, int state, int x, int y);
+void motionCall(int x, int y);
 
 int Wwidth = 800;
 int Wheight = 600;
 
 ShaderFunc shaderfunc;
-Camera camera;
 Light defaultLight;
 Projection perspective;
-
+ 
 //weapon
-Pistol* pistol = new Pistol();
+
+Camera camera(glm::vec3(0, 1.0f, 3.0f));
+Pistol* pistol = new Pistol(camera.getPos()- glm::vec3(0,-0.2f,-0.2f));
 
 
 //임시
@@ -70,8 +72,8 @@ int main(int argc, char** argv)
 
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
-	//glutKeyboardFunc(keyboardCall);
-	//glutSpecialFunc(specialkeycall);
+	glutKeyboardFunc(keyboardCall);
+	glutSpecialFunc(specialkeycall);
 	glutTimerFunc(1, timercall, 1);
 	glutMainLoop();
 }
@@ -79,7 +81,7 @@ int main(int argc, char** argv)
 void timercall(int value)
 {
 	glutPostRedisplay();
-	glutTimerFunc(1, timercall, value);
+	glutTimerFunc(17, timercall, value);
 }
 
 
@@ -91,7 +93,7 @@ void DrawSceneCall()
 	glEnable(GL_CULL_FACE);
 
 	defaultLight.renderLight(shaderfunc);
-	camera.renderCamera(shaderfunc, glm::vec3(0, 0, 0));
+	camera.renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
 	pistol->renderGun(shaderfunc);
@@ -114,7 +116,21 @@ void keyboardCall(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
+	case'w':
+		camera.moveFrontCamera();
+		pistol->setPos(camera.getPos());
+		break;
+	case's':
+		camera.moveBackCamera();
+		pistol->setPos(camera.getPos());
+		break;
 	case'a':
+		camera.moveLeftCamera();
+		pistol->setPos(camera.getPos());
+		break;
+	case'd':
+		camera.moveRightCamera();
+		pistol->setPos(camera.getPos());
 		break;
 	default:
 		break;
@@ -131,6 +147,18 @@ void specialkeycall(int key, int x, int y)
 	default:
 		break;
 	}
+}
+
+void mouseCall(int button, int state, int x, int y)
+{
+	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
+
+	}
+}
+
+void motionCall(int x, int y)
+{
+
 }
 
 //임시
