@@ -18,7 +18,8 @@ private:
 	glm::vec3 cameraUp;
 public:
 	Camera(glm::vec3 PlayerPos):pos(PlayerPos){
-		AT = PlayerPos - glm::vec3(0, 0, -0.2f);
+		AT = PlayerPos - glm::vec3(0, 0.9f, 2.0f);
+		std::cout << AT.x << ' ' << AT.y << ' ' << AT.z << std::endl;
 	}
 public:
 	const float walkRatio = 0.1f;
@@ -34,7 +35,9 @@ public:
 	void moveBackCamera();
 	void moveLeftCamera();
 	void moveRightCamera();
-	void rotateCamera(glm::vec3 rotateA);
+	void setCameraAngleY(float Angle);
+	void setCameraAngleX(float Angle);
+	void setCameraAngleZ(float Angle);
 public:
 	glm::vec3 getPos();
 };

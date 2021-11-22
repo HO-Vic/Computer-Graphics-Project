@@ -36,7 +36,7 @@ Projection perspective;
 //weapon
 
 Camera camera(glm::vec3(0, 1.0f, 3.0f));
-Pistol* pistol = new Pistol(camera.getPos()- glm::vec3(0,-0.2f,-0.2f));
+Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.15f, -0.2f));
 
 
 //임시
@@ -56,7 +56,13 @@ int main(int argc, char** argv)
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(Wwidth, Wheight);
 	glutCreateWindow("FPS");
-
+	glutFullScreen();
+	
+	
+	/*glutGameModeString("1920x1080:32@60");
+	if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))
+		glutEnterGameMode();*/
+	
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 		cerr << "fail Initialize" << endl;
@@ -74,6 +80,7 @@ int main(int argc, char** argv)
 	glutReshapeFunc(ReshapeCall);
 	glutKeyboardFunc(keyboardCall);
 	glutSpecialFunc(specialkeycall);
+	glutPassiveMotionFunc(motionCall);
 	glutTimerFunc(1, timercall, 1);
 	glutMainLoop();
 }
@@ -154,11 +161,15 @@ void mouseCall(int button, int state, int x, int y)
 	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
 
 	}
+	glutPostRedisplay();
 }
 
 void motionCall(int x, int y)
 {
-
+	camera.setCameraAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
+	pistol->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
+	Wheight / 2;
+	glutPostRedisplay();
 }
 
 //임시

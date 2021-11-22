@@ -22,10 +22,11 @@ protected://shader binding
 	std::vector<glm::vec3> gunTextureData;
 public:
 	Gun(glm::vec3 playerPos): pos(playerPos) {}
-public:
+public://set func
 	void setPos(glm::vec3 inPutpos);
-	void setRotate(glm::vec3 rotateA);
-	void setRevolu(glm::vec3 revoluA);
+	void setRevoluAngleX(float Angle);
+	void setRevoluAngleY(float Angle);
+	void setRevoluAngleZ(float Angle);
 public://virtual func - status
 	virtual void AttackMotion() = 0;
 	virtual void reroad() = 0;

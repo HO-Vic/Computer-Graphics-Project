@@ -2,15 +2,20 @@
 
 void Gun::setPos(glm::vec3 inPutpos)
 {
-	pos = inPutpos + glm::vec3(0,-0.2f,-0.2f);
+	pos = inPutpos + glm::vec3(0.05f, -0.15f, -0.2f);
 }
 
-void Gun::setRotate(glm::vec3 rotateA)
+void Gun::setRevoluAngleX(float Angle)
 {
-	rotateAngle = rotateA;
+	revoluAngle.x = Angle;
 }
 
-void Gun::setRevolu(glm::vec3 revoluA)
+void Gun::setRevoluAngleY(float Angle)
 {
-	revoluAngle = revoluA;
+	revoluAngle.y = Angle;
+}
+
+void Gun::setRevoluAngleZ(float Angle)
+{
+	revoluAngle.z = Angle;
 }
