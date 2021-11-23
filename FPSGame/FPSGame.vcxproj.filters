@@ -105,6 +105,9 @@
     <ClCompile Include="Rifle.cpp">
       <Filter>소스 파일\weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Sniper.cpp">
+      <Filter>소스 파일\weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -147,6 +150,9 @@
       <Filter>헤더 파일\weapon</Filter>
     </ClInclude>
     <ClInclude Include="Rifle.h">
+      <Filter>헤더 파일\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Sniper.h">
       <Filter>헤더 파일\weapon</Filter>
     </ClInclude>
   </ItemGroup>

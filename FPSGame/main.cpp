@@ -13,9 +13,9 @@
 #include"Player.h"
 #include"Light.h"
 #include"Projection.h"
-#include"Pistol.h"
+#include"Pistol.h"//Gun
 #include"Rifle.h"
-
+#include"Sniper.h"
 
 using namespace std;
 
@@ -41,6 +41,7 @@ Camera camera(glm::vec3(0, 1.0f, 3.0f));
 
 Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.2f, -0.2f));
 Rifle* rifle = new Rifle(camera.getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
+Sniper* sniper = new Sniper(camera.getPos() + glm::vec3(0.02f, -0.3f, -0.6f));
 Gun* myGun = pistol;
 
 //임시
@@ -77,6 +78,7 @@ int main(int argc, char** argv)
 	shaderfunc.makeShaderID();
 	pistol->bindingGun(shaderfunc);
 	rifle->bindingGun(shaderfunc);
+	sniper->bindingGun(shaderfunc);
 	
 	//임시
 	InitBuffer();
@@ -136,25 +138,32 @@ void keyboardCall(unsigned char key, int x, int y)
 	case'2':
 		myGun = dynamic_cast<Rifle*> (rifle);
 		break;
+	case'3':
+		myGun = dynamic_cast<Sniper*> (sniper);
+		break;
 	case'w':
 		camera.moveFrontCamera();
 		pistol->setPos(camera.getPos());
 		rifle->setPos(camera.getPos());
+		sniper->setPos(camera.getPos());
 		break;
 	case's':
 		camera.moveBackCamera();
 		pistol->setPos(camera.getPos());
 		rifle->setPos(camera.getPos());
+		sniper->setPos(camera.getPos());
 		break;
 	case'a':
 		camera.moveLeftCamera();
 		pistol->setPos(camera.getPos());
 		rifle->setPos(camera.getPos());
+		sniper->setPos(camera.getPos());
 		break;
 	case'd':
 		camera.moveRightCamera();
 		pistol->setPos(camera.getPos());
 		rifle->setPos(camera.getPos());
+		sniper->setPos(camera.getPos());
 		break;
 	default:
 		break;
@@ -187,11 +196,13 @@ void motionCall(int x, int y)
 	camera.setCameraAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
 	pistol->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
 	rifle->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
+	sniper->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
 
 	if (y >= Wheight / 4 && y <= 3 * Wheight / 4) {
 		camera.setCameraAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight) / 4);
 		pistol->setRevoluAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight)/ 4 + 10.0f);
 		rifle->setRevoluAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight) / 4 + 10.0f);
+		sniper->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
 	}
 	glutPostRedisplay();
 }

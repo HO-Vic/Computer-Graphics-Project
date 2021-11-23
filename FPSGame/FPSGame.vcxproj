@@ -156,6 +156,7 @@
     <ClCompile Include="readTriangleObj.cpp" />
     <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="ShaderFunc.cpp" />
+    <ClCompile Include="Sniper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="readTriangleObj.h" />
     <ClInclude Include="Rifle.h" />
     <ClInclude Include="ShaderFunc.h" />
+    <ClInclude Include="Sniper.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMap.txt" />

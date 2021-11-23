@@ -1,40 +1,40 @@
-#include "Rifle.h"
+#include "Sniper.h"
 
-void Rifle::setPos(glm::vec3 inPutpos)
+void Sniper::setPos(glm::vec3 inPutpos)
 {
-	pos = inPutpos + glm::vec3(0.07f, -0.3f, -0.2f);
+	pos = inPutpos + glm::vec3(0.02f, -0.3f, -0.6f);
 }
 
-void Rifle::AttackMotion()
-{
-}
-
-void Rifle::reroad()
+void Sniper::AttackMotion()
 {
 }
 
-void Rifle::playerRun()
+void Sniper::reroad()
 {
 }
 
-void Rifle::shootSound()
+void Sniper::playerRun()
 {
 }
 
-void Rifle::reroadSound()
+void Sniper::shootSound()
 {
 }
 
-void Rifle::renderGun(ShaderFunc& shaderID)
+void Sniper::reroadSound()
+{
+}
+
+void Sniper::renderGun(ShaderFunc& shaderID)
 {
 	glBindVertexArray(gunVAO);
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.1f, 0.3f, 0.2f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.02f, 0.3f, 0.6f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.1f, -0.3f, -0.2f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.02f, -0.3f, -0.6f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
@@ -50,9 +50,9 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 
-void Rifle::bindingGun(ShaderFunc& shaderID)
+void Sniper::bindingGun(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_rifle.obj", gunVertexData, gunNormalData);
+	readTriangleObj("obj_sniper.obj", gunVertexData, gunNormalData);
 	//임시 텍스쳐 객체들
 	std::vector<glm::vec3> textureTemp;
 	GLuint textureVboTemp;
