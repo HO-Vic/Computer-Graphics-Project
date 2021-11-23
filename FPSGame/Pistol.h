@@ -11,9 +11,11 @@ class Pistol : public Gun
 {
 private://default trans
 	glm::vec3 defaultScale = glm::vec3(0.1f, 0.1f, 0.1f);
-	float defaultRotateAngleY = 90.0f;
+	float defaultRotateAngleX = -20.0f;
 public:
 	Pistol(glm::vec3 playerPos): Gun(playerPos) {}
+public:
+	void setPos(glm::vec3 inPutpos) override;
 public://virtual func - status
 	void  AttackMotion() override;
 	void  reroad() override;

@@ -39,8 +39,8 @@ Projection perspective;
 
 Camera camera(glm::vec3(0, 1.0f, 3.0f));
 
-Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.15f, -0.2f));
-Rifle* rifle = new Rifle(camera.getPos() + glm::vec3(0, -0.1f, -0.5f) + glm::vec3(0.05f, -0.15f, -0.2f));
+Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.2f, -0.2f));
+Rifle* rifle = new Rifle(camera.getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
 Gun* myGun = pistol;
 
 //юс╫ц
@@ -87,6 +87,7 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyboardCall);
 	glutSpecialFunc(specialkeycall);
 	glutPassiveMotionFunc(motionCall);
+	glutMouseFunc(mouseCall);
 	glutTimerFunc(1, timercall, 1);
 	glutMainLoop();
 }
@@ -176,6 +177,7 @@ void mouseCall(int button, int state, int x, int y)
 {
 	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
 
+
 	}
 	glutPostRedisplay();
 }
@@ -184,7 +186,13 @@ void motionCall(int x, int y)
 {
 	camera.setCameraAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
 	pistol->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
-	Wheight / 2;
+	rifle->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
+
+	if (y >= Wheight / 4 && y <= 3 * Wheight / 4) {
+		camera.setCameraAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight) / 4);
+		pistol->setRevoluAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight)/ 4 + 10.0f);
+		rifle->setRevoluAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight) / 4 + 10.0f);
+	}
 	glutPostRedisplay();
 }
 

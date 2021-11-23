@@ -23,10 +23,11 @@ protected://shader binding
 public:
 	Gun(glm::vec3 playerPos): pos(playerPos) {}
 public://set func
-	void setPos(glm::vec3 inPutpos);
 	void setRevoluAngleX(float Angle);
 	void setRevoluAngleY(float Angle);
 	void setRevoluAngleZ(float Angle);
+public:
+	virtual void setPos(glm::vec3 inPutpos) = 0;
 public://virtual func - status
 	virtual void AttackMotion() = 0;
 	virtual void reroad() = 0;

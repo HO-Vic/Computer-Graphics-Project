@@ -1,5 +1,10 @@
 #include "Rifle.h"
 
+void Rifle::setPos(glm::vec3 inPutpos)
+{
+	pos = inPutpos + glm::vec3(0.07f, -0.3f, -0.2f);
+}
+
 void Rifle::AttackMotion()
 {
 }
@@ -25,13 +30,13 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 	glBindVertexArray(gunVAO);
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
-	gunMatrix = glm::translate(gunMatrix, -defaultTrans + glm::vec3(-0.05f, 0.15f, 0.4f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.1f, 0.3f, 0.2f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
-	gunMatrix = glm::translate(gunMatrix, defaultTrans + glm::vec3(0.05f, -0.15f, -0.4f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.1f, -0.3f, -0.2f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
-	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x), glm::vec3(1, 0, 0));
+	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
 	gunMatrix = glm::scale(gunMatrix, defaultScale);
 	glm::mat4 normalMatrix = glm::mat4(1.0f);
