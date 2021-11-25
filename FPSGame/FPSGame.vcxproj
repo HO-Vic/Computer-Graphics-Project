@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enum.h" />
     <ClInclude Include="fileName.h" />
     <ClInclude Include="filetobuf.h" />
     <ClInclude Include="Gun.h" />

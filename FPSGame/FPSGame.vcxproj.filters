@@ -155,6 +155,9 @@
     <ClInclude Include="Sniper.h">
       <Filter>헤더 파일\weapon</Filter>
     </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMap.txt">

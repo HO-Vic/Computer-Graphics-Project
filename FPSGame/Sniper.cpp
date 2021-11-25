@@ -2,7 +2,7 @@
 
 void Sniper::setPos(glm::vec3 inPutpos)
 {
-	pos = inPutpos + glm::vec3(0.02f, -0.3f, -0.6f);
+	pos = inPutpos + glm::vec3(0.02f, -0.5f, -0.4f);
 }
 
 void Sniper::AttackMotion()
@@ -27,14 +27,13 @@ void Sniper::reroadSound()
 
 void Sniper::renderGun(ShaderFunc& shaderID)
 {
-	glBindVertexArray(gunVAO);
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.02f, 0.3f, 0.6f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.02f, 0.5f, 0.4f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.02f, -0.3f, -0.6f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.02f, -0.5f, -0.4f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
@@ -47,6 +46,7 @@ void Sniper::renderGun(ShaderFunc& shaderID)
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	shaderID.setColorVec(color);
+	glBindVertexArray(gunVAO);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 

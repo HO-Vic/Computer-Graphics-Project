@@ -77,6 +77,16 @@ void Camera::moveRightCamera()
 	std::cout << cameraDir.x << ' ' << cameraDir.y << ' ' << cameraDir.z << std::endl;
 }
 
+void Camera::moveRoateY(float Angle)
+{
+	rotateAngle.y += Angle;
+}
+
+void Camera::moveRoateX(float Angle)
+{
+	rotateAngle.x += Angle;
+}
+
 void Camera::setCameraAngleY(float Angle)
 {
 	rotateAngle.y = Angle;
@@ -95,4 +105,9 @@ void Camera::setCameraAngleZ(float Angle)
 glm::vec3 Camera::getPos()
 {
 	return pos;
+}
+
+float Camera::getRotateX()
+{
+	return rotateAngle.x;
 }

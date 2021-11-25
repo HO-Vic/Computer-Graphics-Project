@@ -11,7 +11,7 @@ class Sniper : public Gun
 {
 private://default trans
 	glm::vec3 defaultScale = glm::vec3(0.1f, 0.1f, 0.1f);
-	float defaultRotateAngleX = 0.0f;
+	float defaultRotateAngleX = -20.0f;
 public:
 	Sniper(glm::vec3 playerPos) : Gun(playerPos) {}
 public:

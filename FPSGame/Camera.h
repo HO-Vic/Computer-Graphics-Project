@@ -16,6 +16,9 @@ private:
 	glm::vec3 cameraDir;
 	glm::vec3 cameraRight;
 	glm::vec3 cameraUp;
+private:
+	void setCameraRight();
+	void setCameraUp();
 public:
 	Camera(glm::vec3 PlayerPos):pos(PlayerPos){
 		AT = PlayerPos - glm::vec3(0, 0.9f, 2.0f);
@@ -24,9 +27,6 @@ public:
 public:
 	const float walkRatio = 0.1f;
 	const float runRatio = 0.15f;
-private:
-	void setCameraRight();
-	void setCameraUp();
 public:
 	void setCameraDir();
 	void renderCamera(ShaderFunc& shaderID);
@@ -35,10 +35,13 @@ public:
 	void moveBackCamera();
 	void moveLeftCamera();
 	void moveRightCamera();
+	void moveRoateY(float Angle);
+	void moveRoateX(float Angle);
 	void setCameraAngleY(float Angle);
 	void setCameraAngleX(float Angle);
 	void setCameraAngleZ(float Angle);
 public:
 	glm::vec3 getPos();
+	float getRotateX();
 };
 

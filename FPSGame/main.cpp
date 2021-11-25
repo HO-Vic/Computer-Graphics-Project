@@ -6,6 +6,7 @@
 #include<iostream>
 #include<random>
 #include<vector>
+#include<utility>
 #include"filetobuf.h"
 #include"readQuadObj.h"//임시
 #include"ShaderFunc.h"
@@ -16,6 +17,7 @@
 #include"Pistol.h"//Gun
 #include"Rifle.h"
 #include"Sniper.h"
+#include"Enum.h"
 
 using namespace std;
 
@@ -27,6 +29,7 @@ void keyboardCall(unsigned char key, int x, int y);
 void specialkeycall(int key, int x, int y);
 void mouseCall(int button, int state, int x, int y);
 void motionCall(int x, int y);
+void IdleCall();
 
 int Wwidth = 800;
 int Wheight = 600;
@@ -34,14 +37,19 @@ int Wheight = 600;
 ShaderFunc shaderfunc;
 Light defaultLight;
 Projection perspective;
- 
-//weapon
+
+pair<int, int> curreuntMouse = { Wwidth / 2 , Wheight / 2 };
+pair<int, int> preMouse = { Wwidth / 2 , Wheight / 2 };
+float xAxis = 0.0f;
+float yAxis = 0.0f;
+
 
 Camera camera(glm::vec3(0, 1.0f, 3.0f));
 
+//weapon
 Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.2f, -0.2f));
 Rifle* rifle = new Rifle(camera.getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
-Sniper* sniper = new Sniper(camera.getPos() + glm::vec3(0.02f, -0.3f, -0.6f));
+Sniper* sniper = new Sniper(camera.getPos() + glm::vec3(0.02f, -0.5f, -0.4f));
 Gun* myGun = pistol;
 
 //임시
@@ -73,7 +81,7 @@ int main(int argc, char** argv)
 		cerr << "fail Initialize" << endl;
 	else cout << "Initialize" << endl;
 
-	shaderfunc.makeVertexShader();
+	shaderfunc.makeVertexShader();	
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
 	pistol->bindingGun(shaderfunc);
@@ -89,15 +97,49 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyboardCall);
 	glutSpecialFunc(specialkeycall);
 	glutPassiveMotionFunc(motionCall);
+	glutMotionFunc(motionCall);
+	glutIdleFunc(IdleCall);
 	glutMouseFunc(mouseCall);
-	glutTimerFunc(1, timercall, 1);
+	
+	//glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+	glutSetCursor(GLUT_CURSOR_NONE);
+	
+	glutTimerFunc(10, timercall, (int)TIMER);
 	glutMainLoop();
 }
 
 void timercall(int value)
 {
-	glutPostRedisplay();
-	glutTimerFunc(17, timercall, value);
+	switch (value)
+	{
+	case TIMER:
+		xAxis = ((float)preMouse.first - (float)curreuntMouse.first)  * 0.7f;
+		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * 0.7f;
+		camera.moveRoateY(xAxis);
+		pistol->moveRevoluY(xAxis);
+		rifle->moveRevoluY(xAxis);
+		sniper->moveRevoluY(xAxis);
+		if (camera.getRotateX() + yAxis <=60.0f && camera.getRotateX() + yAxis >= -60.0f) {
+			camera.moveRoateX(yAxis);
+			pistol->moveRevoluX(yAxis);
+			rifle->moveRevoluX(yAxis);
+			sniper->moveRevoluX(yAxis);
+		}
+		if(curreuntMouse.first >= 4 * Wwidth / 5)
+			glutWarpPointer(1 * Wwidth / 5, curreuntMouse.second);
+		if (curreuntMouse.first <= 1 * Wwidth / 5)
+			glutWarpPointer(4 * Wwidth / 5, curreuntMouse.second);
+		if (curreuntMouse.second >= 4 * Wheight / 5)
+			glutWarpPointer(curreuntMouse.first, Wheight / 5);
+		if (curreuntMouse.second <= 1 * Wheight / 5)
+			glutWarpPointer(curreuntMouse.first, 4 * Wheight / 5);
+		preMouse = curreuntMouse;
+		glutPostRedisplay();
+		glutTimerFunc(10, timercall, value);
+		break;
+	default:
+		break;
+	}
 }
 
 
@@ -126,6 +168,8 @@ void ReshapeCall(int w, int h)
 	glViewport(0, 0, w, h);
 	Wwidth = w;
 	Wheight = h;
+	curreuntMouse = { Wwidth / 2 , Wheight / 2 };
+	preMouse = { Wwidth / 2 , Wheight / 2 };
 }
 
 void keyboardCall(unsigned char key, int x, int y)
@@ -190,20 +234,16 @@ void mouseCall(int button, int state, int x, int y)
 	}
 	glutPostRedisplay();
 }
-
+ 
 void motionCall(int x, int y)
 {
-	camera.setCameraAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
-	pistol->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
-	rifle->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
-	sniper->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
+	preMouse = curreuntMouse;
+	curreuntMouse = pair<int, int>(x, y);
+	glutPostRedisplay();
+}
 
-	if (y >= Wheight / 4 && y <= 3 * Wheight / 4) {
-		camera.setCameraAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight) / 4);
-		pistol->setRevoluAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight)/ 4 + 10.0f);
-		rifle->setRevoluAngleX(3 * 360.0f * (1 - 2 * (float)y / (float)Wheight) / 4 + 10.0f);
-		sniper->setRevoluAngleY(360.0f * (1 - 2 * (float)x / (float)Wwidth));
-	}
+void IdleCall()
+{
 	glutPostRedisplay();
 }
 

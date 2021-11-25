@@ -27,6 +27,9 @@ public://set func
 	void setRevoluAngleY(float Angle);
 	void setRevoluAngleZ(float Angle);
 public:
+	void moveRevoluX(float Angle);
+	void moveRevoluY(float Angle);
+public:
 	virtual void setPos(glm::vec3 inPutpos) = 0;
 public://virtual func - status
 	virtual void AttackMotion() = 0;
