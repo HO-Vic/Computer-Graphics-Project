@@ -7,6 +7,12 @@
 #include"ShaderFunc.h"
 class Camera
 {
+private: 
+	static Camera* cameraInst;
+	static void setInst(glm::vec3 pos);
+public:
+	static Camera* getInst(glm::vec3 pos);
+	static void destoy();
 private:
 	glm::vec3 pos = glm::vec3(0, 1.0f, 3.0f);
 	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);

@@ -44,12 +44,13 @@ float xAxis = 0.0f;
 float yAxis = 0.0f;
 
 
-Camera camera(glm::vec3(0, 1.0f, 3.0f));
+//Camera camera(glm::vec3(0, 1.0f, 3.0f));
 
 //weapon
-Pistol* pistol = new Pistol(camera.getPos()+ glm::vec3(0.05f, -0.2f, -0.2f));
-Rifle* rifle = new Rifle(camera.getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
-Sniper* sniper = new Sniper(camera.getPos() + glm::vec3(0.02f, -0.5f, -0.4f));
+
+Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos()+ glm::vec3(0.05f, -0.2f, -0.2f));
+Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
+Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.02f, -0.5f, -0.4f));
 Gun* myGun = pistol;
 
 //임시
@@ -106,6 +107,7 @@ int main(int argc, char** argv)
 	
 	glutTimerFunc(10, timercall, (int)TIMER);
 	glutMainLoop();
+	Camera::destoy();
 }
 
 void timercall(int value)
@@ -115,12 +117,12 @@ void timercall(int value)
 	case TIMER:
 		xAxis = ((float)preMouse.first - (float)curreuntMouse.first)  * 0.7f;
 		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * 0.7f;
-		camera.moveRoateY(xAxis);
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateY(xAxis);
 		pistol->moveRevoluY(xAxis);
 		rifle->moveRevoluY(xAxis);
 		sniper->moveRevoluY(xAxis);
-		if (camera.getRotateX() + yAxis <=60.0f && camera.getRotateX() + yAxis >= -60.0f) {
-			camera.moveRoateX(yAxis);
+		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <=60.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -60.0f) {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateX(yAxis);
 			pistol->moveRevoluX(yAxis);
 			rifle->moveRevoluX(yAxis);
 			sniper->moveRevoluX(yAxis);
@@ -151,10 +153,9 @@ void DrawSceneCall()
 	glEnable(GL_CULL_FACE);
 
 	defaultLight.renderLight(shaderfunc);
-	camera.renderCamera(shaderfunc);
+	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
-	//pistol->renderGun(shaderfunc);
 	myGun->renderGun(shaderfunc);
 	//임시
 	drawPlane();
@@ -186,28 +187,31 @@ void keyboardCall(unsigned char key, int x, int y)
 		myGun = dynamic_cast<Sniper*> (sniper);
 		break;
 	case'w':
-		camera.moveFrontCamera();
-		pistol->setPos(camera.getPos());
-		rifle->setPos(camera.getPos());
-		sniper->setPos(camera.getPos());
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveFrontCamera();
+		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case's':
-		camera.moveBackCamera();
-		pistol->setPos(camera.getPos());
-		rifle->setPos(camera.getPos());
-		sniper->setPos(camera.getPos());
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveBackCamera();
+		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case'a':
-		camera.moveLeftCamera();
-		pistol->setPos(camera.getPos());
-		rifle->setPos(camera.getPos());
-		sniper->setPos(camera.getPos());
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveLeftCamera();
+		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case'd':
-		camera.moveRightCamera();
-		pistol->setPos(camera.getPos());
-		rifle->setPos(camera.getPos());
-		sniper->setPos(camera.getPos());
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRightCamera();
+		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		break;
+	case'q':
+		glutLeaveMainLoop();
 		break;
 	default:
 		break;

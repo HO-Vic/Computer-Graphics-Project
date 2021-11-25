@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+Camera* Camera::cameraInst = NULL;
+
 void Camera::setCameraDir()
 {	
 	glm::vec3 tempCameraDir = pos - AT;//n
@@ -9,6 +11,25 @@ void Camera::setCameraDir()
 	rotateMat = glm::rotate(rotateMat, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
 	cameraDir = glm::vec3(rotateMat * glm::vec4(-tempCameraDir, 1));
 
+}
+
+Camera* Camera::getInst(glm::vec3 pos)
+{
+	if (cameraInst == NULL) 
+		setInst(pos);
+	return cameraInst;
+}
+
+void Camera::destoy()
+{
+	if(cameraInst)
+		delete cameraInst;
+	std::cout << "x";
+}
+
+void Camera::setInst(glm::vec3 pos)
+{
+	cameraInst = new Camera(pos);
 }
 
 void Camera::setCameraRight()
