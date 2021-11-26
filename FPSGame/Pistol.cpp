@@ -5,9 +5,18 @@ void Pistol::setPos(glm::vec3 inPutpos)
 	pos = inPutpos + glm::vec3(0.05f, -0.2f, -0.2f);
 }
 
+void Pistol::setStatusAttack(bool f)
+{
+	isAttack = f;
+	if (isAttack)
+		motionRevolu += recoil;
+}
+
 void Pistol::AttackMotion()
 {
-}
+	if(motionRevolu >= recoil)
+		motionRevolu -= 0.1f;	
+}	
 
 void Pistol::reroad()
 {
@@ -27,12 +36,12 @@ void Pistol::reroadSound()
 
 void Pistol::renderGun(ShaderFunc& shaderID)
 {
-	glBindVertexArray(gunVAO);
+	recoil = 1.4f;
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
 	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.05f, 0.2f, 0.2f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
-	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x), glm::vec3(1, 0, 0));
+	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x + motionRevolu), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
 	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.05f, -0.2f, -0.2f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
@@ -41,12 +50,13 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 	gunMatrix = glm::scale(gunMatrix, defaultScale);	
 	glm::mat4 normalMatrix = glm::mat4(1.0f);
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.y + rotateAngle.y), glm::vec3(0, 1, 0));
-	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.x + rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
+	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.x + rotateAngle.x + defaultRotateAngleX + motionRevolu), glm::vec3(1, 0, 0));
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.z + rotateAngle.z), glm::vec3(0, 0, 1));
 	glm::vec3 color = glm::vec3(0, 0, 0);
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	shaderID.setColorVec(color);
+	glBindVertexArray(gunVAO);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 

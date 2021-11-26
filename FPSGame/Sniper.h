@@ -17,6 +17,7 @@ public:
 public:
 	void setPos(glm::vec3 inPutpos) override;
 public://virtual func - status
+	void setStatusAttack(bool f);
 	void  AttackMotion() override;
 	void  reroad() override;
 	void  playerRun() override;

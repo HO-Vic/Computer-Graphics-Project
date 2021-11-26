@@ -7,10 +7,23 @@ void Camera::setCameraDir()
 	glm::vec3 tempCameraDir = pos - AT;//n
 	glm::mat4 rotateMat = glm::mat4(1.0f);
 	rotateMat = glm::rotate(rotateMat, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
-	rotateMat = glm::rotate(rotateMat, glm::radians(rotateAngle.x), glm::vec3(1, 0, 0));
+	rotateMat = glm::rotate(rotateMat, glm::radians(rotateAngle.x + attackRotateX), glm::vec3(1, 0, 0));
 	rotateMat = glm::rotate(rotateMat, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
 	cameraDir = glm::vec3(rotateMat * glm::vec4(-tempCameraDir, 1));
 
+}
+
+void Camera::attackMotion(float recoil)
+{
+	if (attackRotateX >= recoil)
+		attackRotateX -= 0.1f;
+}
+
+void Camera::setStatusAttack(bool f, float recoil)
+{
+	isAttack = f;
+	if(isAttack)
+		attackRotateX += recoil;
 }
 
 Camera* Camera::getInst(glm::vec3 pos)
@@ -121,6 +134,11 @@ void Camera::setCameraAngleX(float Angle)
 void Camera::setCameraAngleZ(float Angle)
 {
 	rotateAngle.z = Angle;
+}
+
+void Camera::initRecoilRotate()
+{
+	attackRotateX = 0.0f;
 }
 
 glm::vec3 Camera::getPos()

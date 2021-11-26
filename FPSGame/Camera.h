@@ -17,6 +17,8 @@ private:
 	glm::vec3 pos = glm::vec3(0, 1.0f, 3.0f);
 	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 	glm::vec3 rotateAngle = glm::vec3(0.0f, 0.0f, 0.0f);
+	float attackRotateX = 0.0f;
+	bool isAttack = false;
 private:
 	glm::vec3 AT;
 	glm::vec3 cameraDir;
@@ -35,6 +37,8 @@ public:
 	const float runRatio = 0.15f;
 public:
 	void setCameraDir();
+	void attackMotion(float recoil);
+	void setStatusAttack(bool f, float recoil);
 	void renderCamera(ShaderFunc& shaderID);
 public:
 	void moveFrontCamera();
@@ -46,6 +50,7 @@ public:
 	void setCameraAngleY(float Angle);
 	void setCameraAngleX(float Angle);
 	void setCameraAngleZ(float Angle);
+	void initRecoilRotate();
 public:
 	glm::vec3 getPos();
 	float getRotateX();

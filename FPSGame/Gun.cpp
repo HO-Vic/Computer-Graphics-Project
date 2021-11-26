@@ -24,3 +24,13 @@ void Gun::moveRevoluY(float Angle)
 {
 	revoluAngle.y += Angle;
 }
+
+void Gun::initRecoilRotate()
+{
+	motionRevolu = 0;
+}
+
+float Gun::getRecoil()
+{
+	return recoil;
+}

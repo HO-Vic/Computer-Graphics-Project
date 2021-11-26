@@ -2,5 +2,7 @@
 
 enum TIMERENUM
 {
-	TIMER = 0
+	MOUSE = 0,
+	GUN,
+	GUNMOTION
 };

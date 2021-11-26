@@ -18,7 +18,7 @@
 #include"Rifle.h"
 #include"Sniper.h"
 #include"Enum.h"
-#include"Map.h"
+#include"Map.h"//map
 #include"stair.h"
 #include"Wall.h"
 
@@ -46,12 +46,13 @@ pair<int, int> preMouse = { Wwidth / 2 , Wheight / 2 };
 float xAxis = 0.0f;
 float yAxis = 0.0f;
 
+bool isClick = false;
 
 //Camera camera(glm::vec3(0, 1.0f, 3.0f));
 
 //weapon
 
-Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos()+ glm::vec3(0.05f, -0.2f, -0.2f));
+Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.05f, -0.2f, -0.2f));
 Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
 Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.02f, -0.5f, -0.4f));
 Gun* myGun = pistol;
@@ -62,19 +63,19 @@ Wall* wall = new Wall;
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
-	
+
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(Wwidth, Wheight);
 	glutCreateWindow("FPS");
 	glutFullScreen();
-	
+
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 		cerr << "fail Initialize" << endl;
 	else cout << "Initialize" << endl;
 
-	shaderfunc.makeVertexShader();	
+	shaderfunc.makeVertexShader();
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
 
@@ -84,7 +85,7 @@ int main(int argc, char** argv)
 	map->bindingMap(shaderfunc);
 	stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
-		
+
 
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
@@ -94,11 +95,13 @@ int main(int argc, char** argv)
 	glutMotionFunc(motionCall);
 	glutIdleFunc(IdleCall);
 	glutMouseFunc(mouseCall);
-	
+
 	//glutSetCursor(GLUT_CURSOR_CROSSHAIR);
 	glutSetCursor(GLUT_CURSOR_NONE);
-	
-	glutTimerFunc(10, timercall, (int)TIMER);
+
+	glutTimerFunc(10, timercall, (int)MOUSE);
+	glutTimerFunc(10, timercall, (int)GUNMOTION);
+	glutTimerFunc(10, timercall, (int)GUN);
 	glutMainLoop();
 	Camera::destoy();
 }
@@ -107,20 +110,20 @@ void timercall(int value)
 {
 	switch (value)
 	{
-	case TIMER:
-		xAxis = ((float)preMouse.first - (float)curreuntMouse.first)  * 0.7f;
+	case MOUSE:
+		xAxis = ((float)preMouse.first - (float)curreuntMouse.first) * 0.7f;
 		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * 0.7f;
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateY(xAxis);
 		pistol->moveRevoluY(xAxis);
 		rifle->moveRevoluY(xAxis);
 		sniper->moveRevoluY(xAxis);
-		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <=60.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -60.0f) {
+		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <= 60.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -60.0f) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateX(yAxis);
 			pistol->moveRevoluX(yAxis);
 			rifle->moveRevoluX(yAxis);
 			sniper->moveRevoluX(yAxis);
 		}
-		if(curreuntMouse.first >= 4 * Wwidth / 5)
+		if (curreuntMouse.first >= 4 * Wwidth / 5)
 			glutWarpPointer(1 * Wwidth / 5, curreuntMouse.second);
 		if (curreuntMouse.first <= 1 * Wwidth / 5)
 			glutWarpPointer(4 * Wwidth / 5, curreuntMouse.second);
@@ -132,6 +135,27 @@ void timercall(int value)
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
 		break;
+	case GUN:		
+		pistol->AttackMotion();
+		rifle->AttackMotion();
+		sniper->AttackMotion();
+		Camera::getInst(glm::vec3(0,0,0))->attackMotion(myGun->getRecoil());
+		pistol->setStatusAttack(false);
+		rifle->setStatusAttack(false);
+		sniper->setStatusAttack(false);
+		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(false, myGun->getRecoil());
+		glutPostRedisplay();
+		glutTimerFunc(10, timercall, value);
+		break;
+	case GUNMOTION:
+		if (isClick) {
+			rifle->setStatusAttack(true);
+			if(myGun->getRecoil() <= 0.6f)
+				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
+		}
+		glutPostRedisplay();
+		glutTimerFunc(100, timercall, value);
+		break;
 	default:
 		break;
 	}
@@ -139,7 +163,7 @@ void timercall(int value)
 
 void DrawSceneCall()
 {
-	glClearColor(1,1,1, 1);
+	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -171,12 +195,18 @@ void keyboardCall(unsigned char key, int x, int y)
 	{
 	case'1':
 		myGun = dynamic_cast<Pistol*> (pistol);
+		myGun->initRecoilRotate();
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
 		break;
 	case'2':
 		myGun = dynamic_cast<Rifle*> (rifle);
+		myGun->initRecoilRotate();
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
 		break;
 	case'3':
 		myGun = dynamic_cast<Sniper*> (sniper);
+		myGun->initRecoilRotate();
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
 		break;
 	case'w':
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveFrontCamera();
@@ -225,12 +255,18 @@ void specialkeycall(int key, int x, int y)
 void mouseCall(int button, int state, int x, int y)
 {
 	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
-
-
+		isClick = true;
+		pistol->setStatusAttack(true);
+		sniper->setStatusAttack(true);
+		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 	}
+	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
+		isClick = false;
+	}
+	
 	glutPostRedisplay();
 }
- 
+
 void motionCall(int x, int y)
 {
 	preMouse = curreuntMouse;

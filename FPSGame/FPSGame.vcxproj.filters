@@ -96,9 +96,6 @@
     <ClCompile Include="Light.cpp">
       <Filter>소스 파일\light</Filter>
     </ClCompile>
-    <ClCompile Include="Projection.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Pistol.cpp">
       <Filter>소스 파일\weapon</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>소스 파일\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Projection.cpp">
+      <Filter>소스 파일\func</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +149,6 @@
     <ClInclude Include="Light.h">
       <Filter>헤더 파일\light</Filter>
     </ClInclude>
-    <ClInclude Include="Projection.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Pistol.h">
       <Filter>헤더 파일\weapon</Filter>
     </ClInclude>
@@ -169,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>헤더 파일\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Projection.h">
+      <Filter>헤더 파일\func</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
