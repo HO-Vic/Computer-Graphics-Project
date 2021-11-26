@@ -59,15 +59,6 @@ Map* map = new Map;
 Stair* stair = new Stair;
 Wall* wall = new Wall;
 
-//임시
-GLuint planeVao;
-GLuint planeVertexVbo;
-GLuint planeNormalVbo;
-vector<glm::vec3> planeVertexData;
-vector<glm::vec3> planeNormalData;
-void InitBuffer();
-void drawPlane();
-
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -78,11 +69,6 @@ int main(int argc, char** argv)
 	glutCreateWindow("FPS");
 	glutFullScreen();
 	
-	
-	/*glutGameModeString("1920x1080:32@60");
-	if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))
-		glutEnterGameMode();*/
-	
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 		cerr << "fail Initialize" << endl;
@@ -91,16 +77,14 @@ int main(int argc, char** argv)
 	shaderfunc.makeVertexShader();	
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
+
 	pistol->bindingGun(shaderfunc);
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
 	map->bindingMap(shaderfunc);
 	stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
-	
-	//임시
-	InitBuffer();
-	
+		
 
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
@@ -153,7 +137,6 @@ void timercall(int value)
 	}
 }
 
-
 void DrawSceneCall()
 {
 	glClearColor(1,1,1, 1);
@@ -169,10 +152,6 @@ void DrawSceneCall()
 	map->renderMap(shaderfunc);
 	stair->renderMap(shaderfunc);
 	wall->renderMap(shaderfunc);
-
-	//임시
-	//drawPlane();
-
 
 	glutSwapBuffers();
 }
@@ -263,40 +242,3 @@ void IdleCall()
 {
 	glutPostRedisplay();
 }
-
-//임시
-void InitBuffer()
-{
-	readQuadObj("obj_plane.obj", planeVertexData, planeNormalData);
-	glGenVertexArrays(1, &planeVao);
-	glBindVertexArray(planeVao);
-	glGenBuffers(1, &planeVertexVbo);
-	glBindBuffer(GL_ARRAY_BUFFER, planeVertexVbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * planeVertexData.size(), &planeVertexData[0], GL_STREAM_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-	glEnableVertexAttribArray(0);
-	glGenBuffers(1, &planeNormalVbo);
-	glBindBuffer(GL_ARRAY_BUFFER, planeNormalVbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * planeNormalData.size(), &planeNormalData[0], GL_STREAM_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-	glEnableVertexAttribArray(1);
-}
-
-//임시
-void drawPlane()
-{
-	glm::mat4 planeMatrix = glm::mat4(1.0f);
-	planeMatrix = glm::scale(planeMatrix, glm::vec3(20, 20, 20));
-	unsigned int planeMatrixLocation = glGetUniformLocation(shaderfunc.getShaderID(), "modelTransform");
-	glUniformMatrix4fv(planeMatrixLocation, 1, GL_FALSE, glm::value_ptr(planeMatrix));
-	glm::mat4 planeNormalMatrix = glm::mat4(1.0f);
-	unsigned int planeNormalLocation = glGetUniformLocation(shaderfunc.getShaderID(), "normalTransform");
-	glUniformMatrix4fv(planeNormalLocation, 1, GL_FALSE, glm::value_ptr(planeNormalMatrix));
-	glBindVertexArray(planeVao);
-	glm::vec3 planeColor = glm::vec3(0, 0.5, 0);
-	unsigned int planeColorLocation = glGetUniformLocation(shaderfunc.getShaderID(), "objColor");
-	glUniform3fv(planeColorLocation, 1, glm::value_ptr(planeColor));
-	glDrawArrays(GL_QUADS, 0, planeVertexData.size());
-}
-
-
