@@ -37,7 +37,6 @@ void Camera::destoy()
 {
 	if(cameraInst)
 		delete cameraInst;
-	std::cout << "x";
 }
 
 void Camera::setInst(glm::vec3 pos)
@@ -75,7 +74,6 @@ void Camera::moveFrontCamera()
 	pos += walkRatio * glm::vec3(glm::normalize(cameraDir).x, 0, glm::normalize(cameraDir).z);
 	AT.x += walkRatio * glm::normalize(cameraDir).x;
 	AT.z += walkRatio * glm::normalize(cameraDir).z;
-	std::cout << cameraDir.x << ' ' << cameraDir.y << ' ' << cameraDir.z << std::endl;
 }
 
 void Camera::moveBackCamera()
@@ -86,7 +84,6 @@ void Camera::moveBackCamera()
 	pos -= walkRatio * glm::vec3(glm::normalize(cameraDir).x, 0, glm::normalize(cameraDir).z);
 	AT.x -= walkRatio * glm::normalize(cameraDir).x;
 	AT.z -= walkRatio * glm::normalize(cameraDir).z;
-	std::cout << cameraDir.x << ' ' << cameraDir.y << ' ' << cameraDir.z << std::endl;
 }
 
 void Camera::moveLeftCamera()
@@ -97,7 +94,6 @@ void Camera::moveLeftCamera()
 	pos -= walkRatio * glm::vec3(cameraRight.x, 0, cameraRight.z);
 	AT.x -= walkRatio * cameraRight.x;
 	AT.z -= walkRatio * cameraRight.z;
-	std::cout << cameraDir.x << ' ' << cameraDir.y << ' ' << cameraDir.z << std::endl;
 }
 
 void Camera::moveRightCamera()
@@ -108,7 +104,6 @@ void Camera::moveRightCamera()
 	pos += walkRatio * glm::vec3(cameraRight.x, 0, cameraRight.z);
 	AT.x += walkRatio * cameraRight.x;
 	AT.z += walkRatio * cameraRight.z;
-	std::cout << cameraDir.x << ' ' << cameraDir.y << ' ' << cameraDir.z << std::endl;
 }
 
 void Camera::moveRoateY(float Angle)
