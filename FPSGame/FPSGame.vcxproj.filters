@@ -108,6 +108,12 @@
     <ClCompile Include="Sniper.cpp">
       <Filter>소스 파일\weapon</Filter>
     </ClCompile>
+    <ClCompile Include="stair.cpp">
+      <Filter>소스 파일\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>소스 파일\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -157,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="Enum.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stair.h">
+      <Filter>헤더 파일\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>헤더 파일\map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

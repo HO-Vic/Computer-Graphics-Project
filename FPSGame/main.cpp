@@ -18,6 +18,9 @@
 #include"Rifle.h"
 #include"Sniper.h"
 #include"Enum.h"
+#include"Map.h"
+#include"stair.h"
+#include"Wall.h"
 
 using namespace std;
 
@@ -52,6 +55,9 @@ Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos()+
 Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
 Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.02f, -0.5f, -0.4f));
 Gun* myGun = pistol;
+Map* map = new Map;
+Stair* stair = new Stair;
+Wall* wall = new Wall;
 
 //임시
 GLuint planeVao;
@@ -88,6 +94,9 @@ int main(int argc, char** argv)
 	pistol->bindingGun(shaderfunc);
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
+	map->bindingMap(shaderfunc);
+	stair->bindingMap(shaderfunc);
+	wall->bindingMap(shaderfunc);
 	
 	//임시
 	InitBuffer();
@@ -157,8 +166,12 @@ void DrawSceneCall()
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
 	myGun->renderGun(shaderfunc);
+	map->renderMap(shaderfunc);
+	stair->renderMap(shaderfunc);
+	wall->renderMap(shaderfunc);
+
 	//임시
-	drawPlane();
+	//drawPlane();
 
 
 	glutSwapBuffers();
