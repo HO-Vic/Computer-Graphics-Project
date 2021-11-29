@@ -312,4 +312,16 @@ void loadITextureImage()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, riflewidthImage, rifleheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, rifleData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(rifleData);
+
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE2);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int sniperwidthImage, sniperheightImage, snipernumberOfChannel;
+	unsigned char* sniperData = stbi_load("texture_sniper.jpg", &sniperwidthImage, &sniperheightImage, &snipernumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, sniperwidthImage, sniperheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(sniperData);
 }
