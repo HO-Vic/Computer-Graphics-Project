@@ -64,6 +64,6 @@ void Sniper::renderGun(ShaderFunc& shaderID)
 
 void Sniper::bindingGun(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_sniper_2.obj", gunVertexData, gunTextureData, gunNormalData);
+	readTriangleObj("obj_sniper.obj", gunVertexData, gunTextureData, gunNormalData);
 	shaderID.InitBuffer(gunVAO, gunVertexVBO, gunTextureVBO, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);
 }
