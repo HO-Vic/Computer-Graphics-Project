@@ -62,8 +62,7 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.z + rotateAngle.z), glm::vec3(0, 0, 1));
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
-	int pyramidLocation = glGetUniformLocation(shaderID.getShaderID(), "textureC");
-	glUniform1i(pyramidLocation, 0);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 0);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }

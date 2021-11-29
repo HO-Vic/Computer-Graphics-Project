@@ -146,7 +146,6 @@
     <ClCompile Include="filetobuf.cpp" />
     <ClCompile Include="ImplemetMap.cpp" />
     <ClCompile Include="Light.cpp" />
-    <ClCompile Include="LoadImage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Gun.cpp" />
@@ -171,7 +170,6 @@
     <ClInclude Include="filetobuf.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Light.h" />
-    <ClInclude Include="LoadImage.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />

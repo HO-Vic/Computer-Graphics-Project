@@ -38,6 +38,8 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 {
 	recoil = 0.5f;
 	glBindVertexArray(gunVAO);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE1);
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
 	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.1f, 0.3f, 0.2f));
@@ -53,11 +55,10 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.y + rotateAngle.y), glm::vec3(0, 1, 0));
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.x + rotateAngle.x + motionRevolu), glm::vec3(1, 0, 0));
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.z + rotateAngle.z), glm::vec3(0, 0, 1));
-	glm::vec3 color = glm::vec3(0, 0, 0);
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
-	shaderID.setColorVec(color);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 1);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 
