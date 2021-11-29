@@ -22,9 +22,8 @@ void Bullet::renderBullet(ShaderFunc& shaderID)
 
 void Bullet::bindingBullet(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_bullet.obj", bulletVertexData, bulletNormalData);
+	readTriangleObj("obj_bullet.obj", bulletVertexData, bulletTextureData, bulletNormalData);
 	//임시 텍스쳐 객체들
-	std::vector<glm::vec3> textureTemp;
 	GLuint textureVboTemp;
-	shaderID.InitBuffer(bulletVAO, bulletVertexVBO, textureVboTemp, bulletNormalVBO, bulletVertexData, textureTemp, bulletNormalData);
+	shaderID.InitBuffer(bulletVAO, bulletVertexVBO, textureVboTemp, bulletNormalVBO, bulletVertexData, bulletTextureData, bulletNormalData);
 }

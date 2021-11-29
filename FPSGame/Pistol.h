@@ -7,6 +7,7 @@
 #include"Gun.h"
 #include"ShaderFunc.h"
 #include"readTriangleObj.h"
+
 class Pistol : public Gun
 {
 private://default trans
@@ -24,6 +25,8 @@ public://virtual func - status
 public://virtual func - sound
 	void shootSound() override;
 	void reroadSound() override;
+public://texture
+	void setTexture();
 public://render
 	void renderGun(ShaderFunc& shaderID) override;
 public://binding

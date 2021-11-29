@@ -111,9 +111,8 @@ void Stair::renderMap(ShaderFunc shaderID)
 };
 void Stair::bindingMap(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_stair.obj", StairVertexData, StairNormalData);
+	readTriangleObj("obj_stair.obj", StairVertexData, StairTextureData,StairNormalData);
 	//임시 텍스쳐 객체들
-	std::vector<glm::vec3> textureTemp;
 	GLuint textureVboTemp;
-	shaderID.InitBuffer(StairVAO, StairVertexVBO, textureVboTemp, StairNormalVBO, StairVertexData, textureTemp, StairNormalData);
+	shaderID.InitBuffer(StairVAO, StairVertexVBO, textureVboTemp, StairNormalVBO, StairVertexData, StairTextureData, StairNormalData);
 }

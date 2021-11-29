@@ -7,7 +7,7 @@ void Sniper::setPos(glm::vec3 inPutpos)
 
 void Sniper::AttackMotion()
 {
-	if (motionRevolu >= recoil)
+	if (motionRevolu >= 0.1f)
 		motionRevolu -= 0.1f;
 }
 
@@ -56,15 +56,14 @@ void Sniper::renderGun(ShaderFunc& shaderID)
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	shaderID.setColorVec(color);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
 	glBindVertexArray(gunVAO);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 
 void Sniper::bindingGun(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_sniper.obj", gunVertexData, gunNormalData);
+	readTriangleObj("obj_sniper.obj", gunVertexData, gunTextureData, gunNormalData);
 	//임시 텍스쳐 객체들
-	std::vector<glm::vec3> textureTemp;
-	GLuint textureVboTemp;
-	shaderID.InitBuffer(gunVAO, gunVertexVBO, textureVboTemp, gunNormalVBO, gunVertexData, textureTemp, gunNormalData);
+	shaderID.InitBuffer(gunVAO, gunVertexVBO, gunTextureVBO, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);
 }

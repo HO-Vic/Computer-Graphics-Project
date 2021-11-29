@@ -59,7 +59,7 @@ void ShaderFunc::makeShaderID()
 	glUseProgram(shaderID);
 }
 
-void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& textureVBO, GLuint& normalVBO, std::vector<glm::vec3>& modelVertex, std::vector<glm::vec3>& modelTexture, std::vector<glm::vec3>& modelNormal)
+void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& textureVBO, GLuint& normalVBO, std::vector<glm::vec3>& modelVertex, std::vector<glm::vec2>& modelTexture, std::vector<glm::vec3>& modelNormal)
 {
 	glUseProgram(shaderID);
 	glGenVertexArrays(1, &VAO);
@@ -74,6 +74,11 @@ void ShaderFunc::InitBuffer(GLuint& VAO, GLuint& vertexVBO, GLuint& textureVBO, 
 	glBufferData(GL_ARRAY_BUFFER, modelNormal.size() * sizeof(glm::vec3), &modelNormal[0], GL_STREAM_DRAW);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 	glEnableVertexAttribArray(1);
+	glGenBuffers(1, &textureVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
+	glBufferData(GL_ARRAY_BUFFER, modelTexture.size() * sizeof(glm::vec2), &modelTexture[0], GL_STREAM_DRAW);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void*)0);
+	glEnableVertexAttribArray(2);
 }
 
 void ShaderFunc::setTransMatrix(glm::mat4& transMatrix)

@@ -2,18 +2,25 @@
 
 in vec3 fragPos;
 in vec3 normal;
+in vec2 textCoord;
+
 out vec4 FragColor;
+
+uniform sampler2D textureC;
 
 uniform vec3 objColor;
 uniform vec3 LightColor;
 uniform vec3 LightPos;
 uniform mat4 LightTransform;
 uniform vec3 cameraPos;
+uniform float ambientLight;
+uniform int isTexture;
+
 
 void main()
 {
 //ambient
-	float ambientLight = 0.3f;
+	
 	vec3 ambient = ambientLight * LightColor;
 //diffuse
 	vec3 MyLightPos = vec3(LightTransform * vec4(LightPos, 1.0f));
@@ -30,7 +37,17 @@ void main()
 	vec3 specular = specularLight * LightColor;
 
 	vec3 re = ambient + diffuse + specular;
-	vec3 result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);
-	//vec3 result  = (ambient + diffuse + specular) * objColor;
-	FragColor = vec4(result, 1.0f);
+	vec3 result;
+	if(isTexture == 1){
+		result = vec3(re.x * texture(textureC, textCoord).x, re.y * texture(textureC, textCoord).y, re.z * texture(textureC, textCoord).z);
+		FragColor = vec4(result, 1.0f);
+		}
+	else if(isTexture == 0){
+		result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);
+		FragColor = vec4(result, 1.0f);
+	}
+	else {
+		result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);
+		FragColor = vec4(result, 1.0f);
+	}
 }

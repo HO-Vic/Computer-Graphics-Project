@@ -5,6 +5,7 @@
 #include<glm/glm/ext.hpp>
 #include<glm/glm/gtc/matrix_transform.hpp>
 #include"ShaderFunc.h"
+
 class Gun
 {
 protected:
@@ -21,7 +22,7 @@ protected://shader binding
 	GLuint gunTextureVBO;
 	std::vector<glm::vec3> gunVertexData;
 	std::vector<glm::vec3> gunNormalData;
-	std::vector<glm::vec3> gunTextureData;
+	std::vector<glm::vec2> gunTextureData;
 public:
 	Gun(glm::vec3 playerPos): pos(playerPos) {}
 public://set func

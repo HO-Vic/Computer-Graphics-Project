@@ -8,7 +8,6 @@
 #include<vector>
 #include<utility>
 #include"filetobuf.h"
-#include"readQuadObj.h"//юс╫ц
 #include"ShaderFunc.h"
 #include"Camera.h"
 #include"Player.h"
@@ -21,6 +20,9 @@
 #include"Map.h"//map
 #include"stair.h"
 #include"Wall.h"
+//#include"LoadImage.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include"stb_image.h"
 
 using namespace std;
 
@@ -34,6 +36,8 @@ void mouseCall(int button, int state, int x, int y);
 void motionCall(int x, int y);
 void IdleCall();
 
+
+void loadITextureImage();
 int Wwidth = 800;
 int Wheight = 600;
 
@@ -79,7 +83,10 @@ int main(int argc, char** argv)
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
 
+	loadITextureImage();
 	pistol->bindingGun(shaderfunc);
+	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
+
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
 	map->bindingMap(shaderfunc);
@@ -139,7 +146,7 @@ void timercall(int value)
 		pistol->AttackMotion();
 		rifle->AttackMotion();
 		sniper->AttackMotion();
-		Camera::getInst(glm::vec3(0,0,0))->attackMotion(myGun->getRecoil());
+		Camera::getInst(glm::vec3(0,0,0))->attackMotion(0.0f);
 		pistol->setStatusAttack(false);
 		rifle->setStatusAttack(false);
 		sniper->setStatusAttack(false);
@@ -171,11 +178,12 @@ void DrawSceneCall()
 	defaultLight.renderLight(shaderfunc);
 	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
+	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
 
-	myGun->renderGun(shaderfunc);
 	map->renderMap(shaderfunc);
 	stair->renderMap(shaderfunc);
 	wall->renderMap(shaderfunc);
+	myGun->renderGun(shaderfunc);
 
 	glutSwapBuffers();
 }
@@ -277,4 +285,19 @@ void motionCall(int x, int y)
 void IdleCall()
 {
 	glutPostRedisplay();
+}
+
+void loadITextureImage()
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int pistolwidthImage, pistolheightImage, pistolnumberOfChannel;
+	unsigned char* pistolData = stbi_load("texture_pistol.jpg", &pistolwidthImage, &pistolheightImage, &pistolnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pistolwidthImage, pistolheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, pistolData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(pistolData);
 }

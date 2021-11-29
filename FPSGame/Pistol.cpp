@@ -14,7 +14,7 @@ void Pistol::setStatusAttack(bool f)
 
 void Pistol::AttackMotion()
 {
-	if(motionRevolu >= recoil)
+	if(motionRevolu >= 0.1f)
 		motionRevolu -= 0.1f;	
 }	
 
@@ -34,9 +34,17 @@ void Pistol::reroadSound()
 {
 }
 
+void Pistol::setTexture()
+{
+
+}
+
 void Pistol::renderGun(ShaderFunc& shaderID)
 {
 	recoil = 1.4f;
+	glBindVertexArray(gunVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
 	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.05f, 0.2f, 0.2f));
@@ -52,19 +60,16 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.y + rotateAngle.y), glm::vec3(0, 1, 0));
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.x + rotateAngle.x + defaultRotateAngleX + motionRevolu), glm::vec3(1, 0, 0));
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.z + rotateAngle.z), glm::vec3(0, 0, 1));
-	glm::vec3 color = glm::vec3(0, 0, 0);
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
-	shaderID.setColorVec(color);
-	glBindVertexArray(gunVAO);
+	int pyramidLocation = glGetUniformLocation(shaderID.getShaderID(), "textureC");
+	glUniform1i(pyramidLocation, 0);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 
 void Pistol::bindingGun(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_pistol_3.obj", gunVertexData, gunNormalData);
-	//임시 텍스쳐 객체들
-	std::vector<glm::vec3> textureTemp;
-	GLuint textureVboTemp;
-	shaderID.InitBuffer(gunVAO, gunVertexVBO, textureVboTemp, gunNormalVBO, gunVertexData, textureTemp, gunNormalData);
+	readTriangleObj("obj_pistol_3.obj", gunVertexData, gunTextureData, gunNormalData);
+	shaderID.InitBuffer(gunVAO, gunVertexVBO, gunTextureVBO, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);	
 }

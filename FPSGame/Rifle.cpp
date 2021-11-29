@@ -57,14 +57,15 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	shaderID.setColorVec(color);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 
 void Rifle::bindingGun(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_rifle.obj", gunVertexData, gunNormalData);
+	readTriangleObj("obj_rifle.obj", gunVertexData, gunTextureData, gunNormalData);
 	//임시 텍스쳐 객체들
-	std::vector<glm::vec3> textureTemp;
+	std::vector<glm::vec2> textureTemp;
 	GLuint textureVboTemp;
-	shaderID.InitBuffer(gunVAO, gunVertexVBO, textureVboTemp, gunNormalVBO, gunVertexData, textureTemp, gunNormalData);
+	shaderID.InitBuffer(gunVAO, gunVertexVBO, textureVboTemp, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);
 }

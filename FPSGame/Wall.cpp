@@ -111,9 +111,8 @@ void Wall::renderMap(ShaderFunc shaderID)
 };
 void Wall::bindingMap(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_wall.obj", WallVertexData, WallNormalData);
+	readTriangleObj("obj_wall.obj", WallVertexData, WallTextureData, WallNormalData);
 	//임시 텍스쳐 객체들
-	std::vector<glm::vec3> textureTemp;
 	GLuint textureVboTemp;
-	shaderID.InitBuffer(WallVAO, WallVertexVBO, textureVboTemp, WallNormalVBO, WallVertexData, textureTemp, WallNormalData);
+	shaderID.InitBuffer(WallVAO, WallVertexVBO, textureVboTemp, WallNormalVBO, WallVertexData, WallTextureData, WallNormalData);
 }

@@ -4,9 +4,11 @@
 #include<glm/glm/glm.hpp>
 #include<glm/glm/ext.hpp>
 #include<glm/glm/gtc/matrix_transform.hpp>
-#include"Gun.h"
+//#include"Gun.h"
 #include"ShaderFunc.h"
 #include"readTriangleObj.h"
+//#define STB_IMAGE_IMPLEMENTATION
+//#include"stb_image.h"
 class Bullet
 {
 private:
@@ -19,7 +21,7 @@ private://shader binding
 	GLuint bulletTextureVBO;
 	std::vector<glm::vec3> bulletVertexData;
 	std::vector<glm::vec3> bulletNormalData;
-	std::vector<glm::vec3> bulletTextureData;
+	std::vector<glm::vec2> bulletTextureData;
 public:
 	Bullet(glm::vec3 playerPos) : pos(playerPos) {}
 public://render

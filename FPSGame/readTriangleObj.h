@@ -6,5 +6,6 @@
 #include<string>
 #include<glm/glm/glm.hpp>
 #include<iostream>
-void readTriangleObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec3>& vertexNomal);
+
+void readTriangleObj(const std::string objfilename, std::vector<glm::vec3>& vertex, std::vector<glm::vec2>& vertexTexture, std::vector<glm::vec3>& vertexNomal);
 

@@ -15,7 +15,7 @@ protected:
 	GLuint mapTextureVBO;
 	std::vector<glm::vec3> mapVertexData;
 	std::vector<glm::vec3> mapNormalData;
-	std::vector<glm::vec3> mapTextureData;
+	std::vector<glm::vec2> mapTextureData;
 	glm::mat4 mapMatrix;
 	glm::vec3 Position;//위치
 	glm::vec3 Translate;//위치

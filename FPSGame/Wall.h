@@ -16,7 +16,7 @@ protected:
 	GLuint WallTextureVBO;
 	std::vector<glm::vec3> WallVertexData;
 	std::vector<glm::vec3> WallNormalData;
-	std::vector<glm::vec3> WallTextureData;
+	std::vector<glm::vec2> WallTextureData;
 	glm::mat4 WallMatrix;
 	Wall* Parent{ nullptr };
 public:

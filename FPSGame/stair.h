@@ -17,7 +17,7 @@ protected:
 	GLuint StairTextureVBO;
 	std::vector<glm::vec3> StairVertexData;
 	std::vector<glm::vec3> StairNormalData;
-	std::vector<glm::vec3> StairTextureData;
+	std::vector<glm::vec2> StairTextureData;
 	glm::mat4 StairMatrix;
 	Stair* Parent{ nullptr };
 public:
