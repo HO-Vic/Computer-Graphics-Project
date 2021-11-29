@@ -13,6 +13,7 @@ protected:
 	glm::vec3 rotateAngle = glm::vec3(0, 0, 0);
 	glm::vec3 revoluAngle = glm::vec3(0, 0, 0);
 	float motionRevolu = 0.0f;
+	float defaultRotateAngleX = -20.0f;
 	bool isAttack = false;
 	float recoil = 0.0f;
 protected://shader binding
@@ -49,5 +50,8 @@ public://binding
 	virtual void bindingGun(ShaderFunc& shaderID) = 0;
 public:
 	float getRecoil();
+public:
+	glm::vec3 getAngles();
+	glm::vec3 getPos();
 };
 

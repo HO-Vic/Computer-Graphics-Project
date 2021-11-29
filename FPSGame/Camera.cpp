@@ -145,3 +145,9 @@ float Camera::getRotateX()
 {
 	return rotateAngle.x;
 }
+
+glm::vec3 Camera::getDir()
+{
+	setCameraDir();
+	return glm::normalize(cameraDir);
+}

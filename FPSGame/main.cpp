@@ -23,6 +23,7 @@
 //#include"LoadImage.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
+#include"Bullet.h"
 
 using namespace std;
 
@@ -36,8 +37,13 @@ void mouseCall(int button, int state, int x, int y);
 void motionCall(int x, int y);
 void IdleCall();
 
-
+//texture load Func
 void loadITextureImage();
+
+//bullet queue render
+//render func
+void renderObjs();
+
 int Wwidth = 800;
 int Wheight = 600;
 
@@ -55,11 +61,15 @@ bool isClick = false;
 //Camera camera(glm::vec3(0, 1.0f, 3.0f));
 
 //weapon
-
-Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.05f, -0.2f, -0.2f));
+Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 9.0f))->getPos() + glm::vec3(0.05f, -0.2f, -0.2f));
 Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
 Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.02f, -0.5f, -0.4f));
 Gun* myGun = pistol;
+
+//Bullet
+Bullet bullets;
+
+//Map
 Map* map = new Map;
 Stair* stair = new Stair;
 Wall* wall = new Wall;
@@ -92,7 +102,7 @@ int main(int argc, char** argv)
 	map->bindingMap(shaderfunc);
 	stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
-
+	bullets.bindingBullet(shaderfunc);
 
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
@@ -103,12 +113,12 @@ int main(int argc, char** argv)
 	glutIdleFunc(IdleCall);
 	glutMouseFunc(mouseCall);
 
-	//glutSetCursor(GLUT_CURSOR_CROSSHAIR);
 	glutSetCursor(GLUT_CURSOR_NONE);
 
 	glutTimerFunc(10, timercall, (int)MOUSE);
 	glutTimerFunc(10, timercall, (int)GUNMOTION);
 	glutTimerFunc(10, timercall, (int)GUN);
+	glutTimerFunc(17, timercall, (int)BULLET);
 	glutMainLoop();
 	Camera::destoy();
 }
@@ -157,11 +167,18 @@ void timercall(int value)
 	case GUNMOTION:
 		if (isClick) {
 			rifle->setStatusAttack(true);
-			if(myGun->getRecoil() <= 0.6f)
+			if (myGun->getRecoil() <= 0.6f) {
 				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
+				bullets.addBullet(myGun->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
+			}
 		}
 		glutPostRedisplay();
 		glutTimerFunc(100, timercall, value);
+		break;
+	case BULLET:
+		bullets.moveBullets();
+		glutPostRedisplay();
+		glutTimerFunc(17, timercall, value);
 		break;
 	default:
 		break;
@@ -178,12 +195,8 @@ void DrawSceneCall()
 	defaultLight.renderLight(shaderfunc);
 	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
-	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
 
-	map->renderMap(shaderfunc);
-	stair->renderMap(shaderfunc);
-	wall->renderMap(shaderfunc);
-	myGun->renderGun(shaderfunc);
+	renderObjs();
 
 	glutSwapBuffers();
 }
@@ -267,6 +280,7 @@ void mouseCall(int button, int state, int x, int y)
 		pistol->setStatusAttack(true);
 		sniper->setStatusAttack(true);
 		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
+		bullets.addBullet(myGun->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 	}
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
 		isClick = false;
@@ -321,7 +335,30 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int sniperwidthImage, sniperheightImage, snipernumberOfChannel;
 	unsigned char* sniperData = stbi_load("texture_sniper.jpg", &sniperwidthImage, &sniperheightImage, &snipernumberOfChannel, 0);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, sniperwidthImage, sniperheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperData);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sniperwidthImage, sniperheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(sniperData);
+
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE3);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int bulletwidthImage, bulletheightImage, bulletnumberOfChannel;
+	unsigned char* bulletData = stbi_load("texture_bullet.bmp", &bulletwidthImage, &bulletheightImage, &bulletnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, bulletwidthImage, bulletheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, bulletData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(bulletData);
+}
+
+void renderObjs()
+{
+	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
+	map->renderMap(shaderfunc);
+	stair->renderMap(shaderfunc);
+	wall->renderMap(shaderfunc);
+
+	myGun->renderGun(shaderfunc);
+	bullets.renderBullets(shaderfunc);
 }

@@ -12,8 +12,6 @@ class Rifle : public Gun
 private://default trans
 	glm::vec3 defaultScale = glm::vec3(0.07f, 0.07f, 0.07f);
 	glm::vec3 defaultTrans = glm::vec3(0.07f, -0.3f, -0.2f);
-	float defaultRotateAngleY = 0.0f;
-		float defaultRotateAngleX = -20.0f;
 
 	
 public:

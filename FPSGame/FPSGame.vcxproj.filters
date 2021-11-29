@@ -117,6 +117,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>소스 파일\weapon</Filter>
     </ClCompile>
+    <ClCompile Include="BulletInfo.cpp">
+      <Filter>소스 파일\weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>헤더 파일\readFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletInfo.h">
+      <Filter>헤더 파일\weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

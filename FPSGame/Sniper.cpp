@@ -53,11 +53,11 @@ void Sniper::renderGun(ShaderFunc& shaderID)
 	gunMatrix = glm::scale(gunMatrix, defaultScale);
 	glm::mat4 normalMatrix = glm::mat4(1.0f);
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.y + rotateAngle.y), glm::vec3(0, 1, 0));
-	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.x + rotateAngle.x + motionRevolu), glm::vec3(1, 0, 0));
+	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.x + rotateAngle.x + motionRevolu + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.z + rotateAngle.z), glm::vec3(0, 0, 1));
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 1);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 2);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
