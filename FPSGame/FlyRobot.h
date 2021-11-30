@@ -7,28 +7,29 @@
 #include<glm/glm/gtc/matrix_transform.hpp>
 #include"ShaderFunc.h"
 #include"readTriangleObj.h"
-#include"Map.h"
-class Stair:public Map
+#include"readTriangleObj2.h"
+#include"Enemy.h"
+class Flyrobot :public Enemy
 {
 protected:
-	GLuint StairVAO;
-	GLuint StairVertexVBO;
-	GLuint StairNormalVBO;
-	GLuint StairTextureVBO;
-	std::vector<glm::vec3> StairVertexData;
-	std::vector<glm::vec3> StairNormalData;
-	std::vector<glm::vec2> StairTextureData;
-	glm::mat4 StairMatrix;
-	Stair* Parent{ nullptr };
+	GLuint FlyrobotVAO;
+	GLuint FlyrobotVertexVBO;
+	GLuint FlyrobotNormalVBO;
+	GLuint FlyrobotTextureVBO;
+	std::vector<glm::vec3> FlyrobotVertexData;
+	std::vector<glm::vec3> FlyrobotNormalData;
+	std::vector<glm::vec2> FlyrobotTextureData;
+	glm::mat4 FlyrobotMatrix;
+	Flyrobot* Parent{ nullptr };
 public:
-	Stair();
-	Stair(glm::vec3 Position,
+	Flyrobot();
+	Flyrobot(glm::vec3 Position,
 		glm::vec3 Rotation,
 		glm::vec3 Revolution,
 		glm::vec3 Scale,
 		glm::vec3 Color);
-	Stair(const Stair& object);
-	~Stair();
+	Flyrobot(const Flyrobot& object);
+	~Flyrobot();
 	glm::mat4 Getmatrix();
 	glm::mat4 Getnormal();
 	glm::vec3 GetColor();
@@ -37,10 +38,10 @@ public:
 	void Change_Revoltion(float x, float y, float z);
 	void Change_Scale(float x, float y, float z);
 	void Change_Color(float x, float y, float z);
-	void renderMap(ShaderFunc shaderID);
+	void renderEnemy(ShaderFunc shaderID);
 
-	void bindingMap(ShaderFunc& shaderID) override;
-	void Apply_Parent(Stair* Parent1);
+	void bindingEnemy(ShaderFunc& shaderID) override;
+	void Apply_Parent(Flyrobot* Parent1);
 	float Return_PositionX();
 	float Return_PositionZ();
 

@@ -85,7 +85,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -115,7 +115,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -156,7 +156,9 @@
     <ClCompile Include="Projection.cpp" />
     <ClCompile Include="readQuadObj.cpp" />
     <ClCompile Include="readTriangleObj.cpp" />
+    <ClCompile Include="readTriangleObj2.cpp" />
     <ClCompile Include="Rifle.cpp" />
+    <ClCompile Include="FlyRobot.cpp" />
     <ClCompile Include="ShaderFunc.cpp" />
     <ClCompile Include="Sniper.cpp" />
     <ClCompile Include="stair.cpp" />
@@ -178,7 +180,9 @@
     <ClInclude Include="Projection.h" />
     <ClInclude Include="readQuadObj.h" />
     <ClInclude Include="readTriangleObj.h" />
+    <ClInclude Include="readTriangleObj2.h" />
     <ClInclude Include="Rifle.h" />
+    <ClInclude Include="FlyRobot.h" />
     <ClInclude Include="ShaderFunc.h" />
     <ClInclude Include="Sniper.h" />
     <ClInclude Include="stair.h" />

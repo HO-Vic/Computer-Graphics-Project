@@ -20,10 +20,13 @@
 #include"Map.h"//map
 #include"stair.h"
 #include"Wall.h"
+#include"Enemy.h"
+#include"FlyRobot.h"
 //#include"LoadImage.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
 #include"Bullet.h"
+
 
 using namespace std;
 
@@ -74,6 +77,9 @@ Map* map = new Map;
 Stair* stair = new Stair;
 Wall* wall = new Wall;
 
+//Enemy
+Enemy* enemy = new Enemy;
+Flyrobot* flyrobot = new Flyrobot;
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -100,9 +106,11 @@ int main(int argc, char** argv)
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
 	map->bindingMap(shaderfunc);
-	stair->bindingMap(shaderfunc);
+	//stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
+	//enemy->bindingEnemy(shaderfunc);
+	flyrobot->bindingEnemy(shaderfunc);
 
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
@@ -350,6 +358,18 @@ void loadITextureImage()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, bulletwidthImage, bulletheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, bulletData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(bulletData);
+	//FlyRobot Texture
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE4);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int FlyrobotwidthImage, FlyrobotheightImage, FlyrobotnumberOfChannel;
+	unsigned char* FlyrobotData = stbi_load("texture_Flyrobot.jpg", &FlyrobotwidthImage, &FlyrobotheightImage, &FlyrobotnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, FlyrobotwidthImage, FlyrobotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, FlyrobotData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(FlyrobotData);
 }
 
 void renderObjs()
@@ -361,4 +381,8 @@ void renderObjs()
 
 	myGun->renderGun(shaderfunc);
 	bullets.renderBullets(shaderfunc);
+
+	//enemy
+	enemy->renderEnemy(shaderfunc);
+	flyrobot->renderEnemy(shaderfunc);
 }

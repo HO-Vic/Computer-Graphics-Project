@@ -68,5 +68,5 @@ void Rifle::bindingGun(ShaderFunc& shaderID)
 	//임시 텍스쳐 객체들
 	std::vector<glm::vec2> textureTemp;
 	GLuint textureVboTemp;
-	shaderID.InitBuffer(gunVAO, gunVertexVBO, textureVboTemp, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);
+	shaderID.InitBuffer(gunVAO, gunVertexVBO, gunTextureVBO, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);
 }
