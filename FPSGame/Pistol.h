@@ -11,7 +11,7 @@
 class Pistol : public Gun
 {
 private://default trans
-	glm::vec3 defaultScale = glm::vec3(0.1f, 0.1f, 0.1f);
+	glm::vec3 defaultScale = glm::vec3(0.08f, 0.08f, 0.08f);
 public:
 	Pistol(glm::vec3 playerPos): Gun(playerPos) {}
 public:

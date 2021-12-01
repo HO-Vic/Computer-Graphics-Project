@@ -27,7 +27,7 @@ public://render
 public://binding
 	void bindingBullet(ShaderFunc& shaderID);
 public:
-	void addBullet(glm::vec3 playerPos, glm::vec3 cameraPos, glm::vec3 dir, glm::vec3 angle, glm::vec3 revoluAngle);
-	void moveBullets();
+	void addBullet(glm::vec3 cameraPos, glm::vec3 dir, glm::vec3 angle);
+	 void moveBullets();
 };
 

@@ -2,7 +2,7 @@
 
 void Sniper::setPos(glm::vec3 inPutpos)
 {
-	pos = inPutpos + glm::vec3(0.14f, -0.1f, -0.52f);
+	pos = inPutpos;
 }
 
 void Sniper::AttackMotion()
@@ -42,11 +42,13 @@ void Sniper::renderGun(ShaderFunc& shaderID)
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE2);
 	gunMatrix = glm::translate(gunMatrix, pos);
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.14f, 0.1f, 0.52f));
+
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x + motionRevolu), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.14f, -0.1f, -0.52f));
+
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.067f, -0.4f, -0.42f));
+
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
