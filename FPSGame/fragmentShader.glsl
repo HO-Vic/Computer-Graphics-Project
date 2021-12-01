@@ -46,6 +46,9 @@ void main()
 		result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);
 		FragColor = vec4(result, 1.0f);
 	}
+	else if(isTexture == -1){
+		FragColor = vec4(objColor.x, objColor.y, objColor.z, 1.0f);
+	}
 	else {
 		result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);
 		FragColor = vec4(result, 1.0f);
