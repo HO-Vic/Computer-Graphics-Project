@@ -1,6 +1,6 @@
 #include"FlyRobot.h"
 Flyrobot::Flyrobot() {
-	Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	Position = glm::vec3(3.0f, 0.0f, 15.0f);
 	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	Revolution = glm::vec3(0.0f, 0.0f, 0.0f);
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -80,7 +80,7 @@ float Flyrobot::Return_PositionX() {
 float Flyrobot::Return_PositionZ() {
 	return Position.z;
 };
-void Flyrobot::renderEnemy(ShaderFunc shaderID)
+void Flyrobot::renderEnemy(ShaderFunc& shaderID)
 {
 	glBindVertexArray(FlyrobotVAO);
 	FlyrobotMatrix = glm::mat4(1.0f);
@@ -109,7 +109,5 @@ void Flyrobot::renderEnemy(ShaderFunc shaderID)
 void Flyrobot::bindingEnemy(ShaderFunc& shaderID)
 {
 	readTriangleObj("obj_Flyrobot_body.obj", FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);
-	//임시 텍스쳐 객체들
-	GLuint textureVboTemp;
 	shaderID.InitBuffer(FlyrobotVAO, FlyrobotVertexVBO, FlyrobotTextureVBO, FlyrobotNormalVBO, FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);
 }

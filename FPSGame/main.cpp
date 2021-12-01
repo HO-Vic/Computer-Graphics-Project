@@ -47,6 +47,14 @@ void loadITextureImage();
 //render func
 void renderObjs();
 
+//cross header
+void initBuffer();
+void drawPoint();
+
+GLuint dotVao;
+GLuint dotVbo;
+GLuint dotNormalVbo;
+
 int Wwidth = 800;
 int Wheight = 600;
 
@@ -66,7 +74,7 @@ bool isClick = false;
 //weapon
 Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 9.0f))->getPos() + glm::vec3(0.05f, -0.2f, -0.2f));
 Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
-Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.02f, -0.5f, -0.4f));
+Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.3f, -0.5f, -0.4f));
 Gun* myGun = pistol;
 
 //Bullet
@@ -98,18 +106,21 @@ int main(int argc, char** argv)
 	shaderfunc.makeVertexShader();
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
+	initBuffer();
+
+	defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 
 	loadITextureImage();
-	pistol->bindingGun(shaderfunc);
 	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
 
+	pistol->bindingGun(shaderfunc);
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
 	map->bindingMap(shaderfunc);
-	//stair->bindingMap(shaderfunc);
+	stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
-	//enemy->bindingEnemy(shaderfunc);
+	enemy->bindingEnemy(shaderfunc);
 	flyrobot->bindingEnemy(shaderfunc);
 
 	glutDisplayFunc(DrawSceneCall);
@@ -128,7 +139,7 @@ int main(int argc, char** argv)
 	glutTimerFunc(10, timercall, (int)GUN);
 	glutTimerFunc(17, timercall, (int)BULLET);
 	glutMainLoop();
-	Camera::destoy();
+	//Camera::destoy();
 }
 
 void timercall(int value)
@@ -136,8 +147,8 @@ void timercall(int value)
 	switch (value)
 	{
 	case MOUSE:
-		xAxis = ((float)preMouse.first - (float)curreuntMouse.first) * 0.7f;
-		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * 0.7f;
+		xAxis = ((float)preMouse.first - (float)curreuntMouse.first) * 0.5f;
+		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * 0.5f;
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateY(xAxis);
 		pistol->moveRevoluY(xAxis);
 		rifle->moveRevoluY(xAxis);
@@ -176,8 +187,8 @@ void timercall(int value)
 		if (isClick) {
 			rifle->setStatusAttack(true);
 			if (myGun->getRecoil() <= 0.6f) {
+				bullets.addBullet(myGun->getPos() + glm::vec3(0.1f,-0.2f,0), Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles(), myGun->getRevolu());
 				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
-				bullets.addBullet(myGun->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 			}
 		}
 		glutPostRedisplay();
@@ -200,11 +211,15 @@ void DrawSceneCall()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
+	drawPoint();
+
 	defaultLight.renderLight(shaderfunc);
 	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
 	renderObjs();
+	
+	
 
 	glutSwapBuffers();
 }
@@ -242,24 +257,28 @@ void keyboardCall(unsigned char key, int x, int y)
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case's':
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveBackCamera();
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case'a':
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveLeftCamera();
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case'd':
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRightCamera();
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case'q':
 		glutLeaveMainLoop();
@@ -287,8 +306,8 @@ void mouseCall(int button, int state, int x, int y)
 		isClick = true;
 		pistol->setStatusAttack(true);
 		sniper->setStatusAttack(true);
+		bullets.addBullet(myGun->getPos() + glm::vec3(0.1f, -0.2f, 0), Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles(), myGun->getRevolu());
 		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
-		bullets.addBullet(myGun->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 	}
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
 		isClick = false;
@@ -385,4 +404,37 @@ void renderObjs()
 	//enemy
 	enemy->renderEnemy(shaderfunc);
 	flyrobot->renderEnemy(shaderfunc);
+}
+
+void initBuffer()
+{
+	glm::vec3 poitDot = glm::vec3(0, 0, -0.5);
+	glm::vec3 normalDot = glm::vec3(0, 0, 1);
+	glUseProgram(shaderfunc.getShaderID());
+	glGenVertexArrays(1, &dotVao);
+	glBindVertexArray(dotVao);
+	glGenBuffers(1, &dotVbo);
+	glBindBuffer(GL_ARRAY_BUFFER, dotVbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3), &poitDot, GL_STREAM_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+	glEnableVertexAttribArray(0);
+	glGenBuffers(1, &dotNormalVbo);
+	glBindBuffer(GL_ARRAY_BUFFER, dotNormalVbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3), &normalDot, GL_STREAM_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+	glEnableVertexAttribArray(1);
+}
+
+void drawPoint()
+{
+	glm::mat4 dotM = glm::mat4(1.0f);
+	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "viewTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
+	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "projectionTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
+	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "modelTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
+	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), -1);
+	glUniform3f(glGetUniformLocation(shaderfunc.getShaderID(), "objColor"), 1,0,0);
+	glBindVertexArray(dotVao);
+	glEnable(GL_POINT_SMOOTH);
+	glPointSize(7.0f);
+	glDrawArrays(GL_POINTS, 0, 1);
 }

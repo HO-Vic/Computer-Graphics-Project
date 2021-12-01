@@ -44,3 +44,8 @@ glm::vec3 Gun::getPos()
 {
 	return glm::vec3(pos);
 }
+
+glm::vec3 Gun::getRevolu()
+{
+	return glm::vec3(revoluAngle);
+}

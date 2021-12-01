@@ -119,7 +119,5 @@ void Map::renderMap(ShaderFunc shaderID)
 void Map::bindingMap(ShaderFunc& shaderID)
 {
 	readTriangleObj("obj_floor.obj", mapVertexData, mapTextureData, mapNormalData);
-	//임시 텍스쳐 객체들
-	GLuint textureVboTemp;
-	shaderID.InitBuffer(mapVAO, mapVertexVBO, textureVboTemp, mapNormalVBO, mapVertexData, mapTextureData, mapNormalData);
+	shaderID.InitBuffer(mapVAO, mapVertexVBO, mapTextureVBO, mapNormalVBO, mapVertexData, mapTextureData, mapNormalData);
 }

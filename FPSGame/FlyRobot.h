@@ -38,7 +38,7 @@ public:
 	void Change_Revoltion(float x, float y, float z);
 	void Change_Scale(float x, float y, float z);
 	void Change_Color(float x, float y, float z);
-	void renderEnemy(ShaderFunc shaderID);
+	void renderEnemy(ShaderFunc& shaderID);
 
 	void bindingEnemy(ShaderFunc& shaderID) override;
 	void Apply_Parent(Flyrobot* Parent1);

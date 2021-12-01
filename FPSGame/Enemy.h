@@ -43,7 +43,7 @@ public:
 	virtual void Change_Revoltion(float x, float y, float z);
 	virtual void Change_Scale(float x, float y, float z);
 	virtual void Change_Color(float x, float y, float z);
-	virtual void renderEnemy(ShaderFunc shaderID);
+	virtual void renderEnemy(ShaderFunc& shaderID);
 	void  Apply_Parent(Enemy* Parent1);
 	virtual void bindingEnemy(ShaderFunc& shaderID);
 	//virtual void Apply_Parent(Enemy* Parent1);

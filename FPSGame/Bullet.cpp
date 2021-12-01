@@ -5,7 +5,6 @@ void Bullet::renderBullet(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 rotateA
 	glBindVertexArray(bulletVAO);
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE3);
-
 	glm::mat4 bulletMatrix = glm::mat4(1.0f);
 	bulletMatrix = glm::translate(bulletMatrix, pos);
 	bulletMatrix = glm::rotate(bulletMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
@@ -41,9 +40,16 @@ void Bullet::bindingBullet(ShaderFunc& shaderID)
 	shaderID.InitBuffer(bulletVAO, bulletVertexVBO, bulletTextureVBO, bulletNormalVBO, bulletVertexData, bulletTextureData, bulletNormalData);
 }
 
-void Bullet::addBullet(glm::vec3 playerPos, glm::vec3 dir, glm::vec3 angle)
+void Bullet::addBullet(glm::vec3 playerPos, glm::vec3 cameraPos, glm::vec3 dir, glm::vec3 angle, glm::vec3 revoluAngle)
 {
-	bullets.push(BulletInfo(playerPos, dir, angle));
+	glm::vec3 revoluDir = playerPos - cameraPos;
+	glm::mat4 trans = glm::mat4(1.0f);
+	trans = glm::rotate(trans, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
+	trans = glm::rotate(trans, glm::radians(revoluAngle.x), glm::vec3(1, 0, 0));
+	trans = glm::rotate(trans, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
+	revoluDir = glm::vec3(trans * glm::vec4(revoluDir, 1));
+	revoluDir += cameraPos;
+	bullets.push(BulletInfo(revoluDir, dir, angle));
 }
 
 void Bullet::moveBullets()

@@ -53,5 +53,6 @@ public:
 public:
 	glm::vec3 getAngles();
 	glm::vec3 getPos();
+	glm::vec3 getRevolu();
 };
 

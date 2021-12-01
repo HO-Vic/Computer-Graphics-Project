@@ -2,7 +2,7 @@
 
 void Rifle::setPos(glm::vec3 inPutpos)
 {
-	pos = inPutpos + glm::vec3(0.07f, -0.3f, -0.2f);
+	pos = inPutpos + glm::vec3(0.1f, -0.1f, -0.3f);
 }
 
 void Rifle::AttackMotion()
@@ -42,11 +42,11 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE1);
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.1f, 0.3f, 0.2f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.1f, 0.1f, 0.3f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x + motionRevolu), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.1f, -0.3f, -0.2f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.1f, -0.1f, -0.3f));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
@@ -67,6 +67,5 @@ void Rifle::bindingGun(ShaderFunc& shaderID)
 	readTriangleObj("obj_rifle.obj", gunVertexData, gunTextureData, gunNormalData);
 	//임시 텍스쳐 객체들
 	std::vector<glm::vec2> textureTemp;
-	GLuint textureVboTemp;
 	shaderID.InitBuffer(gunVAO, gunVertexVBO, gunTextureVBO, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);
 }

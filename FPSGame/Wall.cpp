@@ -112,7 +112,5 @@ void Wall::renderMap(ShaderFunc shaderID)
 void Wall::bindingMap(ShaderFunc& shaderID)
 {
 	readTriangleObj("obj_wall.obj", WallVertexData, WallTextureData, WallNormalData);
-	//임시 텍스쳐 객체들
-	GLuint textureVboTemp;
-	shaderID.InitBuffer(WallVAO, WallVertexVBO, textureVboTemp, WallNormalVBO, WallVertexData, WallTextureData, WallNormalData);
+	shaderID.InitBuffer(WallVAO, WallVertexVBO, WallTextureVBO, WallNormalVBO, WallVertexData, WallTextureData, WallNormalData);
 }
