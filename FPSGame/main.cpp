@@ -13,6 +13,7 @@
 #include"Player.h"
 #include"Light.h"
 #include"Projection.h"
+#include"Bullet.h"//weapon
 #include"Pistol.h"//Gun
 #include"Rifle.h"
 #include"Sniper.h"
@@ -22,10 +23,8 @@
 #include"Wall.h"
 #include"Enemy.h"
 #include"FlyRobot.h"
-//#include"LoadImage.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
-#include"Bullet.h"
 
 
 using namespace std;
@@ -72,9 +71,9 @@ bool isClick = false;
 //Camera camera(glm::vec3(0, 1.0f, 3.0f));
 
 //weapon
-Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 9.0f))->getPos() + glm::vec3(0.05f, -0.2f, -0.2f));
-Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.1f, -0.3f, -0.2f));
-Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() + glm::vec3(0.3f, -0.5f, -0.4f));
+Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 9.0f))->getPos());
+Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() );
+Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 Gun* myGun = pistol;
 
 //Bullet
@@ -186,8 +185,8 @@ void timercall(int value)
 	case GUNMOTION:
 		if (isClick) {
 			rifle->setStatusAttack(true);
-			if (myGun->getRecoil() <= 0.6f) {
-				bullets.addBullet(myGun->getPos() + glm::vec3(0.1f,-0.2f,0), Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles(), myGun->getRevolu());
+			if (myGun->getRecoil() <= 1.1f) {
+				bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 			}
 		}
@@ -306,7 +305,7 @@ void mouseCall(int button, int state, int x, int y)
 		isClick = true;
 		pistol->setStatusAttack(true);
 		sniper->setStatusAttack(true);
-		bullets.addBullet(myGun->getPos() + glm::vec3(0.1f, -0.2f, 0), Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles(), myGun->getRevolu());
+		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 	}
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
@@ -373,7 +372,7 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int bulletwidthImage, bulletheightImage, bulletnumberOfChannel;
-	unsigned char* bulletData = stbi_load("texture_bullet.bmp", &bulletwidthImage, &bulletheightImage, &bulletnumberOfChannel, 0);
+	unsigned char* bulletData = stbi_load("texture_bullet.jpg", &bulletwidthImage, &bulletheightImage, &bulletnumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, bulletwidthImage, bulletheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, bulletData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(bulletData);

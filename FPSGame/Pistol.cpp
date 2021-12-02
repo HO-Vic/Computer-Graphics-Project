@@ -2,7 +2,7 @@
 
 void Pistol::setPos(glm::vec3 inPutpos)
 {
-	pos = inPutpos + glm::vec3(0.05f, -0.2f, -0.2f);
+	pos = inPutpos ;
 }
 
 void Pistol::setStatusAttack(bool f)
@@ -15,7 +15,7 @@ void Pistol::setStatusAttack(bool f)
 void Pistol::AttackMotion()
 {
 	if(motionRevolu >= 0.1f)
-		motionRevolu -= 0.1f;	
+		motionRevolu -= 0.1f;
 }	
 
 void Pistol::reroad()
@@ -47,11 +47,13 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
 	glm::mat4 gunMatrix = glm::mat4(1.0f);
 	gunMatrix = glm::translate(gunMatrix, pos);
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(-0.05f, 0.2f, 0.2f));
+
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x + motionRevolu), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.05f, -0.2f, -0.2f));
+
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.02f, -0.11f, -0.12f));
+
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
@@ -69,6 +71,6 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 
 void Pistol::bindingGun(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_pistol_3.obj", gunVertexData, gunTextureData, gunNormalData);
+	readTriangleObj("obj_pistol.obj", gunVertexData, gunTextureData, gunNormalData);
 	shaderID.InitBuffer(gunVAO, gunVertexVBO, gunTextureVBO, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);	
 }
