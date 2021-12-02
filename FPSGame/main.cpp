@@ -86,7 +86,7 @@ Wall* wall = new Wall;
 
 //Enemy
 Enemy* enemy = new Enemy;
-Flyrobot* flyrobot = new Flyrobot;
+Flyrobot* flyrobotbody = new Flyrobot;
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -124,8 +124,8 @@ int main(int argc, char** argv)
 	stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
-	enemy->bindingEnemy(shaderfunc);
-	flyrobot->bindingEnemy(shaderfunc);
+	//enemy->bindingEnemy(shaderfunc);
+	flyrobotbody->bindingEnemy(shaderfunc);
 
 	//display
 	glutDisplayFunc(DrawSceneCall);
@@ -440,7 +440,7 @@ void renderObjs()
 
 	//enemy
 	enemy->renderEnemy(shaderfunc);
-	flyrobot->renderEnemy(shaderfunc);
+	flyrobotbody->renderEnemy(shaderfunc);
 }
 
 void initBuffer()
