@@ -102,6 +102,11 @@ int main(int argc, char** argv)
 		cerr << "fail Initialize" << endl;
 	else cout << "Initialize" << endl;
 
+
+	/*int num;
+	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS ,&num);
+	cout << num;*/
+
 	shaderfunc.makeVertexShader();
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
@@ -369,7 +374,7 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int pistolwidthImage, pistolheightImage, pistolnumberOfChannel;
-	unsigned char* pistolData = stbi_load("texture_pistol.jpg", &pistolwidthImage, &pistolheightImage, &pistolnumberOfChannel, 0);
+	unsigned char* pistolData = stbi_load("texture_pistol_2.jpg", &pistolwidthImage, &pistolheightImage, &pistolnumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pistolwidthImage, pistolheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, pistolData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(pistolData);
