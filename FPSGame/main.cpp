@@ -72,7 +72,7 @@ bool isClick = false;
 
 //weapon
 Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 9.0f))->getPos());
-Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos() );
+Rifle* rifle = new Rifle(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 Sniper* sniper = new Sniper(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 Gun* myGun = pistol;
 
@@ -122,14 +122,18 @@ int main(int argc, char** argv)
 	enemy->bindingEnemy(shaderfunc);
 	flyrobot->bindingEnemy(shaderfunc);
 
+	//display
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
+	//key
 	glutKeyboardFunc(keyboardCall);
 	glutSpecialFunc(specialkeycall);
+	//mouse
 	glutPassiveMotionFunc(motionCall);
 	glutMotionFunc(motionCall);
-	glutIdleFunc(IdleCall);
 	glutMouseFunc(mouseCall);
+
+	//glutIdleFunc(IdleCall);
 
 	glutSetCursor(GLUT_CURSOR_NONE);
 
@@ -170,11 +174,11 @@ void timercall(int value)
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
 		break;
-	case GUN:		
+	case GUN:
 		pistol->AttackMotion();
 		rifle->AttackMotion();
 		sniper->AttackMotion();
-		Camera::getInst(glm::vec3(0,0,0))->attackMotion(0.0f);
+		Camera::getInst(glm::vec3(0, 0, 0))->attackMotion(0.0f);
 		pistol->setStatusAttack(false);
 		rifle->setStatusAttack(false);
 		sniper->setStatusAttack(false);
@@ -217,8 +221,8 @@ void DrawSceneCall()
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
 	renderObjs();
-	
-	
+
+
 
 	glutSwapBuffers();
 }
@@ -234,6 +238,7 @@ void ReshapeCall(int w, int h)
 
 void keyboardCall(unsigned char key, int x, int y)
 {
+	int mod = 0;
 	switch (key)
 	{
 	case'1':
@@ -252,28 +257,56 @@ void keyboardCall(unsigned char key, int x, int y)
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
 		break;
 	case'w':
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveFrontCamera();
+	case'W':
+		 mod = glutGetModifiers();
+		if (mod == GLUT_ACTIVE_SHIFT) {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runFrontCamera();
+		}
+		else {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveFrontCamera();
+		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case's':
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveBackCamera();
+	case'S':
+		 mod = glutGetModifiers();
+		if (mod == GLUT_ACTIVE_SHIFT) {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runBackCamera();
+		}
+		else {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveBackCamera();
+		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case'a':
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveLeftCamera();
+	case'A':
+		 mod = glutGetModifiers();
+		if (mod == GLUT_ACTIVE_SHIFT) { 
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runLeftCamera(); 
+		}
+		else {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveLeftCamera();
+		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
 	case'd':
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRightCamera();
+	case'D':
+		 mod = glutGetModifiers();
+		if (mod == GLUT_ACTIVE_SHIFT) {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runRightCamera();
+		}
+		else {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRightCamera();
+		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -311,7 +344,7 @@ void mouseCall(int button, int state, int x, int y)
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
 		isClick = false;
 	}
-	
+
 	glutPostRedisplay();
 }
 
@@ -431,7 +464,7 @@ void drawPoint()
 	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "projectionTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
 	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "modelTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
 	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), -1);
-	glUniform3f(glGetUniformLocation(shaderfunc.getShaderID(), "objColor"), 1,0,0);
+	glUniform3f(glGetUniformLocation(shaderfunc.getShaderID(), "objColor"), 1, 0, 0);
 	glBindVertexArray(dotVao);
 	glEnable(GL_POINT_SMOOTH);
 	glPointSize(7.0f);

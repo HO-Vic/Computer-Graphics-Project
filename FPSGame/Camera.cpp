@@ -106,6 +106,46 @@ void Camera::moveRightCamera()
 	AT.z += walkRatio * cameraRight.z;
 }
 
+void Camera::runFrontCamera()
+{
+	setCameraDir();
+	setCameraRight();
+	setCameraUp();
+	pos += runRatio * glm::vec3(glm::normalize(cameraDir).x, 0, glm::normalize(cameraDir).z);
+	AT.x += runRatio * glm::normalize(cameraDir).x;
+	AT.z += runRatio * glm::normalize(cameraDir).z;
+}
+
+void Camera::runBackCamera()
+{
+	setCameraDir();
+	setCameraRight();
+	setCameraUp();
+	pos -= runRatio * glm::vec3(glm::normalize(cameraDir).x, 0, glm::normalize(cameraDir).z);
+	AT.x -= runRatio * glm::normalize(cameraDir).x;
+	AT.z -= runRatio * glm::normalize(cameraDir).z;
+}
+
+void Camera::runLeftCamera()
+{
+	setCameraDir();
+	setCameraRight();
+	setCameraUp();
+	pos -= runRatio * glm::vec3(cameraRight.x, 0, cameraRight.z);
+	AT.x -= runRatio * cameraRight.x;
+	AT.z -= runRatio * cameraRight.z;
+}
+
+void Camera::runRightCamera()
+{
+	setCameraDir();
+	setCameraRight();
+	setCameraUp();
+	pos += runRatio * glm::vec3(cameraRight.x, 0, cameraRight.z);
+	AT.x += runRatio * cameraRight.x;
+	AT.z += runRatio * cameraRight.z;
+}
+
 void Camera::moveRoateY(float Angle)
 {
 	rotateAngle.y += Angle;

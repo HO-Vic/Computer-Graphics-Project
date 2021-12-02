@@ -41,10 +41,16 @@ public:
 	void setStatusAttack(bool f, float recoil);
 	void renderCamera(ShaderFunc& shaderID);
 public:
+	//move
 	void moveFrontCamera();
 	void moveBackCamera();
 	void moveLeftCamera();
 	void moveRightCamera();
+	//run
+	void runFrontCamera();
+	void runBackCamera();
+	void runLeftCamera();
+	void runRightCamera();
 	void moveRoateY(float Angle);
 	void moveRoateX(float Angle);
 	void setCameraAngleY(float Angle);
