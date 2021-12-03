@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -152,6 +152,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletInfo.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Crash.cpp" />
     <ClCompile Include="filetobuf.cpp" />
     <ClCompile Include="GameSound.cpp" />
     <ClCompile Include="ImplemetMap.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletInfo.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Crash.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="fileName.h" />
