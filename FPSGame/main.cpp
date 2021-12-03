@@ -129,7 +129,7 @@ int main(int argc, char** argv)
 	stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
-	//enemy->bindingEnemy(shaderfunc);
+	enemy->bindingEnemy(shaderfunc);
 	flyrobotbody->bindingEnemy(shaderfunc);
 
 	//display
@@ -323,9 +323,6 @@ void keyboardCall(unsigned char key, int x, int y)
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
-	case'q':
-		glutLeaveMainLoop();
-		break;
 	default:
 		break;
 	}
@@ -336,6 +333,9 @@ void specialkeycall(int key, int x, int y)
 {
 	switch (key)
 	{
+	case GLUT_KEY_END:
+		glutLeaveMainLoop();
+		break;
 	case GLUT_KEY_LEFT:
 		break;
 	default:
