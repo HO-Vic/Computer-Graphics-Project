@@ -1,24 +1,27 @@
 #pragma once
-//#include<fmod_studio.h>
 #include<iostream>
 #include<fmod.hpp>
+#include<common.h>
 class GameSound
 {
 private:
 	
-	FMOD_SYSTEM* soundSystem;
-	FMOD_SOUND* g_IntroSound; // 게임 초기 시작시 나오는 배경 음악
-	FMOD_SOUND* g_RunSound;	// 게임 진행시 나오는 배경 음악
-	FMOD_SOUND* g_FailSound; // 게임 실패시 나오는 배경 음악
-	FMOD_SOUND* shoot;
+	FMOD::System* soundSystem;
+	FMOD::Sound* shootSound;
+	FMOD::Channel* shootChannel;
+	FMOD_RESULT       result;
+	void* extradriverdata = 0;
+	//FMOD_SYSTEM* soundSystem;
+	//FMOD_SOUND* shootSound;
 
-	
-	FMOD_CHANNEL* g_RunChannel;
-	FMOD_CHANNEL* g_IntroChannel, * g_FailChannel;
-	FMOD_CHANNEL* g_pTempChannel;
+	//FMOD_CHANNEL* shootChannel;
+
+	//FMOD_CHANNELGROUP* a;
 	
 public:
 	GameSound();
 	~GameSound();
+public:
+	void shootingSound();
 };
 

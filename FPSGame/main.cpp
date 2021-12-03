@@ -23,6 +23,7 @@
 #include"Wall.h"
 #include"Enemy.h"
 #include"FlyRobot.h"
+#include"GameSound.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
 
@@ -87,6 +88,9 @@ Wall* wall = new Wall;
 //Enemy
 Enemy* enemy = new Enemy;
 Flyrobot* flyrobot = new Flyrobot;
+
+//sound
+GameSound sounds;
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -196,6 +200,7 @@ void timercall(int value)
 			rifle->setStatusAttack(true);
 			if (myGun->getRecoil() <= 1.1f) {
 				bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
+				sounds.shootingSound();
 				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 			}
 		}
@@ -344,6 +349,7 @@ void mouseCall(int button, int state, int x, int y)
 		pistol->setStatusAttack(true);
 		sniper->setStatusAttack(true);
 		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
+		sounds.shootingSound();
 		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 	}
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {

@@ -58,6 +58,12 @@
     <Filter Include="헤더 파일\light">
       <UniqueIdentifier>{3910723f-49f9-487e-9611-f6ab6af58ff3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\sound">
+      <UniqueIdentifier>{2841b951-2f8c-42ad-98ef-bb9023a47ad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\sound">
+      <UniqueIdentifier>{02ae7664-7750-4264-b5f1-815d3cc4744f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -125,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="FlyRobot.cpp">
       <Filter>소스 파일\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSound.cpp">
+      <Filter>소스 파일\sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="FlyRobot.h">
       <Filter>헤더 파일\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSound.h">
+      <Filter>헤더 파일\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
