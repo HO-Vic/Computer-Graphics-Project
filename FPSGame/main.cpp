@@ -87,14 +87,11 @@ Wall* wall = new Wall;
 
 //Enemy
 Enemy* enemy = new Enemy;
-<<<<<<< HEAD
 Flyrobot* flyrobot = new Flyrobot;
 
 //sound
 GameSound sounds;
-=======
 Flyrobot* flyrobotbody = new Flyrobot;
->>>>>>> db392077b582eb944cab410220880e3589d26259
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);

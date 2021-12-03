@@ -2,14 +2,14 @@
 
 GameSound::GameSound()
 {
-	result = FMOD::System_Create(&soundSystem);
-	ERRCHECK(result);
-	result = soundSystem->init(32, FMOD_INIT_NORMAL, extradriverdata);
-	ERRCHECK(result);
-	result = soundSystem->createSound(Common_MediaPath("shootSound.wav"), FMOD_DEFAULT, 0, &shootSound);
-	ERRCHECK(result);
-	result = shootSound->setMode(FMOD_LOOP_OFF);    /* drumloop.wav has embedded loop points which automatically makes looping turn on, */
-	ERRCHECK(result);
+	//result = FMOD::System_Create(&soundSystem);
+	//ERRCHECK(result);
+	//result = soundSystem->init(32, FMOD_INIT_NORMAL, extradriverdata);
+	//ERRCHECK(result);
+	//result = soundSystem->createSound(Common_MediaPath("shootSound.wav"), FMOD_DEFAULT, 0, &shootSound);
+	//ERRCHECK(result);
+	//result = shootSound->setMode(FMOD_LOOP_OFF);    /* drumloop.wav has embedded loop points which automatically makes looping turn on, */
+	//ERRCHECK(result);
 
 
 	// 반복 사운드
@@ -26,16 +26,16 @@ GameSound::~GameSound()
 	//for (int i = 0; i < 6; i++) {
 	//	FMOD_Sound_Release(g_IntroSound);//배열일때
 	//}
-	result = shootSound->release();
-	ERRCHECK(result);
+	//result = shootSound->release();
+	//ERRCHECK(result);
 
 
 
-	result = soundSystem->close();
-	ERRCHECK(result);
-	result = soundSystem->release();
-	ERRCHECK(result);
-	Common_Close();
+	//result = soundSystem->close();
+	//ERRCHECK(result);
+	//result = soundSystem->release();
+	//ERRCHECK(result);
+	//Common_Close();
 }
 
 void GameSound::shootingSound()
@@ -43,6 +43,6 @@ void GameSound::shootingSound()
 	/*FMOD_System_PlaySound(soundSystem, shootSound, a, 0, &shootChannel);
 	
 	FMOD_Channel_Stop(shootChannel);*/
-	result = soundSystem->playSound(shootSound, 0, false, &shootChannel);
-	ERRCHECK(result);
+	/*result = soundSystem->playSound(shootSound, 0, false, &shootChannel);
+	ERRCHECK(result);*/
 }
