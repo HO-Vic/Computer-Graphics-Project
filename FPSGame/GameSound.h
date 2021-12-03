@@ -9,6 +9,13 @@ private:
 	FMOD::System* soundSystem;
 	FMOD::Sound* shootSound;
 	FMOD::Channel* shootChannel;
+
+	FMOD::Sound* bgmSound;
+	FMOD::Channel* bgmChannel;
+
+	FMOD::Sound* walkSound;
+	FMOD::Channel* walkChannel;
+
 	FMOD_RESULT       result;
 	void* extradriverdata = 0;
 	
@@ -17,4 +24,7 @@ public:
 	~GameSound();
 public:
 	void shootingSound();
+	void backGroundMusic();
+	void walkingSoud();
+	void pauseWalking();
 };

@@ -5,5 +5,6 @@ enum TIMERENUM
 	MOUSE = 0,
 	GUN,
 	GUNMOTION,
-	BULLET
+	BULLET,
+	WALK
 };

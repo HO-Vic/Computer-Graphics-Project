@@ -154,6 +154,8 @@ int main(int argc, char** argv)
 	glutTimerFunc(10, timercall, (int)GUNMOTION);
 	glutTimerFunc(10, timercall, (int)GUN);
 	glutTimerFunc(17, timercall, (int)BULLET);
+	glutTimerFunc(1000, timercall, (int)WALK);
+	sounds.backGroundMusic();
 	glutMainLoop();
 	//Camera::destoy();
 }
@@ -205,7 +207,7 @@ void timercall(int value)
 			if (myGun->getRecoil() <= 1.1f) {
 				bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 				sounds.shootingSound();
-				//PlaySound(L"shootSound.wav", 0, SND_FILENAME);
+				
 				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 			}
 		}
@@ -216,6 +218,10 @@ void timercall(int value)
 		bullets.moveBullets();
 		glutPostRedisplay();
 		glutTimerFunc(17, timercall, value);
+		break;
+	case WALK:
+		sounds.pauseWalking();
+		glutTimerFunc(1000, timercall, value);
 		break;
 	default:
 		break;
@@ -260,6 +266,7 @@ void keyboardCall(unsigned char key, int x, int y)
 		myGun = dynamic_cast<Pistol*> (pistol);
 		myGun->initRecoilRotate();
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
+		sounds.pauseWalking();
 		break;
 	case'2':
 		myGun = dynamic_cast<Rifle*> (rifle);
@@ -279,6 +286,7 @@ void keyboardCall(unsigned char key, int x, int y)
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveFrontCamera();
+		sounds.walkingSoud();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -293,6 +301,7 @@ void keyboardCall(unsigned char key, int x, int y)
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveBackCamera();
+			sounds.walkingSoud();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -307,6 +316,7 @@ void keyboardCall(unsigned char key, int x, int y)
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveLeftCamera();
+			sounds.walkingSoud();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -321,6 +331,7 @@ void keyboardCall(unsigned char key, int x, int y)
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRightCamera();
+			sounds.walkingSoud();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -356,7 +367,6 @@ void mouseCall(int button, int state, int x, int y)
 		sniper->setStatusAttack(true);
 		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 		sounds.shootingSound();
-		//PlaySound(L"shootSound.wav", 0, SND_FILENAME);
 		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 	}
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
