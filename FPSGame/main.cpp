@@ -202,14 +202,11 @@ void timercall(int value)
 		glutTimerFunc(10, timercall, value);
 		break;
 	case GUNMOTION:
-		if (isClick) {
+		if (isClick && myGun->getRecoil() <= 1.2f) {
+			bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 			rifle->setStatusAttack(true);
-			if (myGun->getRecoil() <= 1.1f) {
-				bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
-				sounds.shootingSound();
-				
-				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
-			}
+			Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
+			sounds.shootingSound();				
 		}
 		glutPostRedisplay();
 		glutTimerFunc(100, timercall, value);
@@ -367,12 +364,13 @@ void specialkeycall(int key, int x, int y)
 void mouseCall(int button, int state, int x, int y)
 {
 	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
-		isClick = true;
+		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 		pistol->setStatusAttack(true);
 		sniper->setStatusAttack(true);
-		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
-		sounds.shootingSound();
+		rifle->setStatusAttack(true);
 		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
+		sounds.shootingSound();
+		isClick = true;
 	}
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
 		isClick = false;
