@@ -338,6 +338,7 @@ void specialkeycall(int key, int x, int y)
 	switch (key)
 	{
 	case GLUT_KEY_END:
+		sounds.~GameSound();
 		glutLeaveMainLoop();
 		break;
 	case GLUT_KEY_LEFT:

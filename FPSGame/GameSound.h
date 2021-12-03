@@ -11,12 +11,6 @@ private:
 	FMOD::Channel* shootChannel;
 	FMOD_RESULT       result;
 	void* extradriverdata = 0;
-	//FMOD_SYSTEM* soundSystem;
-	//FMOD_SOUND* shootSound;
-
-	//FMOD_CHANNEL* shootChannel;
-
-	//FMOD_CHANNELGROUP* a;
 	
 public:
 	GameSound();
