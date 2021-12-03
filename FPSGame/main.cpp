@@ -221,6 +221,7 @@ void timercall(int value)
 		break;
 	case WALK:
 		sounds.pauseWalking();
+		sounds.pauseRunning();
 		glutTimerFunc(1000, timercall, value);
 		break;
 	default:
@@ -283,10 +284,11 @@ void keyboardCall(unsigned char key, int x, int y)
 		 mod = glutGetModifiers();
 		if (mod == GLUT_ACTIVE_SHIFT) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runFrontCamera();
+			sounds.runningSound();
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveFrontCamera();
-		sounds.walkingSoud();
+		sounds.walkingSound();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -298,10 +300,11 @@ void keyboardCall(unsigned char key, int x, int y)
 		 mod = glutGetModifiers();
 		if (mod == GLUT_ACTIVE_SHIFT) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runBackCamera();
+			sounds.runningSound();
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveBackCamera();
-			sounds.walkingSoud();
+			sounds.walkingSound();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -313,10 +316,11 @@ void keyboardCall(unsigned char key, int x, int y)
 		 mod = glutGetModifiers();
 		if (mod == GLUT_ACTIVE_SHIFT) { 
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runLeftCamera(); 
+			sounds.runningSound();
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveLeftCamera();
-			sounds.walkingSoud();
+			sounds.walkingSound();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -328,10 +332,11 @@ void keyboardCall(unsigned char key, int x, int y)
 		 mod = glutGetModifiers();
 		if (mod == GLUT_ACTIVE_SHIFT) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runRightCamera();
+			sounds.runningSound();
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRightCamera();
-			sounds.walkingSoud();
+			sounds.walkingSound();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());

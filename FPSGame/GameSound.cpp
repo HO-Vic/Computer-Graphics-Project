@@ -16,9 +16,17 @@ GameSound::GameSound()
 	result = soundSystem->createSound("sound_walk.mp3", FMOD_DEFAULT, 0, &walkSound);
 	result = walkSound->setMode(FMOD_LOOP_NORMAL);
 
+	result = soundSystem->init(32, FMOD_INIT_NORMAL, extradriverdata);
+	result = soundSystem->createSound("sound_run.mp3", FMOD_DEFAULT, 0, &runSound);
+	result = runSound->setMode(FMOD_LOOP_NORMAL);
+
 	result = soundSystem->playSound(walkSound, 0, false, &walkChannel);
 	walkChannel->setVolume(0.6f);
 	walkChannel->setPaused(true);
+	result = soundSystem->playSound(runSound, 0, false, &runChannel);
+	runChannel->setVolume(0.6f);
+	runChannel->setPaused(true);
+
 
 }
 
@@ -47,7 +55,7 @@ void GameSound::backGroundMusic()
 	bgmChannel->setVolume(0.03f);
 }
 
-void GameSound::walkingSoud()
+void GameSound::walkingSound()
 {
 	walkChannel->setPaused(false);
 }
@@ -55,4 +63,14 @@ void GameSound::walkingSoud()
 void GameSound::pauseWalking()
 {
 	walkChannel->setPaused(true);
+}
+
+void GameSound::runningSound()
+{
+	runChannel->setPaused(false);
+}
+
+void GameSound::pauseRunning()
+{
+	runChannel->setPaused(true);
 }

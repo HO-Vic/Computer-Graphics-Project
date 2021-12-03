@@ -34,7 +34,7 @@ public:
 	}
 public:
 	const float walkRatio = 0.1f;
-	const float runRatio = 0.15f;
+	const float runRatio = 0.3f;
 public:
 	void setCameraDir();
 	void attackMotion(float recoil);

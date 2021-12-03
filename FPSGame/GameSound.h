@@ -16,6 +16,9 @@ private:
 	FMOD::Sound* walkSound;
 	FMOD::Channel* walkChannel;
 
+	FMOD::Sound* runSound;
+	FMOD::Channel* runChannel;
+
 	FMOD_RESULT       result;
 	void* extradriverdata = 0;
 	
@@ -25,6 +28,8 @@ public:
 public:
 	void shootingSound();
 	void backGroundMusic();
-	void walkingSoud();
+	void walkingSound();
 	void pauseWalking();
+	void runningSound();
+	void pauseRunning();
 };
