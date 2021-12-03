@@ -135,6 +135,9 @@
     <ClCompile Include="GameSound.cpp">
       <Filter>소스 파일\sound</Filter>
     </ClCompile>
+    <ClCompile Include="Crash.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="GameSound.h">
       <Filter>헤더 파일\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Crash.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

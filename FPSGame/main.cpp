@@ -7,6 +7,9 @@
 #include<random>
 #include<vector>
 #include<utility>
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
 #include"filetobuf.h"
 #include"ShaderFunc.h"
 #include"Camera.h"
@@ -202,6 +205,7 @@ void timercall(int value)
 			if (myGun->getRecoil() <= 1.1f) {
 				bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 				sounds.shootingSound();
+				//PlaySound(L"shootSound.wav", 0, SND_FILENAME);
 				Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 			}
 		}
@@ -351,6 +355,7 @@ void mouseCall(int button, int state, int x, int y)
 		sniper->setStatusAttack(true);
 		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 		sounds.shootingSound();
+		//PlaySound(L"shootSound.wav", 0, SND_FILENAME);
 		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 	}
 	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {

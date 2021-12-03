@@ -1,11 +1,11 @@
 #pragma once
-#include<iostream>
-#include<fmod.hpp>
-#include<common.h>
+#include <fmod.hpp>
+#include <fmod_errors.h>
+
+
 class GameSound
 {
-private:
-	
+private:	
 	FMOD::System* soundSystem;
 	FMOD::Sound* shootSound;
 	FMOD::Channel* shootChannel;
@@ -24,4 +24,3 @@ public:
 public:
 	void shootingSound();
 };
-
