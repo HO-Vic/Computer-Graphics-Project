@@ -26,6 +26,7 @@
 #include"Wall.h"
 #include"Enemy.h"
 #include"FlyRobot.h"
+#include"Crash.h"
 #include"GameSound.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
@@ -126,8 +127,8 @@ int main(int argc, char** argv)
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
 	map->bindingMap(shaderfunc);
-	stair->bindingMap(shaderfunc);
-	wall->bindingMap(shaderfunc);
+	//stair->bindingMap(shaderfunc);
+	//wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
 	enemy->bindingEnemy(shaderfunc);
 	flyrobotbody->bindingEnemy(shaderfunc);
@@ -234,8 +235,15 @@ void DrawSceneCall()
 	defaultLight.renderLight(shaderfunc);
 	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
-
+	
 	renderObjs();
+
+
+	Crash(map->Return_vertex(), Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->returnPos());
+	
+
+
+
 
 	glutSwapBuffers();
 }
@@ -460,18 +468,30 @@ void loadITextureImage()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, FlyrobotwidthImage, FlyrobotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, FlyrobotData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(FlyrobotData);
+
+
+
 	//sniper Texture
+
 	glActiveTexture(GL_TEXTURE5);
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE5);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	int SmallmapwidthImage, SmallmapheightImage, SmallmapnumberOfChannel;
+	unsigned char* SmallmapData = stbi_load("texture_smallmap.bmp", &SmallmapwidthImage, &SmallmapheightImage, &SmallmapnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SmallmapwidthImage, SmallmapheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, SmallmapData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(SmallmapData);
+
 	int sniperDotwidthImage, sniperDotheightImage, sniperDotnumberOfChannel;
 	unsigned char* sniperDotData = stbi_load("texture_sniperDot2.jpg", &sniperDotwidthImage, &sniperDotheightImage, &sniperDotnumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sniperDotwidthImage, sniperDotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperDotData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(sniperDotData);
+
 }
 
 void renderObjs()

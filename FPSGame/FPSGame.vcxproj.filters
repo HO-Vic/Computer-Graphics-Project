@@ -64,6 +64,12 @@
     <Filter Include="헤더 파일\sound">
       <UniqueIdentifier>{02ae7664-7750-4264-b5f1-815d3cc4744f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\crash">
+      <UniqueIdentifier>{7443d5b4-6519-493a-9da4-2a4cf9d30c12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\crash">
+      <UniqueIdentifier>{7ba11e1d-691b-40e3-86ec-32b055c62e75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,7 +142,7 @@
       <Filter>소스 파일\sound</Filter>
     </ClCompile>
     <ClCompile Include="Crash.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\crash</Filter>
     </ClCompile>
     <ClCompile Include="CrossHead.cpp">
       <Filter>소스 파일</Filter>
@@ -216,7 +222,7 @@
       <Filter>헤더 파일\sound</Filter>
     </ClInclude>
     <ClInclude Include="Crash.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\crash</Filter>
     </ClInclude>
     <ClInclude Include="CrossHead.h">
       <Filter>헤더 파일</Filter>

@@ -74,6 +74,7 @@ void Camera::moveFrontCamera()
 	pos += walkRatio * glm::vec3(glm::normalize(cameraDir).x, 0, glm::normalize(cameraDir).z);
 	AT.x += walkRatio * glm::normalize(cameraDir).x;
 	AT.z += walkRatio * glm::normalize(cameraDir).z;
+	
 }
 
 void Camera::moveBackCamera()
@@ -84,6 +85,8 @@ void Camera::moveBackCamera()
 	pos -= walkRatio * glm::vec3(glm::normalize(cameraDir).x, 0, glm::normalize(cameraDir).z);
 	AT.x -= walkRatio * glm::normalize(cameraDir).x;
 	AT.z -= walkRatio * glm::normalize(cameraDir).z;
+
+	
 }
 
 void Camera::moveLeftCamera()
@@ -94,6 +97,7 @@ void Camera::moveLeftCamera()
 	pos -= walkRatio * glm::vec3(cameraRight.x, 0, cameraRight.z);
 	AT.x -= walkRatio * cameraRight.x;
 	AT.z -= walkRatio * cameraRight.z;
+
 }
 
 void Camera::moveRightCamera()
@@ -104,6 +108,7 @@ void Camera::moveRightCamera()
 	pos += walkRatio * glm::vec3(cameraRight.x, 0, cameraRight.z);
 	AT.x += walkRatio * cameraRight.x;
 	AT.z += walkRatio * cameraRight.z;
+
 }
 
 void Camera::runFrontCamera()
@@ -174,6 +179,23 @@ void Camera::setCameraAngleZ(float Angle)
 void Camera::initRecoilRotate()
 {
 	attackRotateX = 0.0f;
+}
+
+void Camera::coutPos()
+{
+	std::cout << "나의 위치는" << "x =" << pos.x << "y =" << pos.y << "z=" << pos.z << std::endl;
+}
+
+void Camera::Changepos(float y)
+{
+	pos.y = y;
+}
+
+
+glm::vec3 Camera::returnPos()
+{
+	//coutPos();
+	return pos;
 }
 
 glm::vec3 Camera::getPos()
