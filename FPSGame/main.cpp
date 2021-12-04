@@ -359,23 +359,31 @@ void specialkeycall(int key, int x, int y)
 
 void mouseCall(int button, int state, int x, int y)
 {
-	if (state == GLUT_DOWN && button == GLUT_RIGHT_BUTTON) {
-		if (myGun->getRecoil() >= 4.9f)
-			changeCrossHead != changeCrossHead;
-	}
-	else if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
-		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
-		pistol->setStatusAttack(true);
-		sniper->setStatusAttack(true);
-		rifle->setStatusAttack(true);
-		Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
-		sounds.shootingSound();
-		isClick = true;
-	}
-	else if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
-		isClick = false;
-	}
-	
+	switch (button)
+	{
+	case GLUT_RIGHT_BUTTON:
+		if (state == GLUT_DOWN) {
+			if (myGun->getRecoil() >= 4.9f) 
+				changeCrossHead = !changeCrossHead;
+		}
+		break;
+	case GLUT_LEFT_BUTTON:
+		if (state == GLUT_DOWN) {
+			bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
+			pistol->setStatusAttack(true);
+			sniper->setStatusAttack(true);
+			rifle->setStatusAttack(true);
+			Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
+			sounds.shootingSound();
+			isClick = true;
+		}
+		else if (state == GLUT_UP) {
+			isClick = false;
+		}
+		break;
+	default:
+		break;
+	}		
 	glutPostRedisplay();
 }
 
@@ -481,7 +489,7 @@ void renderObjs()
 
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);
-	else {
+	else if(!changeCrossHead) {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		CR.drawSniperCrossHead(shaderfunc);
