@@ -9,4 +9,4 @@
 #include"readTriangleObj2.h"
 #include<vector>
 
-void Crash(std::vector<glm::vec3> vertex, glm::vec3 objPosition);
+void Crash(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec3>);

@@ -6,6 +6,5 @@ enum TIMERENUM
 	GUN,
 	GUNMOTION,
 	BULLET,
-	WALK,
-	CRASH
+	WALK
 };
