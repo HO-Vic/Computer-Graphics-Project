@@ -159,6 +159,7 @@
     <ClCompile Include="BulletInfo.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Crash.cpp" />
+    <ClCompile Include="CrossHead.cpp" />
     <ClCompile Include="filetobuf.cpp" />
     <ClCompile Include="GameSound.cpp" />
     <ClCompile Include="ImplemetMap.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="BulletInfo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Crash.h" />
+    <ClInclude Include="CrossHead.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="fileName.h" />

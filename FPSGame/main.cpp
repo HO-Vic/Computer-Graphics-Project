@@ -29,6 +29,7 @@
 #include"GameSound.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
+#include"CrossHead.h"
 
 
 using namespace std;
@@ -50,13 +51,7 @@ void loadITextureImage();
 //render func
 void renderObjs();
 
-//cross header
-void initBuffer();
-void drawPoint();
 
-GLuint dotVao;
-GLuint dotVbo;
-GLuint dotNormalVbo;
 
 int Wwidth = 800;
 int Wheight = 600;
@@ -72,7 +67,9 @@ float yAxis = 0.0f;
 
 bool isClick = false;
 
-//Camera camera(glm::vec3(0, 1.0f, 3.0f));
+//cross head
+bool changeCrossHead = true;
+CrossHead CR;
 
 //weapon
 Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 9.0f))->getPos());
@@ -95,6 +92,7 @@ Flyrobot* flyrobot = new Flyrobot;
 //sound
 GameSound sounds;
 Flyrobot* flyrobotbody = new Flyrobot;
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -118,7 +116,6 @@ int main(int argc, char** argv)
 	shaderfunc.makeVertexShader();
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
-	initBuffer();
 
 	defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 
@@ -134,6 +131,7 @@ int main(int argc, char** argv)
 	bullets.bindingBullet(shaderfunc);
 	enemy->bindingEnemy(shaderfunc);
 	flyrobotbody->bindingEnemy(shaderfunc);
+	CR.binding(shaderfunc);
 
 	//display
 	glutDisplayFunc(DrawSceneCall);
@@ -233,15 +231,11 @@ void DrawSceneCall()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	drawPoint();
-
 	defaultLight.renderLight(shaderfunc);
 	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
 	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
 
 	renderObjs();
-
-
 
 	glutSwapBuffers();
 }
@@ -261,12 +255,14 @@ void keyboardCall(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case'1':
+		changeCrossHead = true;
 		myGun = dynamic_cast<Pistol*> (pistol);
 		myGun->initRecoilRotate();
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
 		sounds.pauseWalking();
 		break;
 	case'2':
+		changeCrossHead = true;
 		myGun = dynamic_cast<Rifle*> (rifle);
 		myGun->initRecoilRotate();
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
@@ -363,7 +359,11 @@ void specialkeycall(int key, int x, int y)
 
 void mouseCall(int button, int state, int x, int y)
 {
-	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
+	if (state == GLUT_DOWN && button == GLUT_RIGHT_BUTTON) {
+		if (myGun->getRecoil() >= 4.9f)
+			changeCrossHead != changeCrossHead;
+	}
+	else if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON) {
 		bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 		pistol->setStatusAttack(true);
 		sniper->setStatusAttack(true);
@@ -372,10 +372,10 @@ void mouseCall(int button, int state, int x, int y)
 		sounds.shootingSound();
 		isClick = true;
 	}
-	if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
+	else if (state == GLUT_UP && button == GLUT_LEFT_BUTTON) {
 		isClick = false;
 	}
-
+	
 	glutPostRedisplay();
 }
 
@@ -452,11 +452,22 @@ void loadITextureImage()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, FlyrobotwidthImage, FlyrobotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, FlyrobotData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(FlyrobotData);
+	//sniper Texture
+	glActiveTexture(GL_TEXTURE5);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE5);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int sniperDotwidthImage, sniperDotheightImage, sniperDotnumberOfChannel;
+	unsigned char* sniperDotData = stbi_load("texture_sniperDot2.jpg", &sniperDotwidthImage, &sniperDotheightImage, &sniperDotnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sniperDotwidthImage, sniperDotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperDotData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(sniperDotData);
 }
 
 void renderObjs()
-{
-	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
+{	
 	map->renderMap(shaderfunc);
 	stair->renderMap(shaderfunc);
 	wall->renderMap(shaderfunc);
@@ -467,37 +478,13 @@ void renderObjs()
 	//enemy
 	enemy->renderEnemy(shaderfunc);
 	flyrobotbody->renderEnemy(shaderfunc);
-}
 
-void initBuffer()
-{
-	glm::vec3 poitDot = glm::vec3(0, 0, -0.5);
-	glm::vec3 normalDot = glm::vec3(0, 0, 1);
-	glUseProgram(shaderfunc.getShaderID());
-	glGenVertexArrays(1, &dotVao);
-	glBindVertexArray(dotVao);
-	glGenBuffers(1, &dotVbo);
-	glBindBuffer(GL_ARRAY_BUFFER, dotVbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3), &poitDot, GL_STREAM_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-	glEnableVertexAttribArray(0);
-	glGenBuffers(1, &dotNormalVbo);
-	glBindBuffer(GL_ARRAY_BUFFER, dotNormalVbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3), &normalDot, GL_STREAM_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-	glEnableVertexAttribArray(1);
-}
-
-void drawPoint()
-{
-	glm::mat4 dotM = glm::mat4(1.0f);
-	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "viewTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
-	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "projectionTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
-	glUniformMatrix4fv(glGetUniformLocation(shaderfunc.getShaderID(), "modelTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
-	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), -1);
-	glUniform3f(glGetUniformLocation(shaderfunc.getShaderID(), "objColor"), 1, 0, 0);
-	glBindVertexArray(dotVao);
-	glEnable(GL_POINT_SMOOTH);
-	glPointSize(7.0f);
-	glDrawArrays(GL_POINTS, 0, 1);
+	if (changeCrossHead)
+		CR.drawdotCrossHead(shaderfunc);
+	else {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		CR.drawSniperCrossHead(shaderfunc);
+		glDisable(GL_BLEND);
+	}
 }

@@ -42,12 +42,16 @@ void main()
 		result = vec3(re.x * texture(textureC, textCoord).x, re.y * texture(textureC, textCoord).y, re.z * texture(textureC, textCoord).z);
 		FragColor = vec4(result, 1.0f);
 		}
+	else if(isTexture == 2){		
+		result = vec3(re.x * texture(textureC, textCoord).x, re.y * texture(textureC, textCoord).y, re.z * texture(textureC, textCoord).z);
+		FragColor = vec4(result,-1 * (texture(textureC, textCoord).y - 1));
+	}
 	else if(isTexture == 0){
 		result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);
 		FragColor = vec4(result, 1.0f);
 	}
 	else if(isTexture == -1){
-		FragColor = vec4(objColor.x, objColor.y, objColor.z, 1.0f);
+		FragColor = vec4(objColor, 1.0f);
 	}
 	else {
 		result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);

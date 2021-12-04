@@ -114,6 +114,7 @@ void Map::renderMap(ShaderFunc shaderID)
 	shaderID.setTransMatrix(mapMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	shaderID.setColorVec(color);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
 	glDrawArrays(GL_TRIANGLES, 0, mapVertexData.size());
 };
 void Map::bindingMap(ShaderFunc& shaderID)

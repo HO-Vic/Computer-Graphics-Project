@@ -138,6 +138,9 @@
     <ClCompile Include="Crash.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CrossHead.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -213,6 +216,9 @@
       <Filter>헤더 파일\sound</Filter>
     </ClInclude>
     <ClInclude Include="Crash.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossHead.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
