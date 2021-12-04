@@ -57,6 +57,9 @@ public:
 	void setCameraAngleX(float Angle);
 	void setCameraAngleZ(float Angle);
 	void initRecoilRotate();
+	void coutPos();
+	void Changepos(float y);
+	glm::vec3 returnPos();
 public:
 	glm::vec3 getPos();
 	float getRotateX();
