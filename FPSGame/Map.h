@@ -48,7 +48,6 @@ public:
 	//virtual void Apply_Parent(Map* Parent1);
 	virtual float Return_PositionX();
 	virtual float Return_PositionZ();
-	virtual std::vector<glm::vec3> Return_vertex();
 	
 };
 
