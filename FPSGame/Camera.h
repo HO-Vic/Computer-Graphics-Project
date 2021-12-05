@@ -63,5 +63,6 @@ public:
 	glm::vec3 getPos();
 	float getRotateX();
 	glm::vec3 getDir();
+	glm::vec3 getRight();
 };
 

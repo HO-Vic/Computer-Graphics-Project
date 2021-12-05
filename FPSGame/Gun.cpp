@@ -49,3 +49,8 @@ glm::vec3 Gun::getRevolu()
 {
 	return glm::vec3(revoluAngle);
 }
+
+float Gun::getMotionR()
+{
+	return motionRevolu + defaultRotateAngleX;
+}

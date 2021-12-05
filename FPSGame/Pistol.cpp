@@ -57,7 +57,7 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.z), glm::vec3(0, 0, 1));
-	gunMatrix = glm::scale(gunMatrix, defaultScale);	
+	gunMatrix = glm::scale(gunMatrix, defaultScale);
 	glm::mat4 normalMatrix = glm::mat4(1.0f);
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.y + rotateAngle.y), glm::vec3(0, 1, 0));
 	normalMatrix = glm::rotate(normalMatrix, glm::radians(revoluAngle.x + rotateAngle.x + defaultRotateAngleX + motionRevolu), glm::vec3(1, 0, 0));

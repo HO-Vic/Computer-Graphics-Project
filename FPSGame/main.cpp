@@ -28,6 +28,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
 #include"CrossHead.h"
+#include"ParticleManager.h"
 
 
 using namespace std;
@@ -86,10 +87,15 @@ Wall* wall = new Wall;
 //Enemy
 Enemy* enemy = new Enemy;
 Flyrobot* flyrobot = new Flyrobot;
+Flyrobot* flyrobotbody = new Flyrobot;
 
 //sound
 GameSound sounds;
-Flyrobot* flyrobotbody = new Flyrobot;
+
+//particle
+ParticleManager particle;
+
+
 
 int main(int argc, char** argv)
 {
@@ -130,6 +136,7 @@ int main(int argc, char** argv)
 	enemy->bindingEnemy(shaderfunc);
 	flyrobotbody->bindingEnemy(shaderfunc);
 	CR.binding(shaderfunc);
+	particle.bindingParticle(shaderfunc);
 
 	//display
 	glutDisplayFunc(DrawSceneCall);
@@ -152,6 +159,7 @@ int main(int argc, char** argv)
 	glutTimerFunc(17, timercall, (int)BULLET);
 	glutTimerFunc(1000, timercall, (int)WALK);
 	glutTimerFunc(17, timercall, (int)CRASH);
+	glutTimerFunc(17, timercall, (int)PARTICLE);
 	sounds.backGroundMusic();
 	glutMainLoop();
 	//Camera::destoy();
@@ -201,6 +209,7 @@ void timercall(int value)
 	case GUNMOTION:
 		if (isClick && myGun->getRecoil() <= 1.2f) {
 			bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
+			particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
 			rifle->setStatusAttack(true);
 			Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 			sounds.shootingSound();				
@@ -228,6 +237,11 @@ void timercall(int value)
 		glutPostRedisplay();
 		glutTimerFunc(17, timercall, value);
 		break;
+	/*case PARTICLE:
+		particle.parLife();
+		glutPostRedisplay();
+		glutTimerFunc(1000, timercall, value);
+		break;*/
 	default:
 		break;
 	}
@@ -245,7 +259,7 @@ void DrawSceneCall()
 	if(changeCrossHead)
 		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 45.0f);
 	else {
-		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 15.0f);
+		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 7.0f);
 	}
 	renderObjs();
 
@@ -381,6 +395,15 @@ void mouseCall(int button, int state, int x, int y)
 		break;
 	case GLUT_LEFT_BUTTON:
 		if (state == GLUT_DOWN) {
+			if (myGun->getRecoil() <= 1.2f) {
+				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
+			}
+			else if (myGun->getRecoil() <= 1.4f) {
+				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
+			}
+			else {
+				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
+			}			
 			bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 			pistol->setStatusAttack(true);
 			sniper->setStatusAttack(true);
@@ -511,6 +534,8 @@ void renderObjs()
 	//enemy
 	enemy->renderEnemy(shaderfunc);
 	flyrobotbody->renderEnemy(shaderfunc);
+
+	particle.renderParticles(shaderfunc);
 
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);

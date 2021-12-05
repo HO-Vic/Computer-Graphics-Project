@@ -47,7 +47,7 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.x + motionRevolu), glm::vec3(1, 0, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(revoluAngle.z), glm::vec3(0, 0, 1));
 
-	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.05f, -0.22f, -0.2f));
+	gunMatrix = glm::translate(gunMatrix, glm::vec3(0.05f, -0.22f, -0.21f));
 
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
 	gunMatrix = glm::rotate(gunMatrix, glm::radians(rotateAngle.x + defaultRotateAngleX), glm::vec3(1, 0, 0));

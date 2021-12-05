@@ -198,3 +198,8 @@ glm::vec3 Camera::getDir()
 	setCameraDir();
 	return glm::normalize(cameraDir);
 }
+
+glm::vec3 Camera::getRight()
+{
+	return glm::vec3(cameraRight);
+}
