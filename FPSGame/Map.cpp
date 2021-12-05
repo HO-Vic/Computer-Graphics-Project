@@ -90,11 +90,11 @@ float Map::Return_PositionZ() {
 };
 void Map::renderMap(ShaderFunc shaderID)
 {
-	glBindVertexArray(mapVAO);
+	glBindVertexArray(mapVAO);	
+	glActiveTexture(GL_TEXTURE6);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE6);
+
 	mapMatrix = glm::mat4(1.0f);
-	
-	glActiveTexture(GL_TEXTURE4);
-	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE4);
 	mapMatrix = glm::rotate(mapMatrix, glm::radians(Revolution.y), glm::vec3(0, 1, 0));
 	mapMatrix = glm::rotate(mapMatrix, glm::radians(Revolution.x), glm::vec3(1, 0, 0));
 	mapMatrix = glm::rotate(mapMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
@@ -111,8 +111,8 @@ void Map::renderMap(ShaderFunc shaderID)
 	shaderID.setTransMatrix(mapMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	shaderID.setColorVec(color);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 6);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 6);
 	glDrawArrays(GL_TRIANGLES, 0, mapVertexData.size());
 };
 void Map::bindingMap(ShaderFunc& shaderID)

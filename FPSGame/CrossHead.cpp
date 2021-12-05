@@ -19,14 +19,13 @@ void CrossHead::drawSniperCrossHead(ShaderFunc& shaderID)
 	glBindVertexArray(sniperDotVao);
 	glActiveTexture(GL_TEXTURE5);
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE5);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 2);
 	glm::mat4 dotM = glm::mat4(1.0f);
 	glUniformMatrix4fv(glGetUniformLocation(shaderID.getShaderID(), "viewTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
 	glUniformMatrix4fv(glGetUniformLocation(shaderID.getShaderID(), "projectionTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
 	dotM = glm::scale(dotM, glm::vec3(2, 2, 2));
 	glUniformMatrix4fv(glGetUniformLocation(shaderID.getShaderID(), "modelTransform"), 1, GL_FALSE, glm::value_ptr(dotM));
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 5);
-	
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 5);	
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 2);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 

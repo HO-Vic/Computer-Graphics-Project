@@ -468,10 +468,11 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int sniperDotwidthImage, sniperDotheightImage, sniperDotnumberOfChannel;
-	unsigned char* sniperDotData = stbi_load("texture_smallmap.bmp", &sniperDotwidthImage, &sniperDotheightImage, &sniperDotnumberOfChannel, 0);
+	unsigned char* sniperDotData = stbi_load("texture_sniperDot2.jpg", &sniperDotwidthImage, &sniperDotheightImage, &sniperDotnumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sniperDotwidthImage, sniperDotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperDotData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(sniperDotData);
+
 
 	glActiveTexture(GL_TEXTURE6);
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE6);
