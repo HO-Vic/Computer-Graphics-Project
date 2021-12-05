@@ -46,6 +46,7 @@ public:
 	void moveBackCamera();
 	void moveLeftCamera();
 	void moveRightCamera();
+	void moveUpCamera(int y);
 	//run
 	void runFrontCamera();
 	void runBackCamera();
@@ -57,6 +58,7 @@ public:
 	void setCameraAngleX(float Angle);
 	void setCameraAngleZ(float Angle);
 	void initRecoilRotate();
+	
 public:
 	glm::vec3 getPos();
 	float getRotateX();

@@ -24,6 +24,7 @@
 #include"Enemy.h"
 #include"FlyRobot.h"
 #include"GameSound.h"
+#include"Crash.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
 #include"CrossHead.h"
@@ -150,6 +151,7 @@ int main(int argc, char** argv)
 	glutTimerFunc(10, timercall, (int)GUN);
 	glutTimerFunc(17, timercall, (int)BULLET);
 	glutTimerFunc(1000, timercall, (int)WALK);
+	glutTimerFunc(17, timercall, (int)CRASH);
 	sounds.backGroundMusic();
 	glutMainLoop();
 	//Camera::destoy();
@@ -215,6 +217,15 @@ void timercall(int value)
 		sounds.pauseWalking();
 		sounds.pauseRunning();
 		glutTimerFunc(1000, timercall, value);
+		break;
+	case CRASH:
+		Crash(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
+		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		glutPostRedisplay();
+		glutTimerFunc(17, timercall, value);
 		break;
 	default:
 		break;
