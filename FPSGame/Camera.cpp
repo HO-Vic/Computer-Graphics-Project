@@ -74,6 +74,7 @@ void Camera::moveFrontCamera()
 	pos += walkRatio * glm::vec3(glm::normalize(cameraDir).x, 0, glm::normalize(cameraDir).z);
 	AT.x += walkRatio * glm::normalize(cameraDir).x;
 	AT.z += walkRatio * glm::normalize(cameraDir).z;
+	std::cout << "x ÁÂÇ¥" << getPos().x << "y ÁÂÇ¥" << getPos().y << "z ÁÂÇ¥" << getPos().z<<std::endl;
 }
 
 void Camera::moveBackCamera()
