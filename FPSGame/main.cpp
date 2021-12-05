@@ -7,9 +7,6 @@
 #include<random>
 #include<vector>
 #include<utility>
-#include <Windows.h>
-#include <mmsystem.h>
-#pragma comment(lib,"winmm.lib")
 #include"filetobuf.h"
 #include"ShaderFunc.h"
 #include"Camera.h"
