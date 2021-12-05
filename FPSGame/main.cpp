@@ -220,6 +220,7 @@ void timercall(int value)
 		break;
 	case CRASH:
 		Crash(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
+		myGun->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
