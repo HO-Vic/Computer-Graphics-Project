@@ -7,7 +7,7 @@
 #include"ShaderFunc.h"
 class Projection {
 public:
-	void perspectriveProjection(ShaderFunc& shaderID, int Wwdith, int Wheight);
+	void perspectriveProjection(ShaderFunc& shaderID, int Wwdith, int Wheight, float fovy);
 	void orthoProjection(ShaderFunc& shaderID, int Wwdith, int Wheight);
 };
 

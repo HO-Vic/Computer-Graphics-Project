@@ -230,8 +230,11 @@ void DrawSceneCall()
 
 	defaultLight.renderLight(shaderfunc);
 	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
-	perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight);
-
+	if(changeCrossHead)
+		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 45.0f);
+	else {
+		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 15.0f);
+	}
 	renderObjs();
 
 	glutSwapBuffers();
@@ -477,7 +480,8 @@ void renderObjs()
 	stair->renderMap(shaderfunc);
 	wall->renderMap(shaderfunc);
 
-	myGun->renderGun(shaderfunc);
+	if(changeCrossHead)
+		myGun->renderGun(shaderfunc);
 	bullets.renderBullets(shaderfunc);
 
 	//enemy
