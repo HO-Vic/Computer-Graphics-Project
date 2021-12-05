@@ -33,6 +33,7 @@ glm::mat4 Map:: Getmatrix() {
 	result = glm::mat4(1.0f);
 	if (Parent)
 		result = Parent->Getmatrix();
+	
 	result = glm::rotate(result, glm::radians(Revolution.x), glm::vec3(1.0, 0, 0));//공전
 	result = glm::rotate(result, glm::radians(Revolution.y), glm::vec3(0, 1.0, 0));//공전
 	result = glm::rotate(result, glm::radians(Revolution.z), glm::vec3(0, 0, 1.0));//공전
@@ -91,13 +92,9 @@ void Map::renderMap(ShaderFunc shaderID)
 {
 	glBindVertexArray(mapVAO);
 	mapMatrix = glm::mat4(1.0f);
-	/*name->Change_Positon(0, 0, 0);
-	name->Change_Rotation(0, 0, 0);
-	name->Change_Scale(0, 0, 0);
-	name->Change_Color(1, 0, 0);
-	shaderID.setTransMatrixorigin(name->Getmatrix());
-	shaderID.setNormalMatrixorigin(name->Getnormal());
-	shaderID->setColorVec(name->GetColor());*/
+	
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE4);
 	mapMatrix = glm::rotate(mapMatrix, glm::radians(Revolution.y), glm::vec3(0, 1, 0));
 	mapMatrix = glm::rotate(mapMatrix, glm::radians(Revolution.x), glm::vec3(1, 0, 0));
 	mapMatrix = glm::rotate(mapMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
@@ -114,11 +111,12 @@ void Map::renderMap(ShaderFunc shaderID)
 	shaderID.setTransMatrix(mapMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	shaderID.setColorVec(color);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 6);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, mapVertexData.size());
 };
 void Map::bindingMap(ShaderFunc& shaderID)
 {
-	readTriangleObj("obj_floor.obj", mapVertexData, mapTextureData, mapNormalData);
+	readTriangleObj("obj_smallmap_2.obj", mapVertexData, mapTextureData, mapNormalData);
 	shaderID.InitBuffer(mapVAO, mapVertexVBO, mapTextureVBO, mapNormalVBO, mapVertexData, mapTextureData, mapNormalData);
 }
