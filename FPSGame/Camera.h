@@ -46,7 +46,7 @@ public:
 	void moveBackCamera();
 	void moveLeftCamera();
 	void moveRightCamera();
-	void moveUpCamera(int y);
+	void moveUpCamera(float y);
 	//run
 	void runFrontCamera();
 	void runBackCamera();

@@ -107,10 +107,10 @@ void Camera::moveRightCamera()
 	AT.z += walkRatio * cameraRight.z;
 }
 
-void Camera::moveUpCamera(int y)
+void Camera::moveUpCamera(float y)
 {
 	pos.y = y;
-	AT.y = y;
+	AT.y = y-0.9f;
 }
 
 void Camera::runFrontCamera()
