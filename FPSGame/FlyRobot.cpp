@@ -1,6 +1,6 @@
 #include"FlyRobot.h"
 Flyrobot::Flyrobot() {
-	Position = glm::vec3(3.0f, 0.0f, 15.0f);
+	Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	Revolution = glm::vec3(0.0f, 0.0f, 0.0f);
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -23,18 +23,7 @@ Flyrobot::~Flyrobot()
 };
 
 glm::mat4 Flyrobot::Getmatrix() {
-	result = glm::mat4(1.0f);
-	if (Parent)
-		result = Parent->Getmatrix();
-	result = glm::rotate(result, glm::radians(Revolution.x), glm::vec3(1.0, 0, 0));//공전
-	result = glm::rotate(result, glm::radians(Revolution.y), glm::vec3(0, 1.0, 0));//공전
-	result = glm::rotate(result, glm::radians(Revolution.z), glm::vec3(0, 0, 1.0));//공전
-	result = glm::translate(result, Position);//이동
-	result = glm::rotate(result, glm::radians(Rotation.x), glm::vec3(1.0, 0, 0));//자전
-	result = glm::rotate(result, glm::radians(Rotation.y), glm::vec3(0, 1.0, 0));//자전
-	result = glm::rotate(result, glm::radians(Rotation.z), glm::vec3(0, 0, 1.0));//자전
-	result = glm::scale(result, Scale);
-	return result;
+	return FlyrobotMatrix;
 };
 glm::mat4 Flyrobot::Getnormal() {
 	result = glm::mat4(1.0f);
@@ -71,6 +60,13 @@ glm::vec3 Flyrobot::GetColor() {
 
 void Flyrobot::Apply_Parent(Flyrobot* Parent1) {
 	Parent = Parent1;
+}
+void Flyrobot::FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc)
+{
+	Body->renderEnemy(*shaderfunc);
+	Spin->renderEnemy(*shaderfunc);
+	Larm->renderEnemy(*shaderfunc);
+	Rarm->renderEnemy(*shaderfunc);
 };
 
 float Flyrobot::Return_PositionX() {
@@ -79,11 +75,22 @@ float Flyrobot::Return_PositionX() {
 
 float Flyrobot::Return_PositionZ() {
 	return Position.z;
-};
+}
+float Flyrobot::Return_PositionY()
+{
+	return Position.y;
+}
+glm::vec3 Flyrobot::get_Position()
+{
+	return Position;
+}
+;
 void Flyrobot::renderEnemy(ShaderFunc& shaderID)
 {
 	glBindVertexArray(FlyrobotVAO);
 	FlyrobotMatrix = glm::mat4(1.0f);
+	if (Parent)
+		FlyrobotMatrix = Parent->Getmatrix();
 	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE4);
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Revolution.y), glm::vec3(0, 1, 0));
@@ -106,8 +113,8 @@ void Flyrobot::renderEnemy(ShaderFunc& shaderID)
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, FlyrobotVertexData.size());
 };
-void Flyrobot::bindingEnemy(ShaderFunc& shaderID)
+void Flyrobot::bindingEnemy(ShaderFunc& shaderID, string name)
 {
-	readTriangleObj("obj_Flyrobot_body.obj", FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);
+	readTriangleObj(name, FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);
 	shaderID.InitBuffer(FlyrobotVAO, FlyrobotVertexVBO, FlyrobotTextureVBO, FlyrobotNormalVBO, FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);
 }

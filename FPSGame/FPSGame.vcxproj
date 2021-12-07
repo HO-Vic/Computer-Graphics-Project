@@ -216,6 +216,7 @@
     <ClInclude Include="stair.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="Random.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMap.txt" />

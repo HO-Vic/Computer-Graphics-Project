@@ -117,8 +117,8 @@ void Enemy::renderEnemy(ShaderFunc& shaderID)
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
 	glDrawArrays(GL_TRIANGLES, 0, EnemyVertexData.size());
 };
-void Enemy::bindingEnemy(ShaderFunc& shaderID)
+void Enemy::bindingEnemy(ShaderFunc& shaderID, string name)
 {
-	readTriangleObj("obj_Robot_head.obj", EnemyVertexData, EnemyTextureData, EnemyNormalData);
+	readTriangleObj(name, EnemyVertexData, EnemyTextureData, EnemyNormalData);
 	shaderID.InitBuffer(EnemyVAO, EnemyVertexVBO, EnemyTextureVBO, EnemyNormalVBO, EnemyVertexData, EnemyTextureData, EnemyNormalData);
 }

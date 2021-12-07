@@ -9,6 +9,10 @@
 #include"readTriangleObj.h"
 #include"readTriangleObj2.h"
 #include"Enemy.h"
+#include<string>
+
+using namespace std;
+
 class Flyrobot :public Enemy
 {
 protected:
@@ -20,6 +24,8 @@ protected:
 	std::vector<glm::vec3> FlyrobotNormalData;
 	std::vector<glm::vec2> FlyrobotTextureData;
 	glm::mat4 FlyrobotMatrix;
+
+	//glm::vec3 FlyrobotPosition;
 	Flyrobot* Parent{ nullptr };
 public:
 	Flyrobot();
@@ -40,9 +46,13 @@ public:
 	void Change_Color(float x, float y, float z);
 	void renderEnemy(ShaderFunc& shaderID);
 
-	void bindingEnemy(ShaderFunc& shaderID) override;
+	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Flyrobot* Parent1);
+	void FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc);
 	float Return_PositionX();
 	float Return_PositionZ();
+	float Return_PositionY();
+	glm::vec3 get_Position();
+	//	
 
 };

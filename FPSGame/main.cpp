@@ -25,6 +25,7 @@
 #include"FlyRobot.h"
 #include"GameSound.h"
 #include"Crash.h"
+#include"Random.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
 #include"CrossHead.h"
@@ -86,8 +87,12 @@ Wall* wall = new Wall;
 
 //Enemy
 Enemy* enemy = new Enemy;
-Flyrobot* flyrobot = new Flyrobot;
+Flyrobot** flyrobot = new Flyrobot*[20];
 Flyrobot* flyrobotbody = new Flyrobot;
+Flyrobot* flyrobotlarm = new Flyrobot;
+Flyrobot* flyrobotrarm = new Flyrobot;
+Flyrobot* flyrobotspin = new Flyrobot;
+glm::vec3 FLpostion[20];
 
 //sound
 GameSound sounds;
@@ -133,8 +138,17 @@ int main(int argc, char** argv)
 	stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
-	enemy->bindingEnemy(shaderfunc);
-	flyrobotbody->bindingEnemy(shaderfunc);
+	//enemy->bindingEnemy(shaderfunc);
+	flyrobotbody->bindingEnemy(shaderfunc,"Obj_FlyRobot_Body.obj");
+	flyrobotlarm->bindingEnemy(shaderfunc,"Obj_FlyRobot_Larm.obj");
+	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
+	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
+	for (int i = 0; i < 20; i++) {
+		FLpostion[i].x = RandomFl(1.0, 10.0);
+		FLpostion[i].y = RandomFl(8.0, 16.0);
+		FLpostion[i].z = RandomFl(1.0, 10.0);
+	}
+	//
 	CR.binding(shaderfunc);
 	particle.bindingParticle(shaderfunc);
 
@@ -533,7 +547,11 @@ void renderObjs()
 
 	//enemy
 	enemy->renderEnemy(shaderfunc);
-	flyrobotbody->renderEnemy(shaderfunc);
+	for (int i = 0; i < 20; i++) {
+		flyrobotbody->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
+		flyrobot[i]->FlyRobot(flyrobotbody, flyrobotspin, flyrobotlarm, flyrobotrarm, &shaderfunc);
+	}
+	//flyrobotbody->renderEnemy(shaderfunc);
 
 	particle.renderParticles(shaderfunc);
 

@@ -7,6 +7,8 @@
 #include"ShaderFunc.h"
 #include"readTriangleObj.h"
 #include"readTriangleObj2.h"
+#include<string>
+using namespace std;
 class Enemy
 {
 protected:
@@ -45,7 +47,7 @@ public:
 	virtual void Change_Color(float x, float y, float z);
 	virtual void renderEnemy(ShaderFunc& shaderID);
 	void  Apply_Parent(Enemy* Parent1);
-	virtual void bindingEnemy(ShaderFunc& shaderID);
+	virtual void bindingEnemy(ShaderFunc& shaderID, string name);
 	//virtual void Apply_Parent(Enemy* Parent1);
 	virtual float Return_PositionX();
 	virtual float Return_PositionZ();
