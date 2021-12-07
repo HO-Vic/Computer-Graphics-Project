@@ -39,6 +39,10 @@ public:
 	glm::mat4 Getmatrix();
 	glm::mat4 Getnormal();
 	glm::vec3 GetColor();
+	Flyrobot* Flyrobotbody;
+	Flyrobot* Flyrobotlarm;
+	Flyrobot* Flyrobotrarm;
+	Flyrobot* Flyrobotspin;
 	void Change_Positon(float x, float y, float z);
 	void Change_Rotation(float x, float y, float z);
 	void Change_Revoltion(float x, float y, float z);
@@ -53,6 +57,7 @@ public:
 	float Return_PositionZ();
 	float Return_PositionY();
 	glm::vec3 get_Position();
+	Flyrobot* get_body();
 	//	
 
 };

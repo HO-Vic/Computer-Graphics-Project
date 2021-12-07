@@ -63,6 +63,10 @@ void Flyrobot::Apply_Parent(Flyrobot* Parent1) {
 }
 void Flyrobot::FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc)
 {
+	//Flyrobotbody = Body;
+	//Flyrobotlarm = Larm;
+	//Flyrobotrarm = Rarm;
+	//Flyrobotspin = Spin;
 	Body->renderEnemy(*shaderfunc);
 	Spin->renderEnemy(*shaderfunc);
 	Larm->renderEnemy(*shaderfunc);
@@ -83,6 +87,10 @@ float Flyrobot::Return_PositionY()
 glm::vec3 Flyrobot::get_Position()
 {
 	return Position;
+}
+Flyrobot* Flyrobot::get_body()
+{
+	return Flyrobotbody;
 }
 ;
 void Flyrobot::renderEnemy(ShaderFunc& shaderID)

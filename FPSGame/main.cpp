@@ -548,8 +548,10 @@ void renderObjs()
 	//enemy
 	enemy->renderEnemy(shaderfunc);
 	for (int i = 0; i < 20; i++) {
+		//flyrobot[i]->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
 		flyrobotbody->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
 		flyrobot[i]->FlyRobot(flyrobotbody, flyrobotspin, flyrobotlarm, flyrobotrarm, &shaderfunc);
+	//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);
 

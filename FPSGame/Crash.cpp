@@ -14,8 +14,8 @@ void Crash(glm::vec3 objPosition ) {
 				x = objPosition.x;
 			}
 			y = 1 +   x/19*12;
-			std::cout <<"x" << x << std::endl;
-			std::cout <<"y" << y << std::endl;
+			//std::cout <<"x" << x << std::endl;
+		//	std::cout <<"y" << y << std::endl;
 			tempy = y;
 		}
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveUpCamera(y);
@@ -49,11 +49,11 @@ void Crash(glm::vec3 objPosition ) {
 	}
 	else if (objPosition.x >= -44 && objPosition.z <= 24&&objPosition.z >= 2) {
 		if (objPosition.y >= 1.1) {
-			std::cout << y;
+		//	std::cout << y;
 			y -= 0.8;
 		}
 		else {
-			std::cout << "x ÁÂÇ¥" << objPosition.x << "y ÁÂÇ¥" << objPosition.y << "z ÁÂÇ¥" << objPosition.z << std::endl;
+	//		std::cout << "x ÁÂÇ¥" << objPosition.x << "y ÁÂÇ¥" << objPosition.y << "z ÁÂÇ¥" << objPosition.z << std::endl;
 		}
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveUpCamera(y);
 	}
