@@ -199,7 +199,7 @@ void timercall(int value)
 			glutWarpPointer(curreuntMouse.first, 4 * Wheight / 5);
 		preMouse = curreuntMouse;
 		glutPostRedisplay();
-		glutTimerFunc(1, timercall, value);
+		glutTimerFunc(10, timercall, value);
 		break;
 	case GUN:
 		pistol->AttackMotion();
