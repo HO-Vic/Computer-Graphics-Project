@@ -60,7 +60,11 @@ void Sniper::renderGun(ShaderFunc& shaderID)
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 2);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 3);
+	glActiveTexture(GL_TEXTURE8);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE8);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureN"), 8);
+	glUniform1f(glGetUniformLocation(shaderID.getShaderID(), "ambientLight"), 0.4f);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 

@@ -65,7 +65,11 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 	shaderID.setTransMatrix(gunMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 0);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 3);
+	glActiveTexture(GL_TEXTURE7);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE7);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureN"), 7);
+	glUniform1f(glGetUniformLocation(shaderID.getShaderID(), "ambientLight"), 0.3f);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 

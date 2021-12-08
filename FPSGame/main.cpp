@@ -533,16 +533,44 @@ void loadITextureImage()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, smallmapwidthImage, smallmapheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, smallmapData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(smallmapData);
+
+	glActiveTexture(GL_TEXTURE7);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE7);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int pistolMapwidthImage, pistolMapheightImage, pistolMapnumberOfChannel;
+	unsigned char* pistolMapData = stbi_load("texture_pistol_n.jpg", &pistolMapwidthImage, &pistolMapheightImage, &pistolMapnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pistolMapwidthImage, pistolMapheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, pistolMapData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(pistolMapData);
+
+	glActiveTexture(GL_TEXTURE8);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE8);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int sniperMapwidthImage, sniperMapheightImage, sniperMapnumberOfChannel;
+	unsigned char* sniperMapData = stbi_load("texture_sniper_n.jpg", &sniperMapwidthImage, &sniperMapheightImage, &sniperMapnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sniperMapwidthImage, sniperMapheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperMapData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(sniperMapData);
+
 }
 
 void renderObjs()
 {	
+	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
 	map->renderMap(shaderfunc);
 	stair->renderMap(shaderfunc);
 	wall->renderMap(shaderfunc);
 
 	if(changeCrossHead)
 		myGun->renderGun(shaderfunc);
+	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
+
 	bullets.renderBullets(shaderfunc);
 
 	//enemy
