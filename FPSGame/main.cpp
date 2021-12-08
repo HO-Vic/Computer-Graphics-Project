@@ -30,6 +30,7 @@
 #include"stb_image.h"
 #include"CrossHead.h"
 #include"ParticleManager.h"
+#include"Random.h"
 
 
 using namespace std;
@@ -89,11 +90,15 @@ Wall* wall = new Wall;
 //Enemy
 Enemy* enemy = new Enemy;
 Flyrobot** flyrobot = new Flyrobot*[20];
-Flyrobot* flyrobotbody = new Flyrobot;
-Flyrobot* flyrobotlarm = new Flyrobot;
-Flyrobot* flyrobotrarm = new Flyrobot;
-Flyrobot* flyrobotspin = new Flyrobot;
-glm::vec3 FLpostion[20];
+Flyrobot* flyrobotbody[20];
+Flyrobot* flyrobotlarm[20];
+Flyrobot* flyrobotrarm[20];
+Flyrobot* flyrobotspin[20];
+glm::vec3 FLpostion[20] = {};
+glm::vec3 FLTrpostion[20] = {};
+bool FLXCheck[20] = { 0 };
+bool FLYCheck[20] = { 0 };
+bool FLZCheck[20] = { 0 };
 
 //sound
 GameSound sounds;
@@ -131,7 +136,12 @@ int main(int argc, char** argv)
 
 	loadITextureImage();
 	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
-
+	for (int i = 0; i < 20; i++) {
+		flyrobotbody[i] = new Flyrobot;
+		flyrobotlarm[i] = new Flyrobot;
+		flyrobotrarm[i] = new Flyrobot;
+		flyrobotspin[i] = new Flyrobot;
+	}
 	bindingObj();
 
 	//display
@@ -156,6 +166,7 @@ int main(int argc, char** argv)
 	glutTimerFunc(1000, timercall, (int)WALK);
 	glutTimerFunc(17, timercall, (int)CRASH);
 	glutTimerFunc(17, timercall, (int)PARTICLE);
+	glutTimerFunc(10, timercall, (int)FlYROBOT);
 	sounds.backGroundMusic();
 	glutMainLoop();
 	//Camera::destoy();
@@ -237,6 +248,49 @@ void timercall(int value)
 		particle.parLife();
 		glutPostRedisplay();
 		glutTimerFunc(20, timercall, value);
+		break;
+	case FlYROBOT:
+		for (int i = 0; i < 20; i++) {
+			if (FLTrpostion[i].x > 5) {
+				FLXCheck[i] = 1;
+			}
+			else if(FLTrpostion[i].x < -5){
+				FLXCheck[i] = 0;
+			}
+			if (FLTrpostion[i].y > 3) {
+				FLYCheck[i] = 1;
+			}
+			else if (FLTrpostion[i].y < -3) {
+				FLYCheck[i] = 0;
+			}
+			if (FLTrpostion[i].z > 5) {
+				FLZCheck[i] = 1;
+			}
+			else if (FLTrpostion[i].z < -5) {
+				FLZCheck[i] = 0;
+			}
+			if (FLXCheck[i] == 1) {
+				FLTrpostion[i].x -= RandomFl(0,0.1);
+			}
+			else if(FLXCheck[i] == 0){
+				FLTrpostion[i].x += RandomFl(0, 0.1);
+			}
+			if (FLYCheck[i] == 1) {
+				FLTrpostion[i].y -= RandomFl(0, 0.1);;
+			}
+			else {
+				FLTrpostion[i].y += RandomFl(0, 0.1);;
+			}
+			if (FLZCheck[i] == 1) {
+				FLTrpostion[i].z -= RandomFl(0, 0.1);
+			}
+			else {
+				FLTrpostion[i].z += RandomFl(0, 0.1);
+			}
+			flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
+		}
+		glutPostRedisplay();
+		glutTimerFunc(10, timercall, value);
 		break;
 	default:
 		break;
@@ -552,14 +606,14 @@ void bindingObj()
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
 	//enemy->bindingEnemy(shaderfunc);
-	flyrobotbody->bindingEnemy(shaderfunc, "Obj_FlyRobot_Body.obj");
-	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Larm.obj");
-	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
-	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
 	for (int i = 0; i < 20; i++) {
-		//FLpostion[i].x = RandomFl(1.0, 10.0);
-		//FLpostion[i].y = RandomFl(8.0, 16.0);
-		//FLpostion[i].z = RandomFl(1.0, 10.0);
+		flyrobotbody[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Body.obj");
+		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Larm.obj");
+		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
+		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
+		FLpostion[i].x = RandomFl(-20.0, 20.0);
+		FLpostion[i].y = RandomFl(10.0, 20.0);
+		FLpostion[i].z = RandomFl(-20.0, 20.0);
 	}
 	//
 	CR.binding(shaderfunc);
@@ -583,9 +637,9 @@ void renderObjs()
 	//enemy
 	enemy->renderEnemy(shaderfunc);
 	for (int i = 0; i < 20; i++) {
-		//flyrobot[i]->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
-		flyrobotbody->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
-		flyrobot[i]->FlyRobot(flyrobotbody, flyrobotspin, flyrobotlarm, flyrobotrarm, &shaderfunc);
+		flyrobotbody[i]->Change_Scale(4, 4, 4);
+		flyrobotbody[i]->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
+		flyrobot[i]->FlyRobot(flyrobotbody[i], flyrobotspin[i], flyrobotlarm[i], flyrobotrarm[i], &shaderfunc);
 	//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);

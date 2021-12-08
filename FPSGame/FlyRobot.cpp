@@ -1,5 +1,6 @@
 #include"FlyRobot.h"
 Flyrobot::Flyrobot() {
+	Translate= glm::vec3(0.0f, 0.0f, 0.0f);
 	Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	Revolution = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -63,14 +64,17 @@ void Flyrobot::Apply_Parent(Flyrobot* Parent1) {
 }
 void Flyrobot::FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc)
 {
-	//Flyrobotbody = Body;
-	//Flyrobotlarm = Larm;
-	//Flyrobotrarm = Rarm;
-	//Flyrobotspin = Spin;
+	/*Flyrobotbody = Body;
+	Flyrobotlarm = Larm;
+	Flyrobotrarm = Rarm;
+	Flyrobotspin = Spin;*/
+	Spin->Apply_Parent(Body);
+	Larm->Apply_Parent(Body);
+	Rarm->Apply_Parent(Body);
 	Body->renderEnemy(*shaderfunc);
-	Spin->renderEnemy(*shaderfunc);
 	Larm->renderEnemy(*shaderfunc);
 	Rarm->renderEnemy(*shaderfunc);
+	Spin->renderEnemy(*shaderfunc);
 };
 
 float Flyrobot::Return_PositionX() {
@@ -105,6 +109,7 @@ void Flyrobot::renderEnemy(ShaderFunc& shaderID)
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Revolution.x), glm::vec3(1, 0, 0));
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
 	FlyrobotMatrix = glm::translate(FlyrobotMatrix, Position);
+	FlyrobotMatrix = glm::translate(FlyrobotMatrix, Translate);
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
@@ -120,7 +125,15 @@ void Flyrobot::renderEnemy(ShaderFunc& shaderID)
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 4);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, FlyrobotVertexData.size());
-};
+}
+
+void Flyrobot::Trans_Positon(float x, float y, float z)
+{
+	Translate = glm::vec3(x, y, z);
+	//FlyrobotMatrix = glm::translate(FlyrobotMatrix, Translate);
+
+}
+
 void Flyrobot::bindingEnemy(ShaderFunc& shaderID, string name)
 {
 	readTriangleObj(name, FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);

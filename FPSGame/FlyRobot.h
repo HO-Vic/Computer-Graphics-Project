@@ -24,6 +24,10 @@ protected:
 	std::vector<glm::vec3> FlyrobotNormalData;
 	std::vector<glm::vec2> FlyrobotTextureData;
 	glm::mat4 FlyrobotMatrix;
+	Flyrobot* Flyrobotbody;
+	Flyrobot* Flyrobotlarm;
+	Flyrobot* Flyrobotrarm;
+	Flyrobot* Flyrobotspin;
 
 	//glm::vec3 FlyrobotPosition;
 	Flyrobot* Parent{ nullptr };
@@ -39,17 +43,13 @@ public:
 	glm::mat4 Getmatrix();
 	glm::mat4 Getnormal();
 	glm::vec3 GetColor();
-	Flyrobot* Flyrobotbody;
-	Flyrobot* Flyrobotlarm;
-	Flyrobot* Flyrobotrarm;
-	Flyrobot* Flyrobotspin;
 	void Change_Positon(float x, float y, float z);
 	void Change_Rotation(float x, float y, float z);
 	void Change_Revoltion(float x, float y, float z);
 	void Change_Scale(float x, float y, float z);
 	void Change_Color(float x, float y, float z);
 	void renderEnemy(ShaderFunc& shaderID);
-
+	void Trans_Positon(float x, float y, float z);
 	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Flyrobot* Parent1);
 	void FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc);
@@ -58,6 +58,7 @@ public:
 	float Return_PositionY();
 	glm::vec3 get_Position();
 	Flyrobot* get_body();
+	
 	//	
 
 };
