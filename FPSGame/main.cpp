@@ -46,6 +46,7 @@ void IdleCall();
 
 //texture load Func
 void loadITextureImage();
+void bindingObj();
 
 //bullet queue render
 //render func
@@ -131,26 +132,7 @@ int main(int argc, char** argv)
 	loadITextureImage();
 	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
 
-	pistol->bindingGun(shaderfunc);
-	rifle->bindingGun(shaderfunc);
-	sniper->bindingGun(shaderfunc);
-	map->bindingMap(shaderfunc);
-	stair->bindingMap(shaderfunc);
-	wall->bindingMap(shaderfunc);
-	bullets.bindingBullet(shaderfunc);
-	//enemy->bindingEnemy(shaderfunc);
-	flyrobotbody->bindingEnemy(shaderfunc,"Obj_FlyRobot_Body.obj");
-	flyrobotlarm->bindingEnemy(shaderfunc,"Obj_FlyRobot_Larm.obj");
-	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
-	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
-	for (int i = 0; i < 20; i++) {
-		//FLpostion[i].x = RandomFl(1.0, 10.0);
-		//FLpostion[i].y = RandomFl(8.0, 16.0);
-		//FLpostion[i].z = RandomFl(1.0, 10.0);
-	}
-	//
-	CR.binding(shaderfunc);
-	particle.bindingParticle(shaderfunc);
+	bindingObj();
 
 	//display
 	glutDisplayFunc(DrawSceneCall);
@@ -206,7 +188,7 @@ void timercall(int value)
 			glutWarpPointer(curreuntMouse.first, 4 * Wheight / 5);
 		preMouse = curreuntMouse;
 		glutPostRedisplay();
-		glutTimerFunc(10, timercall, value);
+		glutTimerFunc(1, timercall, value);
 		break;
 	case GUN:
 		pistol->AttackMotion();
@@ -251,11 +233,11 @@ void timercall(int value)
 		glutPostRedisplay();
 		glutTimerFunc(17, timercall, value);
 		break;
-	/*case PARTICLE:
+	case PARTICLE:
 		particle.parLife();
 		glutPostRedisplay();
-		glutTimerFunc(1000, timercall, value);
-		break;*/
+		glutTimerFunc(20, timercall, value);
+		break;
 	default:
 		break;
 	}
@@ -560,6 +542,30 @@ void loadITextureImage()
 
 }
 
+void bindingObj()
+{
+	pistol->bindingGun(shaderfunc);
+	rifle->bindingGun(shaderfunc);
+	sniper->bindingGun(shaderfunc);
+	map->bindingMap(shaderfunc);
+	stair->bindingMap(shaderfunc);
+	wall->bindingMap(shaderfunc);
+	bullets.bindingBullet(shaderfunc);
+	//enemy->bindingEnemy(shaderfunc);
+	flyrobotbody->bindingEnemy(shaderfunc, "Obj_FlyRobot_Body.obj");
+	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Larm.obj");
+	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
+	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
+	for (int i = 0; i < 20; i++) {
+		//FLpostion[i].x = RandomFl(1.0, 10.0);
+		//FLpostion[i].y = RandomFl(8.0, 16.0);
+		//FLpostion[i].z = RandomFl(1.0, 10.0);
+	}
+	//
+	CR.binding(shaderfunc);
+	particle.bindingParticle(shaderfunc);
+}
+
 void renderObjs()
 {	
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
@@ -571,6 +577,7 @@ void renderObjs()
 		myGun->renderGun(shaderfunc);
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
 
+	particle.renderParticles(shaderfunc);
 	bullets.renderBullets(shaderfunc);
 
 	//enemy
@@ -583,7 +590,6 @@ void renderObjs()
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);
 
-	particle.renderParticles(shaderfunc);
 
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);

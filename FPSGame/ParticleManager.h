@@ -14,7 +14,9 @@ class ParticleManager
 	std::queue<Particle> particleQ;
 	GLuint vao;
 	GLuint vertexVbo;
+	GLuint normalVbo;
 	std::vector<glm::vec3> vertexData;
+	std::vector<glm::vec3> normalData;
 public://render
 	void renderParticles(ShaderFunc& shaderID);
 	void renderParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 dir);

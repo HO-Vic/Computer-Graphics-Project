@@ -17,5 +17,5 @@ int Particle::getLife()
 
 void Particle::setLife()
 {
-	life+=1;
+	life += 1;
 }

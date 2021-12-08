@@ -36,7 +36,7 @@ void main()
 		float diffuseLight = max(dot(lightDir, normalDir), 0.0f);
 		vec3 diffuse = diffuseLight * LightColor;
 		//specular
-		int shininess = 128;
+		int shininess = 256;
 		vec3 viewDir = normalize(cameraPos - fragPos);
 		viewDir = rotation * viewDir;
 		vec3 reflectDir = reflect(-lightDir , normalDir);//¿‘ªÁ ∫§≈Õ π›ªÁ ∫§≈Õ // -lightDir???

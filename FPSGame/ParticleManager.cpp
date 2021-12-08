@@ -10,7 +10,7 @@ void ParticleManager::renderParticles(ShaderFunc& shaderID)
 			renderParticle(shaderID, temp.getPos(), (float)temp.getLife() * temp.getDir()[j]);
 		}
 		temp.setLife();
-		if(temp.getLife() >= 30)
+		if(temp.getLife() >= 20)
 			particleQ.push(temp);
 	}
 }
@@ -19,7 +19,7 @@ void ParticleManager::renderParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::v
 {
 	glBindVertexArray(vao);
 	glm::mat4 matrix = glm::mat4(1.0f);
-	matrix = glm::translate(matrix, glm::vec3(0, 1.0f, 9.0f) + dir);
+	matrix = glm::translate(matrix, pos + dir);
 	matrix = glm::scale(matrix, glm::vec3(0.01f, 0.01f, 0.01f));
 	shaderID.setTransMatrix(matrix);
 	glUniform3f(glGetUniformLocation(shaderID.getShaderID(), "objColor"), 0.5, 0.3, 0);
@@ -30,17 +30,15 @@ void ParticleManager::renderParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::v
 void ParticleManager::bindingParticle(ShaderFunc& shaderID)
 {
 	GLuint temp;
-	std::vector<glm::vec3> tempN;
 	std::vector<glm::vec2> tempT;
-	readTriangleObj("obj_particle.obj", vertexData, tempT, tempN);
-	shaderID.InitBuffer(vao, vertexVbo, temp, temp, vertexData, tempT, tempN);
+	readTriangleObj("obj_particle.obj", vertexData, tempT, normalData);
+	shaderID.InitBuffer(vao, vertexVbo, temp, normalVbo, vertexData, tempT, normalData);
 }
 
 void  ParticleManager::Makeparticle(glm::vec3 pos, glm::vec3 gunDir, glm::vec3 gunRight)
 {
-	if (particleQ.size() <= 30) {	
-		particleQ.push(Particle(pos + gunDir + 0.002f * gunRight, gunDir, gunRight));
-	}
+	if (particleQ.size() <= 100)
+		particleQ.push(Particle(pos + gunDir + 0.2f * gunRight, gunDir, gunRight));
 }
 
 void ParticleManager::parLife()

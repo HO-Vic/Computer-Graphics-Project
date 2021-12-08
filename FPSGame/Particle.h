@@ -18,8 +18,9 @@ public:
 		std::default_random_engine dre(rd());
 		std::uniform_real_distribution<float> urd(-1.0f, 1.0f);
 		std::uniform_real_distribution<float> urdZ(-1.0f, 0.0f);
-		for (int i = 0; i < 20; i++)
-			dir[i] = 0.001f * urd(dre) * gunRight + 0.001f * urdZ(dre) * gunDir;
+		for (int i = 0; i < 20; i++) {
+			dir[i] = 0.01f * urd(dre) * gunRight + 0.01f * urdZ(dre) * gunDir;
+		}
 	}
 public:
 	glm::vec3 getPos();
