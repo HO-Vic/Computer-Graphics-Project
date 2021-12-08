@@ -37,7 +37,7 @@ float Gun::getRecoil()
 
 glm::vec3 Gun::getAngles()
 {
-	return (glm::vec3(rotateAngle.x + defaultRotateAngleX, rotateAngle.y, rotateAngle.z) + glm::vec3(revoluAngle.x + motionRevolu, revoluAngle.y, revoluAngle.z));
+	return (glm::vec3(defaultRotateAngleX + revoluAngle.x + motionRevolu, revoluAngle.y, revoluAngle.z));
 }
 
 glm::vec3 Gun::getPos()

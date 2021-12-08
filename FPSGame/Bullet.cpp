@@ -18,7 +18,7 @@ void Bullet::renderBullet(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 rotateA
 	shaderID.setTransMatrix(bulletMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 3);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 4);
 	glDrawArrays(GL_TRIANGLES, 0, bulletVertexData.size());
 }
 

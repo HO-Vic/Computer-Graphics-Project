@@ -25,7 +25,7 @@
 #include"FlyRobot.h"
 #include"GameSound.h"
 #include"Crash.h"
-#include"Random.h"
+//#include"Random.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
 #include"CrossHead.h"
@@ -144,9 +144,9 @@ int main(int argc, char** argv)
 	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
 	flyrobotlarm->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
 	for (int i = 0; i < 20; i++) {
-		FLpostion[i].x = RandomFl(1.0, 10.0);
-		FLpostion[i].y = RandomFl(8.0, 16.0);
-		FLpostion[i].z = RandomFl(1.0, 10.0);
+		//FLpostion[i].x = RandomFl(1.0, 10.0);
+		//FLpostion[i].y = RandomFl(8.0, 16.0);
+		//FLpostion[i].z = RandomFl(1.0, 10.0);
 	}
 	//
 	CR.binding(shaderfunc);
@@ -457,7 +457,7 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int pistolwidthImage, pistolheightImage, pistolnumberOfChannel;
-	unsigned char* pistolData = stbi_load("texture_pistol_2.jpg", &pistolwidthImage, &pistolheightImage, &pistolnumberOfChannel, 0);
+	unsigned char* pistolData = stbi_load("texture_pistol.jpg", &pistolwidthImage, &pistolheightImage, &pistolnumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pistolwidthImage, pistolheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, pistolData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(pistolData);
@@ -481,7 +481,7 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int sniperwidthImage, sniperheightImage, snipernumberOfChannel;
-	unsigned char* sniperData = stbi_load("texture_sniper.jpg", &sniperwidthImage, &sniperheightImage, &snipernumberOfChannel, 0);
+	unsigned char* sniperData = stbi_load("texture_sniper_2.jpg", &sniperwidthImage, &sniperheightImage, &snipernumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sniperwidthImage, sniperheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, sniperData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(sniperData);

@@ -76,6 +76,10 @@ void main()
 			result = vec3(re.x * texture(textureC, textCoord).x, re.y * texture(textureC, textCoord).y, re.z * texture(textureC, textCoord).z);
 			FragColor = vec4(result, -1 * (texture(textureC, textCoord).y - 1));
 		}
+		else if(isTexture == 4){
+			result = vec3(texture(textureC, textCoord).x, texture(textureC, textCoord).y, texture(textureC, textCoord).z);
+			FragColor = vec4(result, 1.0f);
+		}
 		else if(isTexture == 0){
 			result = vec3(re.x * objColor.x, re.y * objColor.y, re.z * objColor.z);
 			FragColor = vec4(result, 1.0f);

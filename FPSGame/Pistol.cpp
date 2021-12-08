@@ -69,7 +69,7 @@ void Pistol::renderGun(ShaderFunc& shaderID)
 	glActiveTexture(GL_TEXTURE7);
 	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE7);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureN"), 7);
-	glUniform1f(glGetUniformLocation(shaderID.getShaderID(), "ambientLight"), 0.3f);
+	glUniform1f(glGetUniformLocation(shaderID.getShaderID(), "ambientLight"), 0.1f);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
 }
 
