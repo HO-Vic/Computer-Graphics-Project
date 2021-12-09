@@ -39,6 +39,8 @@ void Flyrobot::Change_Positon(float x, float y, float z) {
 	Position = glm::vec3(x, y, z);
 };
 
+
+
 void Flyrobot::Change_Rotation(float x, float y, float z) {
 	Rotation = glm::vec3(x, y, z);
 }

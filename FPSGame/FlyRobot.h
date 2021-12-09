@@ -29,6 +29,7 @@ protected:
 	Flyrobot* Flyrobotrarm;
 	Flyrobot* Flyrobotspin;
 
+
 	//glm::vec3 FlyrobotPosition;
 	Flyrobot* Parent{ nullptr };
 public:

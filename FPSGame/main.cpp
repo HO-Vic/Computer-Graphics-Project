@@ -242,9 +242,9 @@ void timercall(int value)
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(flyrobotbody[i]->get_Position()) == 1) {
-				cout << "dddddddddddddddddddd" << endl;
-				flyrobotbody[i]->Change_Scale(0 ,0, 0);
+			if (bullets.collideBullet(flyrobotbody[i]->get_Position())==1) {
+				cout <<"i" << i<<endl;
+				flyrobotbody[i]->Trans_Positon(100 ,100, 100);
 			}
 		}
 		glutPostRedisplay();
@@ -617,9 +617,9 @@ void bindingObj()
 		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Larm.obj");
 		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
 		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
-		FLpostion[i].x = RandomFl(-20.0, 20.0);
-		FLpostion[i].y = RandomFl(10.0, 20.0);
-		FLpostion[i].z = RandomFl(-20.0, 20.0);
+		FLpostion[i].x = RandomFl(10, 15.0);
+		FLpostion[i].y = RandomFl(10.0, 15.0);
+		FLpostion[i].z = RandomFl(10, 15.0);
 	}
 	//
 	CR.binding(shaderfunc);
@@ -645,7 +645,18 @@ void renderObjs()
 	for (int i = 0; i < 20; i++) {
 		//flyrobotbody[i]->Change_Scale(4, 4, 4);
 		flyrobotbody[i]->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
-		flyrobotbody[i]->Change_Positon(-15,10, -15);
+		/*flyrobotbody[10]->Change_Positon(15,10, 15);
+		flyrobotbody[0]->Change_Positon(10, 10, 10);
+		flyrobotbody[1]->Change_Positon(11, 10, 10);
+		flyrobotbody[2]->Change_Positon(12, 10, 10);
+		flyrobotbody[3]->Change_Positon(13, 10, 10);
+		flyrobotbody[4]->Change_Positon(14, 10, 10);
+		flyrobotbody[5]->Change_Positon(15, 10, 10);
+		flyrobotbody[6]->Change_Positon(16, 10, 10);
+		flyrobotbody[7]->Change_Positon(17, 10, 10);
+		flyrobotbody[8]->Change_Positon(18, 10, 10);
+		flyrobotbody[9]->Change_Positon(19, 10, 10);
+		flyrobotbody[10]->Change_Positon(20, 10, 10);*/
 		flyrobot[i]->FlyRobot(flyrobotbody[i], flyrobotspin[i], flyrobotlarm[i], flyrobotrarm[i], &shaderfunc);
 	//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
 	}

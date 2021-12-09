@@ -28,6 +28,7 @@ protected:
 	glm::vec3 Color{ 1 };//»ö±ò
 	glm::mat4 result = glm::mat4(1.0f);
 	Enemy* Parent{ nullptr };
+	bool Crashcheck=0;
 public:
 	Enemy();
 	Enemy(glm::vec3 Position,

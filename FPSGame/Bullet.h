@@ -9,6 +9,7 @@
 #include"readTriangleObj.h"
 #include"BulletInfo.h"
 #include"Enemy.h"
+#include"FlyRobot.h"
 
 class Bullet
 {
