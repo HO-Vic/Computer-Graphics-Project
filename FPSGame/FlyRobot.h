@@ -53,11 +53,11 @@ public:
 	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Flyrobot* Parent1);
 	void FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc);
-	float Return_PositionX();
-	float Return_PositionZ();
-	float Return_PositionY();
-	glm::vec3 get_Position();
-	Flyrobot* get_body();
+	float Return_PositionX()override;
+	float Return_PositionZ()override;
+	float Return_PositionY()override;
+	glm::vec3 get_Position()override;
+	Flyrobot* get_body()override;
 	
 	//	
 

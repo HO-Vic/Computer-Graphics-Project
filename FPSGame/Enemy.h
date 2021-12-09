@@ -51,5 +51,8 @@ public:
 	//virtual void Apply_Parent(Enemy* Parent1);
 	virtual float Return_PositionX();
 	virtual float Return_PositionZ();
+	virtual float Return_PositionY();
+	virtual glm::vec3 get_Position();
+	virtual Enemy* get_body();
 
 };

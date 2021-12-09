@@ -86,7 +86,20 @@ float Enemy::Return_PositionX() {
 
 float Enemy::Return_PositionZ() {
 	return Position.z;
-};
+}
+float Enemy::Return_PositionY()
+{
+	return 0.0f;
+}
+glm::vec3 Enemy::get_Position()
+{
+	return glm::vec3();
+}
+Enemy* Enemy::get_body()
+{
+	return nullptr;
+}
+;
 void Enemy::renderEnemy(ShaderFunc& shaderID)
 {
 	glBindVertexArray(EnemyVAO);

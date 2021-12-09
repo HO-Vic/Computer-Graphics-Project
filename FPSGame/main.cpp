@@ -241,8 +241,14 @@ void timercall(int value)
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
+		for (int i = 0; i < 20; i++) {
+			if (bullets.collideBullet(flyrobotbody[i]->get_Position()) == 1) {
+				cout << "dddddddddddddddddddd" << endl;
+				flyrobotbody[i]->Change_Scale(0 ,0, 0);
+			}
+		}
 		glutPostRedisplay();
-		glutTimerFunc(17, timercall, value);
+		glutTimerFunc(10, timercall, value);
 		break;
 	case PARTICLE:
 		particle.parLife();
@@ -287,10 +293,10 @@ void timercall(int value)
 			else {
 				FLTrpostion[i].z += RandomFl(0, 0.1);
 			}
-			flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
+		//	flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
 		}
 		glutPostRedisplay();
-		glutTimerFunc(10, timercall, value);
+		glutTimerFunc(10000, timercall, value);
 		break;
 	default:
 		break;
@@ -637,8 +643,9 @@ void renderObjs()
 	//enemy
 	enemy->renderEnemy(shaderfunc);
 	for (int i = 0; i < 20; i++) {
-		flyrobotbody[i]->Change_Scale(4, 4, 4);
+		//flyrobotbody[i]->Change_Scale(4, 4, 4);
 		flyrobotbody[i]->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
+		flyrobotbody[i]->Change_Positon(-15,10, -15);
 		flyrobot[i]->FlyRobot(flyrobotbody[i], flyrobotspin[i], flyrobotlarm[i], flyrobotrarm[i], &shaderfunc);
 	//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
 	}

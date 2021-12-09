@@ -62,6 +62,7 @@ glm::vec3 Flyrobot::GetColor() {
 void Flyrobot::Apply_Parent(Flyrobot* Parent1) {
 	Parent = Parent1;
 }
+
 void Flyrobot::FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc)
 {
 	/*Flyrobotbody = Body;
@@ -90,7 +91,7 @@ float Flyrobot::Return_PositionY()
 }
 glm::vec3 Flyrobot::get_Position()
 {
-	return Position;
+	return Position+Translate;
 }
 Flyrobot* Flyrobot::get_body()
 {
