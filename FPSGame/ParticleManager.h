@@ -6,6 +6,7 @@
 #include<glm/glm/gtc/matrix_transform.hpp>
 #include<vector>
 #include<queue>
+#include<random>
 #include"ShaderFunc.h"
 #include"readTriangleObj.h"
 #include"Particle.h"
@@ -23,7 +24,7 @@ public://render
 public://binding
 	void bindingParticle(ShaderFunc& shaderID);
 public:
-	void Makeparticle(glm::vec3 pos,  glm::vec3 gunDir, glm::vec3 gunRight);
+	void Makeparticle(glm::vec3 pos,  glm::vec3 gunDir, glm::vec3 gunRight, glm::vec3 gunUp);
 	void parLife();
 };
 

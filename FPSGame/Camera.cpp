@@ -203,3 +203,8 @@ glm::vec3 Camera::getRight()
 {
 	return glm::vec3(cameraRight);
 }
+
+glm::vec3 Camera::getUp()
+{
+	return glm::vec3(cameraUp);
+}

@@ -216,7 +216,7 @@ void timercall(int value)
 	case GUNMOTION:
 		if (isClick && myGun->getRecoil() <= 1.2f) {
 			bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
-			particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
+			particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight(), Camera::getInst(glm::vec3(0, 0, 0))->getUp());
 			rifle->setStatusAttack(true);
 			Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
 			sounds.shootingSound();				
@@ -452,13 +452,13 @@ void mouseCall(int button, int state, int x, int y)
 	case GLUT_LEFT_BUTTON:
 		if (state == GLUT_DOWN) {
 			if (myGun->getRecoil() <= 1.2f) {
-				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
+				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight(), Camera::getInst(glm::vec3(0, 0, 0))->getUp());
 			}
 			else if (myGun->getRecoil() <= 1.4f) {
-				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
+				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight(), Camera::getInst(glm::vec3(0, 0, 0))->getUp());
 			}
 			else {
-				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight());
+				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight(), Camera::getInst(glm::vec3(0, 0, 0))->getUp());
 			}			
 			bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 			pistol->setStatusAttack(true);
