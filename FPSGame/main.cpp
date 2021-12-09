@@ -617,9 +617,9 @@ void bindingObj()
 		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Larm.obj");
 		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
 		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
-		FLpostion[i].x = RandomFl(10, 15.0);
+		FLpostion[i].x = RandomFl(-15, 15.0);
 		FLpostion[i].y = RandomFl(10.0, 15.0);
-		FLpostion[i].z = RandomFl(10, 15.0);
+		FLpostion[i].z = RandomFl(-15, 15.0);
 	}
 	//
 	CR.binding(shaderfunc);
