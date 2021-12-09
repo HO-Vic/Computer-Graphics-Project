@@ -1,3 +1,4 @@
+P
 #version 330 core
 
 in vec3 FragPos;
@@ -73,7 +74,7 @@ void main()
 			FragColor = vec4(result, 1.0f);
 			}
 		else if(isTexture == 2){		
-			result = vec3(re.x * texture(textureC, textCoord).x, re.y * texture(textureC, textCoord).y, re.z * texture(textureC, textCoord).z);
+			result = vec3(texture(textureC, textCoord).x, texture(textureC, textCoord).y, texture(textureC, textCoord).z);
 			FragColor = vec4(result, -1 * (texture(textureC, textCoord).y - 1));
 		}
 		else if(isTexture == 4){
