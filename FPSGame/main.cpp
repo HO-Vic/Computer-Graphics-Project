@@ -183,7 +183,7 @@ void timercall(int value)
 		pistol->moveRevoluY(xAxis);
 		rifle->moveRevoluY(xAxis);
 		sniper->moveRevoluY(xAxis);
-		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <= 60.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -60.0f) {
+		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <= 80.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -80.0f) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateX(yAxis);
 			pistol->moveRevoluX(yAxis);
 			rifle->moveRevoluX(yAxis);

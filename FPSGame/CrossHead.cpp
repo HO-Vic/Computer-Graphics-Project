@@ -10,7 +10,7 @@ void CrossHead::drawdotCrossHead(ShaderFunc& shaderID)
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), -1);
 	glUniform3f(glGetUniformLocation(shaderID.getShaderID(), "objColor"), 1, 0, 0);
 	glEnable(GL_POINT_SMOOTH);
-	glPointSize(7.0f);
+	glPointSize(5.0f);
 	glDrawArrays(GL_POINTS, 0, 1);
 }
 

@@ -23,7 +23,7 @@ void ParticleManager::renderParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::v
 	glBindVertexArray(vao);
 	glm::mat4 matrix = glm::mat4(1.0f);
 	matrix = glm::translate(matrix, pos + dir);
-	matrix = glm::scale(matrix, glm::vec3(0.0035f, 0.0035f, 0.0035f));
+	matrix = glm::scale(matrix, glm::vec3(0.002f, 0.002f, 0.002f));
 	shaderID.setTransMatrix(matrix);
 	glUniform3f(glGetUniformLocation(shaderID.getShaderID(), "objColor"), red(dre),  green(dre), 0);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), -1);
