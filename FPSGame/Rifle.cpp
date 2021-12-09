@@ -7,7 +7,7 @@ void Rifle::setPos(glm::vec3 inPutpos)
 
 void Rifle::AttackMotion()
 {
-	if (motionRevolu >= recoil)
+	if (motionRevolu >= 0.1f)
 		motionRevolu -= 0.1f;
 }
 
@@ -69,3 +69,4 @@ void Rifle::bindingGun(ShaderFunc& shaderID)
 	readTriangleObj("obj_rifle.obj", gunVertexData, gunTextureData, gunNormalData);
 	shaderID.InitBuffer(gunVAO, gunVertexVBO, gunTextureVBO, gunNormalVBO, gunVertexData, gunTextureData, gunNormalData);
 }
+

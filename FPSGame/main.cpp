@@ -89,7 +89,7 @@ Wall* wall = new Wall;
 
 //Enemy
 Enemy* enemy = new Enemy;
-Flyrobot** flyrobot = new Flyrobot*[20];
+Flyrobot** flyrobot = new Flyrobot * [20];
 Flyrobot* flyrobotbody[20];
 Flyrobot* flyrobotlarm[20];
 Flyrobot* flyrobotrarm[20];
@@ -123,11 +123,6 @@ int main(int argc, char** argv)
 		cerr << "fail Initialize" << endl;
 	else cout << "Initialize" << endl;
 
-
-	/*int num;
-	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS ,&num);
-	cout << num;*/
-
 	shaderfunc.makeVertexShader();
 	shaderfunc.makeFragmentShader();
 	shaderfunc.makeShaderID();
@@ -143,6 +138,11 @@ int main(int argc, char** argv)
 		flyrobotspin[i] = new Flyrobot;
 	}
 	bindingObj();
+
+	/*int num;
+	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS ,&num);
+	cout << num;*/
+
 
 	//display
 	glutDisplayFunc(DrawSceneCall);
@@ -163,7 +163,7 @@ int main(int argc, char** argv)
 	glutTimerFunc(10, timercall, (int)GUNMOTION);
 	glutTimerFunc(10, timercall, (int)GUN);
 	glutTimerFunc(17, timercall, (int)BULLET);
-	glutTimerFunc(1000, timercall, (int)WALK);
+	glutTimerFunc(10, timercall, (int)WALK);
 	glutTimerFunc(17, timercall, (int)CRASH);
 	glutTimerFunc(17, timercall, (int)PARTICLE);
 	glutTimerFunc(10, timercall, (int)FlYROBOT);
@@ -219,7 +219,7 @@ void timercall(int value)
 			particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight(), Camera::getInst(glm::vec3(0, 0, 0))->getUp());
 			rifle->setStatusAttack(true);
 			Camera::getInst(glm::vec3(0, 0, 0))->setStatusAttack(true, myGun->getRecoil());
-			sounds.shootingSound();				
+			sounds.shootingSound();
 		}
 		glutPostRedisplay();
 		glutTimerFunc(100, timercall, value);
@@ -242,9 +242,9 @@ void timercall(int value)
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(flyrobotbody[i]->get_Position())==1) {
-				cout <<"i" << i<<endl;
-				flyrobotbody[i]->Trans_Positon(100 ,100, 100);
+			if (bullets.collideBullet(flyrobotbody[i]->get_Position()) == 1) {
+				cout << "i" << i << endl;
+				flyrobotbody[i]->Trans_Positon(100, 100, 100);
 			}
 		}
 		glutPostRedisplay();
@@ -260,7 +260,7 @@ void timercall(int value)
 			if (FLTrpostion[i].x > 5) {
 				FLXCheck[i] = 1;
 			}
-			else if(FLTrpostion[i].x < -5){
+			else if (FLTrpostion[i].x < -5) {
 				FLXCheck[i] = 0;
 			}
 			if (FLTrpostion[i].y > 3) {
@@ -276,9 +276,9 @@ void timercall(int value)
 				FLZCheck[i] = 0;
 			}
 			if (FLXCheck[i] == 1) {
-				FLTrpostion[i].x -= RandomFl(0,0.1);
+				FLTrpostion[i].x -= RandomFl(0, 0.1);
 			}
-			else if(FLXCheck[i] == 0){
+			else if (FLXCheck[i] == 0) {
 				FLTrpostion[i].x += RandomFl(0, 0.1);
 			}
 			if (FLYCheck[i] == 1) {
@@ -293,7 +293,7 @@ void timercall(int value)
 			else {
 				FLTrpostion[i].z += RandomFl(0, 0.1);
 			}
-		//	flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
+			//	flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
 		}
 		glutPostRedisplay();
 		glutTimerFunc(10000, timercall, value);
@@ -312,7 +312,7 @@ void DrawSceneCall()
 
 	defaultLight.renderLight(shaderfunc);
 	Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->renderCamera(shaderfunc);
-	if(changeCrossHead)
+	if (changeCrossHead)
 		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 45.0f);
 	else {
 		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 12.0f);
@@ -337,33 +337,30 @@ void keyboardCall(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case'1':
-		changeCrossHead = true;
+		changeCrossHead = true;				
+		pistol->setRevoluMotion(myGun->getRevolu() , myGun->getMotionX());
 		myGun = dynamic_cast<Pistol*> (pistol);
-		myGun->initRecoilRotate();
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
 		sounds.pauseWalking();
 		break;
 	case'2':
 		changeCrossHead = true;
-		myGun = dynamic_cast<Rifle*> (rifle);
-		myGun->initRecoilRotate();
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
+		rifle->setRevoluMotion(myGun->getRevolu(), myGun->getMotionX());
+		myGun = dynamic_cast<Rifle*> (rifle);	
 		break;
 	case'3':
+		sniper->setRevoluMotion(myGun->getRevolu(), myGun->getMotionX());
 		myGun = dynamic_cast<Sniper*> (sniper);
-		myGun->initRecoilRotate();
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->initRecoilRotate();
 		break;
 	case'w':
 	case'W':
-		 mod = glutGetModifiers();
+		mod = glutGetModifiers();
 		if (mod == GLUT_ACTIVE_SHIFT) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runFrontCamera();
 			sounds.runningSound();
 		}
 		else {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveFrontCamera();
-		sounds.walkingSound();
+			sounds.walkingSound();
 		}
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
@@ -372,7 +369,7 @@ void keyboardCall(unsigned char key, int x, int y)
 		break;
 	case's':
 	case'S':
-		 mod = glutGetModifiers();
+		mod = glutGetModifiers();
 		if (mod == GLUT_ACTIVE_SHIFT) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runBackCamera();
 			sounds.runningSound();
@@ -388,9 +385,9 @@ void keyboardCall(unsigned char key, int x, int y)
 		break;
 	case'a':
 	case'A':
-		 mod = glutGetModifiers();
-		if (mod == GLUT_ACTIVE_SHIFT) { 
-			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runLeftCamera(); 
+		mod = glutGetModifiers();
+		if (mod == GLUT_ACTIVE_SHIFT) {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runLeftCamera();
 			sounds.runningSound();
 		}
 		else {
@@ -404,7 +401,7 @@ void keyboardCall(unsigned char key, int x, int y)
 		break;
 	case'd':
 	case'D':
-		 mod = glutGetModifiers();
+		mod = glutGetModifiers();
 		if (mod == GLUT_ACTIVE_SHIFT) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->runRightCamera();
 			sounds.runningSound();
@@ -445,7 +442,7 @@ void mouseCall(int button, int state, int x, int y)
 	{
 	case GLUT_RIGHT_BUTTON:
 		if (state == GLUT_DOWN) {
-			if (myGun->getRecoil() >= 4.9f) 
+			if (myGun->getRecoil() >= 4.9f)
 				changeCrossHead = !changeCrossHead;
 		}
 		break;
@@ -459,7 +456,7 @@ void mouseCall(int button, int state, int x, int y)
 			}
 			else {
 				particle.Makeparticle(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), Camera::getInst(glm::vec3(0, 0, 0))->getRight(), Camera::getInst(glm::vec3(0, 0, 0))->getUp());
-			}			
+			}
 			bullets.addBullet(Camera::getInst(glm::vec3(0, 0, 0))->getPos(), Camera::getInst(glm::vec3(0, 0, 0))->getDir(), myGun->getAngles());
 			pistol->setStatusAttack(true);
 			sniper->setStatusAttack(true);
@@ -470,11 +467,15 @@ void mouseCall(int button, int state, int x, int y)
 		}
 		else if (state == GLUT_UP) {
 			isClick = false;
+			if (myGun->getRecoil() <= 1.1f) {
+				rifle->controlRecoil();
+				Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->controlRtateX(1.0f);
+			}
 		}
 		break;
 	default:
 		break;
-	}		
+	}
 	glutPostRedisplay();
 }
 
@@ -627,13 +628,13 @@ void bindingObj()
 }
 
 void renderObjs()
-{	
+{
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
 	map->renderMap(shaderfunc);
 	stair->renderMap(shaderfunc);
 	wall->renderMap(shaderfunc);
 
-	if(changeCrossHead)
+	if (changeCrossHead)
 		myGun->renderGun(shaderfunc);
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
 
@@ -658,14 +659,14 @@ void renderObjs()
 		flyrobotbody[9]->Change_Positon(19, 10, 10);
 		flyrobotbody[10]->Change_Positon(20, 10, 10);*/
 		flyrobot[i]->FlyRobot(flyrobotbody[i], flyrobotspin[i], flyrobotlarm[i], flyrobotrarm[i], &shaderfunc);
-	//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
+		//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);
 
 
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);
-	else if(!changeCrossHead) {
+	else if (!changeCrossHead) {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		CR.drawSniperCrossHead(shaderfunc);

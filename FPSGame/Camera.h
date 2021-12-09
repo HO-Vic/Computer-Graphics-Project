@@ -33,8 +33,8 @@ public:
 		std::cout << AT.x << ' ' << AT.y << ' ' << AT.z << std::endl;
 	}
 public:
-	const float walkRatio = 0.1f;
-	const float runRatio = 0.3f;
+	const float walkRatio = 0.14f;
+	const float runRatio = 0.32f;
 public:
 	void setCameraDir();
 	void attackMotion(float recoil);
@@ -65,5 +65,7 @@ public:
 	glm::vec3 getDir();
 	glm::vec3 getRight();
 	glm::vec3 getUp();
+public:
+	void controlRtateX(float recoil);
 };
 

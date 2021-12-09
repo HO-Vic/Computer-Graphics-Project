@@ -54,3 +54,20 @@ float Gun::getMotionR()
 {
 	return motionRevolu + defaultRotateAngleX;
 }
+
+void Gun::controlRecoil()
+{
+	revoluAngle.x += motionRevolu - recoil;
+	motionRevolu = recoil + 0.1f;
+}
+
+void Gun::setRevoluMotion(glm::vec3 revoluR, float motionR)
+{
+	revoluAngle = revoluR;
+	motionRevolu = motionR;
+}
+
+float Gun::getMotionX()
+{
+	return motionRevolu;
+}

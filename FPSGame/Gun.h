@@ -55,5 +55,9 @@ public:
 	glm::vec3 getPos();
 	glm::vec3 getRevolu();
 	float getMotionR();
+public:
+	void controlRecoil();
+	void setRevoluMotion(glm::vec3 revoluR, float motionR);
+	float getMotionX();
 };
 

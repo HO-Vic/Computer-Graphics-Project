@@ -15,7 +15,7 @@ void Camera::setCameraDir()
 
 void Camera::attackMotion(float recoil)
 {
-	if (attackRotateX >= recoil)
+	if (attackRotateX >= 0.1f)
 		attackRotateX -= 0.1f;
 }
 
@@ -207,4 +207,10 @@ glm::vec3 Camera::getRight()
 glm::vec3 Camera::getUp()
 {
 	return glm::vec3(cameraUp);
+}
+
+void Camera::controlRtateX(float recoil)
+{
+	rotateAngle.x += attackRotateX - recoil;
+	attackRotateX = recoil + 0.1f;
 }
