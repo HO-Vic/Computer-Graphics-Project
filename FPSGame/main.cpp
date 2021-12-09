@@ -309,7 +309,7 @@ void DrawSceneCall()
 	if(changeCrossHead)
 		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 45.0f);
 	else {
-		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 7.0f);
+		perspective.perspectriveProjection(shaderfunc, Wwidth, Wheight, 12.0f);
 	}
 	renderObjs();
 

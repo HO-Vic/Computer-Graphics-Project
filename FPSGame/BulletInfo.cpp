@@ -8,7 +8,7 @@ int BulletInfo::getDirUnit()
 void BulletInfo::movePos()
 {
 	dirUnit++;
-	pos += 0.5f * bulletDir;
+	pos += 1.5f * bulletDir;
 }
 
 glm::vec3 BulletInfo::getPos()
