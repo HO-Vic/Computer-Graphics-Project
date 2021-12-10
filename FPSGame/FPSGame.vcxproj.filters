@@ -64,6 +64,21 @@
     <Filter Include="헤더 파일\sound">
       <UniqueIdentifier>{02ae7664-7750-4264-b5f1-815d3cc4744f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\particle">
+      <UniqueIdentifier>{ec3a5de2-6edd-4b08-8d8c-b77a9eb83979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\particle">
+      <UniqueIdentifier>{adc81dda-75c4-4e5d-83ee-22112096335d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\etc">
+      <UniqueIdentifier>{2d83f0b6-6d53-4ad7-be56-705d78e39336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\crash">
+      <UniqueIdentifier>{aa757349-c5e9-45b8-ac64-3b38b6b573fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\crash">
+      <UniqueIdentifier>{54df8add-b1cf-497d-8d9e-9f90b6046e3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -135,17 +150,17 @@
     <ClCompile Include="GameSound.cpp">
       <Filter>소스 파일\sound</Filter>
     </ClCompile>
-    <ClCompile Include="Crash.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CrossHead.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\particle</Filter>
     </ClCompile>
     <ClCompile Include="ParticleManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CrossHead.cpp">
+      <Filter>소스 파일\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Crash.cpp">
+      <Filter>소스 파일\crash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +206,6 @@
     <ClInclude Include="Sniper.h">
       <Filter>헤더 파일\weapon</Filter>
     </ClInclude>
-    <ClInclude Include="Enum.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="stair.h">
       <Filter>헤더 파일\map</Filter>
     </ClInclude>
@@ -221,20 +233,23 @@
     <ClInclude Include="GameSound.h">
       <Filter>헤더 파일\sound</Filter>
     </ClInclude>
-    <ClInclude Include="Crash.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CrossHead.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\particle</Filter>
     </ClInclude>
     <ClInclude Include="ParticleManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossHead.h">
+      <Filter>헤더 파일\camera</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>헤더 파일\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Crash.h">
+      <Filter>헤더 파일\crash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

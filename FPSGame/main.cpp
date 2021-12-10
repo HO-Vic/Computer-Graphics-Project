@@ -629,7 +629,8 @@ void bindingObj()
 
 void renderObjs()
 {
-	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
+	particle.renderParticles(shaderfunc);
+	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.1f);
 	map->renderMap(shaderfunc);
 	stair->renderMap(shaderfunc);
 	wall->renderMap(shaderfunc);
@@ -638,7 +639,6 @@ void renderObjs()
 		myGun->renderGun(shaderfunc);
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
 
-	particle.renderParticles(shaderfunc);
 	bullets.renderBullets(shaderfunc);
 
 	//enemy

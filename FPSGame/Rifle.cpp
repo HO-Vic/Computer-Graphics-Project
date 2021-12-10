@@ -61,7 +61,9 @@ void Rifle::renderGun(ShaderFunc& shaderID)
 	shaderID.setNormalMatrix(normalMatrix);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 1);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
+	glUniform1f(glGetUniformLocation(shaderID.getShaderID(), "ambientLight"), 0.7f);
 	glDrawArrays(GL_TRIANGLES, 0, gunVertexData.size());
+	
 }
 
 void Rifle::bindingGun(ShaderFunc& shaderID)

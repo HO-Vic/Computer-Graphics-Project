@@ -13,12 +13,13 @@ void Light::modifyLightRevolutAngle(float angle)
 void Light::setLightPos(glm::vec3 Pos)
 {
 	lightPos = Pos;
-	lightPos.y = 3.0f;
+	lightPos.y += 3.0f;
 }
 
 void Light::modifyLightPos(glm::vec3 Pos)
 {
-	lightPos = Pos;
+	lightPos += Pos;
+	lightPos.y += 3.0f;
 }
 
 void Light::renderLight(ShaderFunc& shaderID)
