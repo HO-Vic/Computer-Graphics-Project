@@ -66,9 +66,9 @@ bool Bullet::collideBullet(glm::vec3 Enemypositon)
 		bullets.pop();
 		//renderBullet(shaderID, currentRenderGun.getPos(), currentRenderGun.getRotateAngle());
 		//만약에 충돌하지 않았다면 또는 사정거리가 안됐다면 다시 넣는다 -> 사정거리는 dir곱한 정도로 계산
-		if (currentRenderGun.getPos().x <= Enemypositon.x + 0.3 && currentRenderGun.getPos().x >= Enemypositon.x - 0.3) {
-			if (currentRenderGun.getPos().y <= Enemypositon.y + 0.3 && currentRenderGun.getPos().y >= Enemypositon.y - 0.3) {
-				if (currentRenderGun.getPos().z <= Enemypositon.z + 0.3 && currentRenderGun.getPos().z >= Enemypositon.z - 0.3) {
+		if (currentRenderGun.getPos().x <= Enemypositon.x + 0.7 && currentRenderGun.getPos().x >= Enemypositon.x - 0.7) {
+			if (currentRenderGun.getPos().y <= Enemypositon.y + 0.7 && currentRenderGun.getPos().y >= Enemypositon.y - 0.7) {
+				if (currentRenderGun.getPos().z <= Enemypositon.z + 0.7 && currentRenderGun.getPos().z >= Enemypositon.z - 0.7) {
 					cout << "check" << check << endl;
 					cout << currentRenderGun.getPos().x << endl;
 					cout << currentRenderGun.getPos().y << endl;

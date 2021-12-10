@@ -263,8 +263,14 @@ void timercall(int value)
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		for (int i = 0; i < 20; i++) {
 			if (bullets.collideBullet(flyrobotbody[i]->get_Position()) == 1) {
-				cout << "i" << i << endl;
+			//	cout << "i" << i << endl;
 				flyrobotbody[i]->Trans_Positon(100, 100, 100);
+			}
+		}
+		for (int i = 0; i < 20; i++) {
+			if (bullets.collideBullet(robotbody[i]->get_Position()) == 1) {
+			//	cout << "i" << i << endl;
+				robotbody[i]->Trans_Positon(100, 100, 100);
 			}
 		}
 		glutPostRedisplay();
@@ -641,7 +647,7 @@ void bindingObj()
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
 	map->bindingMap(shaderfunc);
-	stair->bindingMap(shaderfunc);
+	//stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
 	//enemy->bindingEnemy(shaderfunc);
@@ -702,9 +708,10 @@ void renderObjs()
 		//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
 	}
 	for (int i = 0; i < 20; i++) {
-		robotbody[i]->Change_Positon(i+10, 1, 12);
-		robotrarm[i]->Change_Rotation(60, 0, 0);
-		robotrleg[i]->Change_Rotation(60, 0, 0);
+		robotbody[i]->Change_Positon((i*3)-10, -2, -5);
+		robotbody[i]->Change_Scale(0.5, 0.5, 0.5);
+	//	robotrarm[i]->Change_Rotation(60, 0, 0);
+	//	robotrleg[i]->Change_Rotation(60, 0, 0);
 		robot[i]->robot(robotbody[i], robothead[i], robotlarm[i], robotrarm[i], robotlleg[i], robotrleg[i], &shaderfunc);
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);
