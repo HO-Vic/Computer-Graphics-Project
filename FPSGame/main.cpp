@@ -75,6 +75,7 @@ bool isClick = false;
 //cross head
 bool changeCrossHead = true;
 CrossHead CR;
+float mouseSpeed = 2.0f;
 
 //weapon
 Pistol* pistol = new Pistol(Camera::getInst(glm::vec3(0, 1.0f, 9.0f))->getPos());
@@ -114,7 +115,7 @@ glm::vec3 Rpostion[20] = {};
 glm::vec3 RTrpostion[20] = {};
 //Boss
 Boss* boss = new Boss;
-
+ 
 
 
 //sound
@@ -200,8 +201,11 @@ void timercall(int value)
 	switch (value)
 	{
 	case MOUSE:
-		xAxis = ((float)preMouse.first - (float)curreuntMouse.first) * 0.5f;
-		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * 0.5f;
+		if (changeCrossHead)
+			mouseSpeed = 0.2f;
+		else mouseSpeed = 0.05f;
+		xAxis = ((float)preMouse.first - (float)curreuntMouse.first) * mouseSpeed;
+		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * mouseSpeed;
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateY(xAxis);
 		pistol->moveRevoluY(xAxis);
 		rifle->moveRevoluY(xAxis);
@@ -250,7 +254,7 @@ void timercall(int value)
 	case BULLET:
 		bullets.moveBullets();
 		glutPostRedisplay();
-		glutTimerFunc(17, timercall, value);
+		glutTimerFunc(1, timercall, value);
 		break;
 	case WALK:
 		sounds.pauseWalking();
@@ -277,7 +281,7 @@ void timercall(int value)
 			}
 		}
 		glutPostRedisplay();
-		glutTimerFunc(10, timercall, value);
+		glutTimerFunc(1, timercall, value);
 		break;
 	case PARTICLE:
 		particle.parLife();

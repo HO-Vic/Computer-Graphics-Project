@@ -60,7 +60,7 @@ void Bullet::moveBullets()
 bool Bullet::collideBullet(glm::vec3 Enemypositon)
 {
 	bool check = 0;
-	
+
 	for (int i = 0; i < bullets.size(); i++) {
 		BulletInfo currentRenderGun = bullets.front();
 		bullets.pop();
@@ -73,19 +73,38 @@ bool Bullet::collideBullet(glm::vec3 Enemypositon)
 					cout << currentRenderGun.getPos().x << endl;
 					cout << currentRenderGun.getPos().y << endl;
 					cout << currentRenderGun.getPos().z << endl;
-					check= 1;
+					check = 1;
 					return check;
 				}
-				else {
-					return 0;
-				}
-					
 			}
-		}	
-		
+		}
+		else if (currentRenderGun.getPos().x + 0.1f >= Enemypositon.x + 1.2f && currentRenderGun.getPos().x - 0.1f <= Enemypositon.x + 1.2f) {
+			if (currentRenderGun.getPos().y + 0.1f >= Enemypositon.y + 0.7f && currentRenderGun.getPos().y - 0.1f <= Enemypositon.y + 0.7f) {
+				if (currentRenderGun.getPos().z + 0.1f >= Enemypositon.z + 1.2f && currentRenderGun.getPos().z - 0.1f <= Enemypositon.z + 1.2f) {
+					cout << "check" << check << endl;
+					cout << currentRenderGun.getPos().x << endl;
+					cout << currentRenderGun.getPos().y << endl;
+					cout << currentRenderGun.getPos().z << endl;
+					check = 1;
+					return check;
+				}
+			}
+		}
+		else if (currentRenderGun.getPos().x + 0.1f >= Enemypositon.x - 1.2f && currentRenderGun.getPos().x - 0.1f <= Enemypositon.x - 1.2f) {
+			if (currentRenderGun.getPos().y + 0.1f >= Enemypositon.y - 0.7f && currentRenderGun.getPos().y - 0.1f <= Enemypositon.y - 0.7f) {
+				if (currentRenderGun.getPos().z + 0.1f >= Enemypositon.z - 1.2f && currentRenderGun.getPos().z - 0.1f <= Enemypositon.z - 1.2f) {
+					cout << "check" << check << endl;
+					cout << currentRenderGun.getPos().x << endl;
+					cout << currentRenderGun.getPos().y << endl;
+					cout << currentRenderGun.getPos().z << endl;
+					check = 1;
+					return check;
+				}
+			}
+
+
+		}
 		bullets.push(currentRenderGun);
-		
-			
 	}
 	return 0;
 }
