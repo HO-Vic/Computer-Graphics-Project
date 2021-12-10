@@ -25,12 +25,14 @@
 #include"FlyRobot.h"
 #include"GameSound.h"
 #include"Crash.h"
+#include"Robot.h"
 //#include"Random.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
 #include"CrossHead.h"
 #include"ParticleManager.h"
 #include"Random.h"
+
 
 
 using namespace std;
@@ -99,6 +101,18 @@ glm::vec3 FLTrpostion[20] = {};
 bool FLXCheck[20] = { 0 };
 bool FLYCheck[20] = { 0 };
 bool FLZCheck[20] = { 0 };
+//Robot
+Robot** robot = new Robot * [20];
+Robot* robotbody[20];
+Robot* robotlarm[20];
+Robot* robotrarm[20];
+Robot* robothead[20];
+Robot* robotlleg[20];
+Robot* robotrleg[20];
+glm::vec3 Rpostion[20] = {};
+glm::vec3 RTrpostion[20] = {};
+
+
 
 //sound
 GameSound sounds;
@@ -136,6 +150,12 @@ int main(int argc, char** argv)
 		flyrobotlarm[i] = new Flyrobot;
 		flyrobotrarm[i] = new Flyrobot;
 		flyrobotspin[i] = new Flyrobot;
+		robotbody[i] = new Robot;
+		robothead[i] = new Robot;
+		robotlarm[i] = new Robot;
+		robotrarm[i] = new Robot;
+		robotlleg[i] = new Robot;
+		robotrleg[i] = new Robot;
 	}
 	bindingObj();
 
@@ -601,6 +621,18 @@ void loadITextureImage()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(sniperMapData);
 
+	glActiveTexture(GL_TEXTURE9);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE9);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int RobotwidthImage, RobotheightImage, RobotnumberOfChannel;
+	unsigned char* RobotData = stbi_load("texture_Robot.bmp", &RobotwidthImage, &RobotheightImage, &RobotnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, RobotwidthImage, RobotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, RobotData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(RobotData);
+
 }
 
 void bindingObj()
@@ -621,6 +653,14 @@ void bindingObj()
 		FLpostion[i].x = RandomFl(-15, 15.0);
 		FLpostion[i].y = RandomFl(10.0, 15.0);
 		FLpostion[i].z = RandomFl(-15, 15.0);
+	}
+	for (int i = 0; i < 20; i++) {
+		robotbody[i]->bindingEnemy(shaderfunc, "obj_Robot_body.obj");
+		robothead[i]->bindingEnemy(shaderfunc, "obj_Robot_head.obj");
+		robotlarm[i]->bindingEnemy(shaderfunc, "obj_Robot_larm.obj");
+		robotrarm[i]->bindingEnemy(shaderfunc, "obj_Robot_rarm.obj");
+		robotlleg[i]->bindingEnemy(shaderfunc, "obj_Robot_lleg.obj");
+		robotrleg[i]->bindingEnemy(shaderfunc, "obj_Robot_rleg.obj");
 	}
 	//
 	CR.binding(shaderfunc);
@@ -660,6 +700,12 @@ void renderObjs()
 		flyrobotbody[10]->Change_Positon(20, 10, 10);*/
 		flyrobot[i]->FlyRobot(flyrobotbody[i], flyrobotspin[i], flyrobotlarm[i], flyrobotrarm[i], &shaderfunc);
 		//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
+	}
+	for (int i = 0; i < 20; i++) {
+		robotbody[i]->Change_Positon(i+10, 1, 12);
+		robotrarm[i]->Change_Rotation(60, 0, 0);
+		robotrleg[i]->Change_Rotation(60, 0, 0);
+		robot[i]->robot(robotbody[i], robothead[i], robotlarm[i], robotrarm[i], robotlleg[i], robotrleg[i], &shaderfunc);
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);
 

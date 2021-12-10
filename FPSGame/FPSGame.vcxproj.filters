@@ -162,6 +162,9 @@
     <ClCompile Include="Crash.cpp">
       <Filter>소스 파일\crash</Filter>
     </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>소스 파일\obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gun.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="Crash.h">
       <Filter>헤더 파일\crash</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>헤더 파일\obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

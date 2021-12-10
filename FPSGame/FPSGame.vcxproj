@@ -182,6 +182,7 @@
     <ClCompile Include="readTriangleObj2.cpp" />
     <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="FlyRobot.cpp" />
+    <ClCompile Include="Robot.cpp" />
     <ClCompile Include="ShaderFunc.cpp" />
     <ClCompile Include="Sniper.cpp" />
     <ClCompile Include="stair.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="readTriangleObj2.h" />
     <ClInclude Include="Rifle.h" />
     <ClInclude Include="FlyRobot.h" />
+    <ClInclude Include="Robot.h" />
     <ClInclude Include="ShaderFunc.h" />
     <ClInclude Include="Sniper.h" />
     <ClInclude Include="stair.h" />
