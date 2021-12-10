@@ -656,6 +656,7 @@ void loadITextureImage()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(BossData);
 
+
 }
 
 void bindingObj()
