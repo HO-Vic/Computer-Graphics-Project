@@ -210,20 +210,20 @@ void timercall(int value)
 		pistol->moveRevoluY(xAxis);
 		rifle->moveRevoluY(xAxis);
 		sniper->moveRevoluY(xAxis);
-		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <= 80.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -80.0f) {
+		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <= 80.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -60.0f) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateX(yAxis);
 			pistol->moveRevoluX(yAxis);
 			rifle->moveRevoluX(yAxis);
 			sniper->moveRevoluX(yAxis);
 		}
 		if (curreuntMouse.first >= 4 * Wwidth / 5)
-			glutWarpPointer(1 * Wwidth / 5, curreuntMouse.second);
+			glutWarpPointer(1 * Wwidth / 5 + 10, curreuntMouse.second);
 		if (curreuntMouse.first <= 1 * Wwidth / 5)
-			glutWarpPointer(4 * Wwidth / 5, curreuntMouse.second);
+			glutWarpPointer(4 * Wwidth / 5 - 10, curreuntMouse.second);
 		if (curreuntMouse.second >= 4 * Wheight / 5)
-			glutWarpPointer(curreuntMouse.first, Wheight / 5);
+			glutWarpPointer(curreuntMouse.first, Wheight / 5 + 10);
 		if (curreuntMouse.second <= 1 * Wheight / 5)
-			glutWarpPointer(curreuntMouse.first, 4 * Wheight / 5);
+			glutWarpPointer(curreuntMouse.first, 4 * Wheight / 5 - 10);
 		preMouse = curreuntMouse;
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
@@ -643,7 +643,7 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int RobotwidthImage, RobotheightImage, RobotnumberOfChannel;
-	unsigned char* RobotData = stbi_load("texture_Robot.bmp", &RobotwidthImage, &RobotheightImage, &RobotnumberOfChannel, 0);
+	unsigned char* RobotData = stbi_load("texture_sniperDot2.jpg", &RobotwidthImage, &RobotheightImage, &RobotnumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, RobotwidthImage, RobotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, RobotData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(RobotData);
@@ -690,7 +690,7 @@ void bindingObj()
 		robotlleg[i]->bindingEnemy(shaderfunc, "obj_Robot_lleg.obj");
 		robotrleg[i]->bindingEnemy(shaderfunc, "obj_Robot_rleg.obj");
 	}
-	boss->bindingEnemy(shaderfunc, "obj_Boss.obj");
+	boss->bindingEnemy(shaderfunc, "obj_boss.obj");
 	//
 	CR.binding(shaderfunc);
 	particle.bindingParticle(shaderfunc);
@@ -738,7 +738,7 @@ void renderObjs()
 		robot[i]->robot(robotbody[i], robothead[i], robotlarm[i], robotrarm[i], robotlleg[i], robotrleg[i], &shaderfunc);
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);
-	boss->Change_Positon(-10, -2, -5);
+	boss->Change_Positon(-10, 3, -5);
 	boss->renderEnemy(shaderfunc);
 
 	if (changeCrossHead)
