@@ -26,6 +26,7 @@
 #include"GameSound.h"
 #include"Crash.h"
 #include"Robot.h"
+#include"Boss.h"
 //#include"Random.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
@@ -111,6 +112,8 @@ Robot* robotlleg[20];
 Robot* robotrleg[20];
 glm::vec3 Rpostion[20] = {};
 glm::vec3 RTrpostion[20] = {};
+//Boss
+Boss* boss = new Boss;
 
 
 
@@ -641,6 +644,18 @@ void loadITextureImage()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(RobotData);
 
+	glActiveTexture(GL_TEXTURE10);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE10);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int BosswidthImage, BossheightImage, BossnumberOfChannel;
+	unsigned char* BossData = stbi_load("test1.png", &BosswidthImage, &BossheightImage, &BossnumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BosswidthImage, BossheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, BossData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(BossData);
+
 }
 
 void bindingObj()
@@ -670,6 +685,7 @@ void bindingObj()
 		robotlleg[i]->bindingEnemy(shaderfunc, "obj_Robot_lleg.obj");
 		robotrleg[i]->bindingEnemy(shaderfunc, "obj_Robot_rleg.obj");
 	}
+	boss->bindingEnemy(shaderfunc, "obj_Boss.obj");
 	//
 	CR.binding(shaderfunc);
 	particle.bindingParticle(shaderfunc);
@@ -717,7 +733,8 @@ void renderObjs()
 		robot[i]->robot(robotbody[i], robothead[i], robotlarm[i], robotrarm[i], robotlleg[i], robotrleg[i], &shaderfunc);
 	}
 	//flyrobotbody->renderEnemy(shaderfunc);
-
+	boss->Change_Positon(-10, -2, -5);
+	boss->renderEnemy(shaderfunc);
 
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);
