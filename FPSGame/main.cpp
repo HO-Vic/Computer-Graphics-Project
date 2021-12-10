@@ -302,22 +302,22 @@ void timercall(int value)
 				FLZCheck[i] = 0;
 			}
 			if (FLXCheck[i] == 1) {
-				FLTrpostion[i].x -= RandomFl(0, 0.1);
+				FLTrpostion[i].x -= RandomFl(0, 0.03);
 			}
 			else if (FLXCheck[i] == 0) {
-				FLTrpostion[i].x += RandomFl(0, 0.1);
+				FLTrpostion[i].x += RandomFl(0, 0.03);
 			}
 			if (FLYCheck[i] == 1) {
-				FLTrpostion[i].y -= RandomFl(0, 0.1);;
+				FLTrpostion[i].y -= RandomFl(0, 0.03);;
 			}
 			else {
-				FLTrpostion[i].y += RandomFl(0, 0.1);;
+				FLTrpostion[i].y += RandomFl(0, 0.03);;
 			}
 			if (FLZCheck[i] == 1) {
-				FLTrpostion[i].z -= RandomFl(0, 0.1);
+				FLTrpostion[i].z -= RandomFl(0, 0.03);
 			}
 			else {
-				FLTrpostion[i].z += RandomFl(0, 0.1);
+				FLTrpostion[i].z += RandomFl(0, 0.03);
 			}
 				flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
 				robotbody[i]->Trans_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
@@ -692,7 +692,7 @@ void renderObjs()
 	//enemy
 	enemy->renderEnemy(shaderfunc);
 	for (int i = 0; i < 20; i++) {
-		//flyrobotbody[i]->Change_Scale(4, 4, 4);
+		flyrobotbody[i]->Change_Scale(4, 4, 4);
 		flyrobotbody[i]->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
 		/*flyrobotbody[10]->Change_Positon(15,10, 15);
 		flyrobotbody[0]->Change_Positon(10, 10, 10);

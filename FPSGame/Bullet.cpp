@@ -30,7 +30,7 @@ void Bullet::renderBullets(ShaderFunc& shaderID)
 		bullets.pop();
 		renderBullet(shaderID, currentRenderGun.getPos(), currentRenderGun.getRotateAngle());
 		//만약에 충돌하지 않았다면 또는 사정거리가 안됐다면 다시 넣는다 -> 사정거리는 dir곱한 정도로 계산
-		if (currentRenderGun.getDirUnit() <= 100)//초기에는 49로 설정
+		if (currentRenderGun.getDirUnit() <= 150)//초기에는 49로 설정
 			bullets.push(currentRenderGun);
 	}
 }
@@ -66,9 +66,9 @@ bool Bullet::collideBullet(glm::vec3 Enemypositon)
 		bullets.pop();
 		//renderBullet(shaderID, currentRenderGun.getPos(), currentRenderGun.getRotateAngle());
 		//만약에 충돌하지 않았다면 또는 사정거리가 안됐다면 다시 넣는다 -> 사정거리는 dir곱한 정도로 계산
-		if (currentRenderGun.getPos().x <= Enemypositon.x + 0.7 && currentRenderGun.getPos().x >= Enemypositon.x - 0.7) {
-			if (currentRenderGun.getPos().y <= Enemypositon.y + 0.7 && currentRenderGun.getPos().y >= Enemypositon.y - 0.7) {
-				if (currentRenderGun.getPos().z <= Enemypositon.z + 0.7 && currentRenderGun.getPos().z >= Enemypositon.z - 0.7) {
+		if (currentRenderGun.getPos().x <= Enemypositon.x + 1.2 && currentRenderGun.getPos().x >= Enemypositon.x - 1.2) {
+			if (currentRenderGun.getPos().y <= Enemypositon.y + 2 && currentRenderGun.getPos().y >= Enemypositon.y - 0.7) {
+				if (currentRenderGun.getPos().z <= Enemypositon.z + 1.2 && currentRenderGun.getPos().z >= Enemypositon.z - 1.2) {
 					cout << "check" << check << endl;
 					cout << currentRenderGun.getPos().x << endl;
 					cout << currentRenderGun.getPos().y << endl;
