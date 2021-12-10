@@ -113,6 +113,7 @@ void Flyrobot::renderEnemy(ShaderFunc& shaderID)
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
 	FlyrobotMatrix = glm::translate(FlyrobotMatrix, Position);
 	FlyrobotMatrix = glm::translate(FlyrobotMatrix, Translate);
+	FlyrobotMatrix = glm::translate(FlyrobotMatrix, GotoZero);
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
 	FlyrobotMatrix = glm::rotate(FlyrobotMatrix, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
@@ -134,6 +135,11 @@ void Flyrobot::Trans_Positon(float x, float y, float z)
 {
 	Translate = glm::vec3(x, y, z);
 	//FlyrobotMatrix = glm::translate(FlyrobotMatrix, Translate);
+
+}
+void Flyrobot::Gotozero_Positon(float x, float y, float z)
+{
+	GotoZero = glm::vec3(x, y, z);
 
 }
 

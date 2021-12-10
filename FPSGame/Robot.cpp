@@ -117,6 +117,7 @@ void Robot::renderEnemy(ShaderFunc& shaderID)
 	RobotMatrix = glm::rotate(RobotMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
 	RobotMatrix = glm::translate(RobotMatrix, Position);
 	RobotMatrix = glm::translate(RobotMatrix, Translate);
+	RobotMatrix = glm::translate(RobotMatrix, GotoZero);
 	RobotMatrix = glm::rotate(RobotMatrix, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
 	RobotMatrix = glm::rotate(RobotMatrix, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
 	RobotMatrix = glm::rotate(RobotMatrix, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
@@ -139,6 +140,11 @@ void Robot::Trans_Positon(float x, float y, float z)
 	Translate = glm::vec3(x, y, z);
 	//RobotMatrix = glm::translate(RobotMatrix, Translate);
 
+}
+
+void Robot::Gotozero_Positon(float x, float y, float z)
+{
+	GotoZero = glm::vec3(x, y, z);
 }
 
 void Robot::bindingEnemy(ShaderFunc& shaderID, string name)

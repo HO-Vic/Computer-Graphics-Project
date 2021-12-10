@@ -51,9 +51,11 @@ public:
 	void Change_Color(float x, float y, float z);
 	void renderEnemy(ShaderFunc& shaderID);
 	void Trans_Positon(float x, float y, float z);
+	void Gotozero_Positon(float x, float y, float z);
 	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Flyrobot* Parent1);
 	void FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc);
+
 	float Return_PositionX()override;
 	float Return_PositionZ()override;
 	float Return_PositionY()override;

@@ -22,6 +22,7 @@ protected:
 	glm::mat4 EnemyMatrix;
 	glm::vec3 Position;//위치
 	glm::vec3 Translate;//위치
+	glm::vec3 GotoZero;//위치
 	glm::vec3 Rotation;//회전값
 	glm::vec3 Revolution;//공전값
 	glm::vec3 Scale{ 1 };//스케일

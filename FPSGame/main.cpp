@@ -264,13 +264,13 @@ void timercall(int value)
 		for (int i = 0; i < 20; i++) {
 			if (bullets.collideBullet(flyrobotbody[i]->get_Position()) == 1) {
 			//	cout << "i" << i << endl;
-				flyrobotbody[i]->Trans_Positon(100, 100, 100);
+				flyrobotbody[i]->Gotozero_Positon(100, 100, 100);
 			}
 		}
 		for (int i = 0; i < 20; i++) {
 			if (bullets.collideBullet(robotbody[i]->get_Position()) == 1) {
 			//	cout << "i" << i << endl;
-				robotbody[i]->Trans_Positon(100, 100, 100);
+				robotbody[i]->Gotozero_Positon(100, 100, 100);
 			}
 		}
 		glutPostRedisplay();
@@ -319,10 +319,11 @@ void timercall(int value)
 			else {
 				FLTrpostion[i].z += RandomFl(0, 0.1);
 			}
-			//	flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
+				flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
+				robotbody[i]->Trans_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
 		}
 		glutPostRedisplay();
-		glutTimerFunc(10000, timercall, value);
+		glutTimerFunc(10, timercall, value);
 		break;
 	default:
 		break;
@@ -441,6 +442,10 @@ void keyboardCall(unsigned char key, int x, int y)
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		break;
+	case 27://esc
+		sounds.~GameSound();
+		glutLeaveMainLoop();
+		break;
 	default:
 		break;
 	}
@@ -451,12 +456,9 @@ void specialkeycall(int key, int x, int y)
 {
 	switch (key)
 	{
-	case GLUT_KEY_END:
-		sounds.~GameSound();
-		glutLeaveMainLoop();
-		break;
 	case GLUT_KEY_LEFT:
 		break;
+
 	default:
 		break;
 	}
