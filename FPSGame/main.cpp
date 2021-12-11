@@ -206,25 +206,28 @@ void timercall(int value)
 		else mouseSpeed = 0.05f;
 		xAxis = ((float)preMouse.first - (float)curreuntMouse.first) * mouseSpeed;
 		yAxis = ((float)preMouse.second - (float)curreuntMouse.second) * mouseSpeed;
-		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateY(xAxis);
-		pistol->moveRevoluY(xAxis);
-		rifle->moveRevoluY(xAxis);
-		sniper->moveRevoluY(xAxis);
-		if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <= 80.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -60.0f) {
-			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateX(yAxis);
-			pistol->moveRevoluX(yAxis);
-			rifle->moveRevoluX(yAxis);
-			sniper->moveRevoluX(yAxis);
+		if (xAxis >= 70.0f) {}
+		else {
+			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateY(xAxis);
+			pistol->moveRevoluY(xAxis);
+			rifle->moveRevoluY(xAxis);
+			sniper->moveRevoluY(xAxis);
+			if (Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis <= 80.0f && Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getRotateX() + yAxis >= -60.0f) {
+				Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveRoateX(yAxis);
+				pistol->moveRevoluX(yAxis);
+				rifle->moveRevoluX(yAxis);
+				sniper->moveRevoluX(yAxis);
+			}
+			if (curreuntMouse.first >= 4 * Wwidth / 5)
+				glutWarpPointer(1 * Wwidth / 5 + 10, curreuntMouse.second);
+			if (curreuntMouse.first <= 1 * Wwidth / 5)
+				glutWarpPointer(4 * Wwidth / 5 - 10, curreuntMouse.second);
+			if (curreuntMouse.second >= 4 * Wheight / 5)
+				glutWarpPointer(curreuntMouse.first, Wheight / 5 + 10);
+			if (curreuntMouse.second <= 1 * Wheight / 5)
+				glutWarpPointer(curreuntMouse.first, 4 * Wheight / 5 - 10);
+			preMouse = curreuntMouse;
 		}
-		if (curreuntMouse.first >= 4 * Wwidth / 5)
-			glutWarpPointer(1 * Wwidth / 5 + 10, curreuntMouse.second);
-		if (curreuntMouse.first <= 1 * Wwidth / 5)
-			glutWarpPointer(4 * Wwidth / 5 - 10, curreuntMouse.second);
-		if (curreuntMouse.second >= 4 * Wheight / 5)
-			glutWarpPointer(curreuntMouse.first, Wheight / 5 + 10);
-		if (curreuntMouse.second <= 1 * Wheight / 5)
-			glutWarpPointer(curreuntMouse.first, 4 * Wheight / 5 - 10);
-		preMouse = curreuntMouse;
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
 		break;
