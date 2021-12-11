@@ -643,7 +643,7 @@ void loadITextureImage()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int RobotwidthImage, RobotheightImage, RobotnumberOfChannel;
-	unsigned char* RobotData = stbi_load("texture_sniperDot2.jpg", &RobotwidthImage, &RobotheightImage, &RobotnumberOfChannel, 0);
+	unsigned char* RobotData = stbi_load("texture_Robot.bmp", &RobotwidthImage, &RobotheightImage, &RobotnumberOfChannel, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, RobotwidthImage, RobotheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, RobotData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(RobotData);
