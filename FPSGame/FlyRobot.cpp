@@ -1,6 +1,6 @@
 #include"FlyRobot.h"
 Flyrobot::Flyrobot() {
-	Translate= glm::vec3(0.0f, 0.0f, 0.0f);
+	Translate = glm::vec3(0.0f, 0.0f, 0.0f);
 	Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	Revolution = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -21,7 +21,7 @@ Flyrobot::Flyrobot(const Flyrobot& object) {//복사 생성자
 Flyrobot::~Flyrobot()
 {
 
-};
+}; 
 
 glm::mat4 Flyrobot::Getmatrix() {
 	return FlyrobotMatrix;
@@ -45,7 +45,7 @@ void Flyrobot::Change_Rotation(float x, float y, float z) {
 	Rotation = glm::vec3(x, y, z);
 }
 void Flyrobot::Change_Revoltion(float x, float y, float z) {
-	Revolution = glm::vec3(x, y, z);
+	Revolution = glm::vec3(x, y, z);	
 };
 
 void Flyrobot::Change_Scale(float x, float y, float z) {
@@ -65,20 +65,14 @@ void Flyrobot::Apply_Parent(Flyrobot* Parent1) {
 	Parent = Parent1;
 }
 
-void Flyrobot::FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc)
-{
-	/*Flyrobotbody = Body;
-	Flyrobotlarm = Larm;
-	Flyrobotrarm = Rarm;
-	Flyrobotspin = Spin;*/
-	Spin->Apply_Parent(Body);
-	Larm->Apply_Parent(Body);
-	Rarm->Apply_Parent(Body);
-	Body->renderEnemy(*shaderfunc);
-	Larm->renderEnemy(*shaderfunc);
-	Rarm->renderEnemy(*shaderfunc);
-	Spin->renderEnemy(*shaderfunc);
-};
+//void Flyrobot::FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc)
+//{
+//	/*Flyrobotbody = Body;
+//	Flyrobotlarm = Larm;
+//	Flyrobotrarm = Rarm;
+//	Flyrobotspin = Spin;*/
+//	
+//};
 
 float Flyrobot::Return_PositionX() {
 	return Position.x;
@@ -95,12 +89,8 @@ glm::vec3 Flyrobot::get_Position()
 {
 	return Position+Translate;
 }
-Flyrobot* Flyrobot::get_body()
-{
-	return Flyrobotbody;
-}
-;
-void Flyrobot::renderEnemy(ShaderFunc& shaderID)
+
+void Flyrobot::renderEnemy(ShaderFunc& shaderID, GLuint& FlyrobotVAO, int size)
 {
 	glBindVertexArray(FlyrobotVAO);
 	FlyrobotMatrix = glm::mat4(1.0f);
@@ -128,23 +118,22 @@ void Flyrobot::renderEnemy(ShaderFunc& shaderID)
 	//shaderID.setColorVec(color);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 4);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
-	glDrawArrays(GL_TRIANGLES, 0, FlyrobotVertexData.size());
+	glDrawArrays(GL_TRIANGLES, 0, size);
 }
 
 void Flyrobot::Trans_Positon(float x, float y, float z)
 {
-	Translate = glm::vec3(x, y, z);
+	Position = glm::vec3(x, y, z);
+	//std::cout << Translate.x << ' ' << Translate.y <<' '<< Translate.z<<endl;
 	//FlyrobotMatrix = glm::translate(FlyrobotMatrix, Translate);
 
+}
+void Flyrobot::move_Positon(float x, float y, float z)
+{
+	Translate = glm::vec3(x, y, z);
 }
 void Flyrobot::Gotozero_Positon(float x, float y, float z)
 {
 	GotoZero = glm::vec3(x, y, z);
 
-}
-
-void Flyrobot::bindingEnemy(ShaderFunc& shaderID, string name)
-{
-	readTriangleObj(name, FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);
-	shaderID.InitBuffer(FlyrobotVAO, FlyrobotVertexVBO, FlyrobotTextureVBO, FlyrobotNormalVBO, FlyrobotVertexData, FlyrobotTextureData, FlyrobotNormalData);
 }

@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include<gl/glew.h>
 #include<gl/freeglut.h>
 #include<glm/glm/glm.hpp>
@@ -16,19 +15,7 @@ using namespace std;
 class Flyrobot :public Enemy
 {
 protected:
-	GLuint FlyrobotVAO;
-	GLuint FlyrobotVertexVBO;
-	GLuint FlyrobotNormalVBO;
-	GLuint FlyrobotTextureVBO;
-	std::vector<glm::vec3> FlyrobotVertexData;
-	std::vector<glm::vec3> FlyrobotNormalData;
-	std::vector<glm::vec2> FlyrobotTextureData;
 	glm::mat4 FlyrobotMatrix;
-	Flyrobot* Flyrobotbody;
-	Flyrobot* Flyrobotlarm;
-	Flyrobot* Flyrobotrarm;
-	Flyrobot* Flyrobotspin;
-
 
 	//glm::vec3 FlyrobotPosition;
 	Flyrobot* Parent{ nullptr };
@@ -49,18 +36,16 @@ public:
 	void Change_Revoltion(float x, float y, float z);
 	void Change_Scale(float x, float y, float z);
 	void Change_Color(float x, float y, float z);
-	void renderEnemy(ShaderFunc& shaderID);
+	void renderEnemy(ShaderFunc& shaderID, GLuint& FlyrobotVAO, int size);
 	void Trans_Positon(float x, float y, float z);
+	void move_Positon(float x, float y, float z);
 	void Gotozero_Positon(float x, float y, float z);
-	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Flyrobot* Parent1);
 	void FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc);
-
 	float Return_PositionX()override;
 	float Return_PositionZ()override;
 	float Return_PositionY()override;
 	glm::vec3 get_Position()override;
-	Flyrobot* get_body()override;
 	
 	//	
 

@@ -12,13 +12,6 @@ using namespace std;
 class Enemy
 {
 protected:
-	GLuint EnemyVAO;
-	GLuint EnemyVertexVBO;
-	GLuint EnemyNormalVBO;
-	GLuint EnemyTextureVBO;
-	std::vector<glm::vec3> EnemyVertexData;
-	std::vector<glm::vec3> EnemyNormalData;
-	std::vector<glm::vec2> EnemyTextureData;
 	glm::mat4 EnemyMatrix;
 	glm::vec3 Position;//위치
 	glm::vec3 Translate;//위치
@@ -46,10 +39,8 @@ public:
 	virtual void Change_Rotation(float x, float y, float z);
 	virtual void Change_Revoltion(float x, float y, float z);
 	virtual void Change_Scale(float x, float y, float z);
-	virtual void Change_Color(float x, float y, float z);
-	virtual void renderEnemy(ShaderFunc& shaderID);
+	virtual void Change_Color(float x, float y, float z);	
 	void  Apply_Parent(Enemy* Parent1);
-	virtual void bindingEnemy(ShaderFunc& shaderID, string name);
 	//virtual void Apply_Parent(Enemy* Parent1);
 	virtual float Return_PositionX();
 	virtual float Return_PositionZ();

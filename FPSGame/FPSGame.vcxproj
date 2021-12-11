@@ -159,13 +159,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Boss.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletInfo.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Crash.cpp" />
     <ClCompile Include="CrossHead.cpp" />
     <ClCompile Include="filetobuf.cpp" />
+    <ClCompile Include="FlyRobotManager.cpp" />
     <ClCompile Include="GameSound.cpp" />
     <ClCompile Include="ImplemetMap.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -183,14 +187,21 @@
     <ClCompile Include="readTriangleObj2.cpp" />
     <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="FlyRobot.cpp" />
-    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="Robot.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="RobotManager.cpp" />
     <ClCompile Include="ShaderFunc.cpp" />
     <ClCompile Include="Sniper.cpp" />
     <ClCompile Include="stair.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Boss.h" />
+    <ClInclude Include="Boss.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletInfo.h" />
     <ClInclude Include="Camera.h" />
@@ -200,6 +211,7 @@
     <ClInclude Include="Enum.h" />
     <ClInclude Include="fileName.h" />
     <ClInclude Include="filetobuf.h" />
+    <ClInclude Include="FlyRobotManager.h" />
     <ClInclude Include="GameSound.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Light.h" />
@@ -214,7 +226,11 @@
     <ClInclude Include="readTriangleObj2.h" />
     <ClInclude Include="Rifle.h" />
     <ClInclude Include="FlyRobot.h" />
-    <ClInclude Include="Robot.h" />
+    <ClInclude Include="Robot.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="RobotManager.h" />
     <ClInclude Include="ShaderFunc.h" />
     <ClInclude Include="Sniper.h" />
     <ClInclude Include="stair.h" />

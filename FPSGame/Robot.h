@@ -52,7 +52,6 @@ public:
 	void renderEnemy(ShaderFunc& shaderID);
 	void Trans_Positon(float x, float y, float z);
 	void Gotozero_Positon(float x, float y, float z);
-	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Robot* Parent1);
 	void robot(Robot* Body, Robot* head, Robot* Larm, Robot* Rarm, Robot* Lleg, Robot* Rleg, ShaderFunc* shaderfunc);
 	float Return_PositionX()override;

@@ -100,38 +100,38 @@ Enemy* Enemy::get_body()
 	return nullptr;
 }
 ;
-void Enemy::renderEnemy(ShaderFunc& shaderID)
-{
-	glBindVertexArray(EnemyVAO);
-	EnemyMatrix = glm::mat4(1.0f);
-	/*name->Change_Positon(0, 0, 0);
-	name->Change_Rotation(0, 0, 0);
-	name->Change_Scale(0, 0, 0);
-	name->Change_Color(1, 0, 0);
-	shaderID.setTransMatrixorigin(name->Getmatrix());
-	shaderID.setNormalMatrixorigin(name->Getnormal());
-	shaderID->setColorVec(name->GetColor());*/
-	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Revolution.y), glm::vec3(0, 1, 0));
-	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Revolution.x), glm::vec3(1, 0, 0));
-	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
-	EnemyMatrix = glm::translate(EnemyMatrix, Position);
-	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
-	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
-	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
-	EnemyMatrix = glm::scale(EnemyMatrix, Scale);
-	glm::mat4 normalMatrix = glm::mat4(1.0f);
-	normalMatrix = glm::rotate(normalMatrix, glm::radians(Revolution.y + Rotation.y), glm::vec3(0, 1, 0));
-	normalMatrix = glm::rotate(normalMatrix, glm::radians(Revolution.x + Rotation.x), glm::vec3(1, 0, 0));
-	normalMatrix = glm::rotate(normalMatrix, glm::radians(Revolution.z + Rotation.z), glm::vec3(0, 0, 1));
-	glm::vec3 color = glm::vec3(1, 0, 0);
-	shaderID.setTransMatrix(EnemyMatrix);
-	shaderID.setNormalMatrix(normalMatrix);
-	shaderID.setColorVec(color);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
-	glDrawArrays(GL_TRIANGLES, 0, EnemyVertexData.size());
-};
-void Enemy::bindingEnemy(ShaderFunc& shaderID, string name)
-{
-	readTriangleObj(name, EnemyVertexData, EnemyTextureData, EnemyNormalData);
-	shaderID.InitBuffer(EnemyVAO, EnemyVertexVBO, EnemyTextureVBO, EnemyNormalVBO, EnemyVertexData, EnemyTextureData, EnemyNormalData);
-}
+//void Enemy::renderEnemy(ShaderFunc& shaderID)
+//{
+//	glBindVertexArray(EnemyVAO);
+//	EnemyMatrix = glm::mat4(1.0f);
+//	/*name->Change_Positon(0, 0, 0);
+//	name->Change_Rotation(0, 0, 0);
+//	name->Change_Scale(0, 0, 0);
+//	name->Change_Color(1, 0, 0);
+//	shaderID.setTransMatrixorigin(name->Getmatrix());
+//	shaderID.setNormalMatrixorigin(name->Getnormal());
+//	shaderID->setColorVec(name->GetColor());*/
+//	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Revolution.y), glm::vec3(0, 1, 0));
+//	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Revolution.x), glm::vec3(1, 0, 0));
+//	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
+//	EnemyMatrix = glm::translate(EnemyMatrix, Position);
+//	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
+//	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
+//	EnemyMatrix = glm::rotate(EnemyMatrix, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
+//	EnemyMatrix = glm::scale(EnemyMatrix, Scale);
+//	glm::mat4 normalMatrix = glm::mat4(1.0f);
+//	normalMatrix = glm::rotate(normalMatrix, glm::radians(Revolution.y + Rotation.y), glm::vec3(0, 1, 0));
+//	normalMatrix = glm::rotate(normalMatrix, glm::radians(Revolution.x + Rotation.x), glm::vec3(1, 0, 0));
+//	normalMatrix = glm::rotate(normalMatrix, glm::radians(Revolution.z + Rotation.z), glm::vec3(0, 0, 1));
+//	glm::vec3 color = glm::vec3(1, 0, 0);
+//	shaderID.setTransMatrix(EnemyMatrix);
+//	shaderID.setNormalMatrix(normalMatrix);
+//	shaderID.setColorVec(color);
+//	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 0);
+//	glDrawArrays(GL_TRIANGLES, 0, EnemyVertexData.size());
+//};
+//void Enemy::bindingEnemy(ShaderFunc& shaderID, string name)
+//{
+//	readTriangleObj(name, EnemyVertexData, EnemyTextureData, EnemyNormalData);
+//	shaderID.InitBuffer(EnemyVAO, EnemyVertexVBO, EnemyTextureVBO, EnemyNormalVBO, EnemyVertexData, EnemyTextureData, EnemyNormalData);
+//}

@@ -22,11 +22,11 @@
 #include"stair.h"
 #include"Wall.h"
 #include"Enemy.h"
-#include"FlyRobot.h"
+#include"FlyRobotManager.h"
 #include"GameSound.h"
 #include"Crash.h"
-#include"Robot.h"
-#include"Boss.h"
+//#include"Robot.h"
+//#include"Boss.h"
 //#include"Random.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
@@ -93,28 +93,25 @@ Wall* wall = new Wall;
 
 //Enemy
 Enemy* enemy = new Enemy;
-Flyrobot** flyrobot = new Flyrobot * [20];
-Flyrobot* flyrobotbody[20];
-Flyrobot* flyrobotlarm[20];
-Flyrobot* flyrobotrarm[20];
-Flyrobot* flyrobotspin[20];
+
 glm::vec3 FLpostion[20] = {};
 glm::vec3 FLTrpostion[20] = {};
 bool FLXCheck[20] = { 0 };
 bool FLYCheck[20] = { 0 };
 bool FLZCheck[20] = { 0 };
 //Robot
-Robot** robot = new Robot * [20];
-Robot* robotbody[20];
-Robot* robotlarm[20];
-Robot* robotrarm[20];
-Robot* robothead[20];
-Robot* robotlleg[20];
-Robot* robotrleg[20];
+//Robot** robot = new Robot * [20];
+//Robot* robotbody[20];
+//Robot* robotlarm[20];
+//Robot* robotrarm[20];
+//Robot* robothead[20];
+//Robot* robotlleg[20];
+//Robot* robotrleg[20];
 glm::vec3 Rpostion[20] = {};
 glm::vec3 RTrpostion[20] = {};
+FlyRobotManager flyManager;
 //Boss
-Boss* boss = new Boss;
+//Boss* boss = new Boss;
  
 
 
@@ -149,18 +146,14 @@ int main(int argc, char** argv)
 
 	loadITextureImage();
 	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
-	for (int i = 0; i < 20; i++) {
-		flyrobotbody[i] = new Flyrobot;
-		flyrobotlarm[i] = new Flyrobot;
-		flyrobotrarm[i] = new Flyrobot;
-		flyrobotspin[i] = new Flyrobot;
-		robotbody[i] = new Robot;
-		robothead[i] = new Robot;
-		robotlarm[i] = new Robot;
-		robotrarm[i] = new Robot;
-		robotlleg[i] = new Robot;
-		robotrleg[i] = new Robot;
-	}
+	//for (int i = 0; i < 20; i++) {		
+	//	robotbody[i] = new Robot;
+	//	robothead[i] = new Robot;
+	//	robotlarm[i] = new Robot;
+	//	robotrarm[i] = new Robot;
+	//	robotlleg[i] = new Robot;
+	//	robotrleg[i] = new Robot;
+	//}
 	bindingObj();
 
 	/*int num;
@@ -272,17 +265,17 @@ void timercall(int value)
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(flyrobotbody[i]->get_Position()) == 1) {
+			if (bullets.collideBullet(flyManager.getFlyRobot()[i].get_Position()) == 1) {
 			//	cout << "i" << i << endl;
-				flyrobotbody[i]->Gotozero_Positon(100, 100, 100);
+				flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
 			}
 		}
-		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(robotbody[i]->get_Position()) == 1) {
-			//	cout << "i" << i << endl;
-				robotbody[i]->Gotozero_Positon(100, 100, 100);
-			}
-		}
+		//for (int i = 0; i < 20; i++) {
+		//	if (bullets.collideBullet(robotbody[i]->get_Position()) == 1) {
+		//	//	cout << "i" << i << endl;
+		//		robotbody[i]->Gotozero_Positon(100, 100, 100);
+		//	}
+		//}
 		glutPostRedisplay();
 		glutTimerFunc(1, timercall, value);
 		break;
@@ -329,8 +322,9 @@ void timercall(int value)
 			else {
 				FLTrpostion[i].z += RandomFl(0, 0.03);
 			}
-				flyrobotbody[i]->Trans_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
-				robotbody[i]->Trans_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
+			flyManager.getFlyRobot()[i].move_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
+
+				//robotbody[i]->Trans_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
 		}
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
@@ -676,24 +670,21 @@ void bindingObj()
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
 	//enemy->bindingEnemy(shaderfunc);
-	for (int i = 0; i < 20; i++) {
-		flyrobotbody[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Body.obj");
-		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Larm.obj");
-		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Spin.obj");
-		flyrobotlarm[i]->bindingEnemy(shaderfunc, "Obj_FlyRobot_Rarm.obj");
-		FLpostion[i].x = RandomFl(-15, 15.0);
-		FLpostion[i].y = RandomFl(10.0, 15.0);
-		FLpostion[i].z = RandomFl(-15, 15.0);
-	}
-	for (int i = 0; i < 20; i++) {
+
+	flyManager.bindingEnemys(shaderfunc);
+	for (int i = 0; i < 20; i++)
+		flyManager.getFlyRobot()[i].Trans_Positon(RandomFl(-15, 15.0), RandomFl(5.0, 10.0), RandomFl(-15, 15.0));
+	
+	flyManager.setParent();
+	/*for (int i = 0; i < 20; i++) {
 		robotbody[i]->bindingEnemy(shaderfunc, "obj_Robot_body.obj");
 		robothead[i]->bindingEnemy(shaderfunc, "obj_Robot_head.obj");
 		robotlarm[i]->bindingEnemy(shaderfunc, "obj_Robot_larm.obj");
 		robotrarm[i]->bindingEnemy(shaderfunc, "obj_Robot_rarm.obj");
 		robotlleg[i]->bindingEnemy(shaderfunc, "obj_Robot_lleg.obj");
 		robotrleg[i]->bindingEnemy(shaderfunc, "obj_Robot_rleg.obj");
-	}
-	boss->bindingEnemy(shaderfunc, "obj_boss.obj");
+	}*/
+	//boss->bindingEnemy(shaderfunc, "obj_boss.obj");
 	//
 	CR.binding(shaderfunc);
 	particle.bindingParticle(shaderfunc);
@@ -712,37 +703,23 @@ void renderObjs()
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
 
 	bullets.renderBullets(shaderfunc);
-
+	flyManager.renderEnemys(shaderfunc);
 	//enemy
-	enemy->renderEnemy(shaderfunc);
+	//enemy->renderEnemy(shaderfunc);
 	for (int i = 0; i < 20; i++) {
-		flyrobotbody[i]->Change_Scale(4, 4, 4);
-		flyrobotbody[i]->Change_Positon(FLpostion[i].x, FLpostion[i].y, FLpostion[i].z);
-		/*flyrobotbody[10]->Change_Positon(15,10, 15);
-		flyrobotbody[0]->Change_Positon(10, 10, 10);
-		flyrobotbody[1]->Change_Positon(11, 10, 10);
-		flyrobotbody[2]->Change_Positon(12, 10, 10);
-		flyrobotbody[3]->Change_Positon(13, 10, 10);
-		flyrobotbody[4]->Change_Positon(14, 10, 10);
-		flyrobotbody[5]->Change_Positon(15, 10, 10);
-		flyrobotbody[6]->Change_Positon(16, 10, 10);
-		flyrobotbody[7]->Change_Positon(17, 10, 10);
-		flyrobotbody[8]->Change_Positon(18, 10, 10);
-		flyrobotbody[9]->Change_Positon(19, 10, 10);
-		flyrobotbody[10]->Change_Positon(20, 10, 10);*/
-		flyrobot[i]->FlyRobot(flyrobotbody[i], flyrobotspin[i], flyrobotlarm[i], flyrobotrarm[i], &shaderfunc);
+		//flyrobot[i]->FlyRobot(flyrobotbody[i], flyrobotspin[i], flyrobotlarm[i], flyrobotrarm[i], &shaderfunc);
 		//	cout<<flyrobot[i]->Flyrobotbody->get_Position().x<<endl;
 	}
-	for (int i = 0; i < 20; i++) {
-		robotbody[i]->Change_Positon((i*3)-10, -2, -5);
-		robotbody[i]->Change_Scale(0.5, 0.5, 0.5);
-	//	robotrarm[i]->Change_Rotation(60, 0, 0);
-	//	robotrleg[i]->Change_Rotation(60, 0, 0);
-		robot[i]->robot(robotbody[i], robothead[i], robotlarm[i], robotrarm[i], robotlleg[i], robotrleg[i], &shaderfunc);
-	}
-	//flyrobotbody->renderEnemy(shaderfunc);
-	boss->Change_Positon(-10, 3, -5);
-	boss->renderEnemy(shaderfunc);
+	//for (int i = 0; i < 20; i++) {
+	//	robotbody[i]->Change_Positon((i*3)-10, -2, -5);
+	//	robotbody[i]->Change_Scale(0.5, 0.5, 0.5);
+	////	robotrarm[i]->Change_Rotation(60, 0, 0);
+	////	robotrleg[i]->Change_Rotation(60, 0, 0);
+	//	robot[i]->robot(robotbody[i], robothead[i], robotlarm[i], robotrarm[i], robotlleg[i], robotrleg[i], &shaderfunc);
+	//}
+	////flyrobotbody->renderEnemy(shaderfunc);
+	//boss->Change_Positon(-10, 3, -5);
+	//boss->renderEnemy(shaderfunc);
 
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);
