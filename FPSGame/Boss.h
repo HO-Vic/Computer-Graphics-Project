@@ -50,10 +50,10 @@ public:
 	void Change_Revoltion(float x, float y, float z);
 	void Change_Scale(float x, float y, float z);
 	void Change_Color(float x, float y, float z);
-	void renderEnemy(ShaderFunc& shaderID);
+	void renderEnemy(ShaderFunc& shaderID, GLuint texture, int number);
 	void Trans_Positon(float x, float y, float z);
 	void Gotozero_Positon(float x, float y, float z);
-	//void bindingEnemy(ShaderFunc& shaderID, string name) override;
+	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Boss* Parent1);
 	void boss(ShaderFunc* shaderfunc);
 	float Return_PositionX()override;

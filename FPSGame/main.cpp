@@ -26,7 +26,7 @@
 #include"GameSound.h"
 #include"Crash.h"
 //#include"Robot.h"
-//#include"Boss.h"
+#include"Boss.h"
 //#include"Random.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image.h"
@@ -110,8 +110,14 @@ bool FLZCheck[20] = { 0 };
 glm::vec3 Rpostion[20] = {};
 glm::vec3 RTrpostion[20] = {};
 FlyRobotManager flyManager;
+
+
 //Boss
-//Boss* boss = new Boss;
+Boss* boss = new Boss;
+Boss* bossrocket = new Boss;
+Boss* bossmissile = new Boss;
+Boss* bossred = new Boss;
+float bossTransy = 0;
  
 
 
@@ -146,19 +152,11 @@ int main(int argc, char** argv)
 
 	loadITextureImage();
 	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
-	//for (int i = 0; i < 20; i++) {		
-	//	robotbody[i] = new Robot;
-	//	robothead[i] = new Robot;
-	//	robotlarm[i] = new Robot;
-	//	robotrarm[i] = new Robot;
-	//	robotlleg[i] = new Robot;
-	//	robotrleg[i] = new Robot;
-	//}
 	bindingObj();
 
-	/*int num;
-	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS ,&num);
-	cout << num;*/
+	bossrocket->Apply_Parent(boss);
+	bossmissile->Apply_Parent(boss);
+	bossred->Apply_Parent(boss);
 
 
 	//display
@@ -285,6 +283,9 @@ void timercall(int value)
 		glutTimerFunc(20, timercall, value);
 		break;
 	case FlYROBOT:
+		if (bossTransy > -27) {
+			bossTransy -= 0.1;
+		}
 		for (int i = 0; i < 20; i++) {
 			if (FLTrpostion[i].x > 5) {
 				FLXCheck[i] = 1;
@@ -326,6 +327,7 @@ void timercall(int value)
 
 				//robotbody[i]->Trans_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
 		}
+		boss->Trans_Positon(0, bossTransy, 0);
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
 		break;
@@ -658,6 +660,45 @@ void loadITextureImage()
 	stbi_image_free(BossData);
 
 
+	glActiveTexture(GL_TEXTURE11);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE11);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int yellowwidthImage, yellowheightImage, yellownumberOfChannel;
+	unsigned char* yellowData = stbi_load("texture_yellow.bmp", &yellowwidthImage, &yellowheightImage, &yellownumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, yellowwidthImage, yellowheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, yellowData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(yellowData);
+
+	glActiveTexture(GL_TEXTURE12);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE12);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int greywidthImage, greyheightImage, greynumberOfChannel;
+	unsigned char* greyData = stbi_load("texture_grey.bmp", &greywidthImage, &greyheightImage, &greynumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, greywidthImage, greyheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, greyData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(greyData);
+
+
+	glActiveTexture(GL_TEXTURE13);
+	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE13);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int hazyredwidthImage, hazyredheightImage, hazyrednumberOfChannel;
+	unsigned char* hazyredData = stbi_load("texture_hazyred.bmp", &hazyredwidthImage, &hazyredheightImage, &hazyrednumberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, hazyredwidthImage, hazyredheightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, hazyredData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(hazyredData);
+
+
+
 }
 
 void bindingObj()
@@ -686,6 +727,11 @@ void bindingObj()
 	}*/
 	//boss->bindingEnemy(shaderfunc, "obj_boss.obj");
 	//
+
+	boss->bindingEnemy(shaderfunc, "obj_bossbody.obj");
+	bossmissile->bindingEnemy(shaderfunc, "obj_bossmissile.obj");
+	bossred->bindingEnemy(shaderfunc, "obj_bossred.obj");
+	bossrocket->bindingEnemy(shaderfunc, "obj_bossrocket.obj");
 	CR.binding(shaderfunc);
 	particle.bindingParticle(shaderfunc);
 }
@@ -721,6 +767,11 @@ void renderObjs()
 	//boss->Change_Positon(-10, 3, -5);
 	//boss->renderEnemy(shaderfunc);
 
+	boss->Change_Positon(-10, 50, -5);
+	boss->renderEnemy(shaderfunc, GL_TEXTURE13, 13);
+	bossred->renderEnemy(shaderfunc, GL_TEXTURE10, 10);
+	bossrocket->renderEnemy(shaderfunc, GL_TEXTURE11, 11);
+	bossmissile->renderEnemy(shaderfunc, GL_TEXTURE12, 12);
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);
 	else if (!changeCrossHead) {
