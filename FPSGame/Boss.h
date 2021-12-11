@@ -56,6 +56,7 @@ public:
 	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Boss* Parent1);
 	void boss(ShaderFunc* shaderfunc);
+	void missile(glm::vec3 missilepo, glm::vec3 missilere, glm::vec3 missilero);
 	float Return_PositionX()override;
 	float Return_PositionZ()override;
 	float Return_PositionY()override;

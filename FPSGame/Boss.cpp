@@ -82,7 +82,13 @@ void Boss::boss(ShaderFunc* shaderfunc)
 	//Head->renderEnemy(*shaderfunc);
 	//Lleg->renderEnemy(*shaderfunc);
 	//Rleg->renderEnemy(*shaderfunc);
-};
+}
+void Boss::missile(glm::vec3 missilepo, glm::vec3 missilere, glm::vec3 missilero)
+{
+
+
+}
+;
 
 float Boss::Return_PositionX() {
 	return Position.x;

@@ -10,3 +10,5 @@
 #include<vector>
 
 void Crash(glm::vec3 objPosition);
+void Crash2(glm::vec3 objPosition);
+void Crash3(glm::vec3 objPosition);

@@ -7,7 +7,7 @@
 #include"ShaderFunc.h"
 class Camera
 {
-private: 
+private:
 	static Camera* cameraInst;
 	static void setInst(glm::vec3 pos);
 public:
@@ -28,7 +28,7 @@ private:
 	void setCameraRight();
 	void setCameraUp();
 public:
-	Camera(glm::vec3 PlayerPos):pos(PlayerPos){
+	Camera(glm::vec3 PlayerPos) :pos(PlayerPos) {
 		AT = PlayerPos - glm::vec3(0, 0.9f, 2.0f);
 		std::cout << AT.x << ' ' << AT.y << ' ' << AT.z << std::endl;
 	}
@@ -47,6 +47,7 @@ public:
 	void moveLeftCamera();
 	void moveRightCamera();
 	void moveUpCamera(float y);
+	void moveCamera(glm::vec3 objPosition);
 	//run
 	void runFrontCamera();
 	void runBackCamera();
@@ -58,7 +59,7 @@ public:
 	void setCameraAngleX(float Angle);
 	void setCameraAngleZ(float Angle);
 	void initRecoilRotate();
-	
+
 public:
 	glm::vec3 getPos();
 	float getRotateX();
