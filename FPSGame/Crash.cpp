@@ -54,6 +54,29 @@ void Crash(glm::vec3 objPosition) {
 			y -= 0.8;
 		}
 		else {
+			y = 1;
+			//		std::cout << "x ÁÂÇ¥" << objPosition.x << "y ÁÂÇ¥" << objPosition.y << "z ÁÂÇ¥" << objPosition.z << std::endl;
+		}
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveUpCamera(y);
+	}
+	else if (objPosition.x >= -38 && objPosition.x <= -35 && objPosition.z > -19 && objPosition.z <= -8) {
+		if (objPosition.y >= 1.1) {
+			//	std::cout << y;
+			y -= 0.8;
+		}
+		else {
+			y = 1;
+			//		std::cout << "x ÁÂÇ¥" << objPosition.x << "y ÁÂÇ¥" << objPosition.y << "z ÁÂÇ¥" << objPosition.z << std::endl;
+		}
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveUpCamera(y);
+	}
+	else if (objPosition.x >= -38 && objPosition.x <= -35 && objPosition.z > -19 && objPosition.z <= -8) {
+		if (objPosition.y >= 1.1) {
+			//	std::cout << y;
+			y -= 0.8;
+		}
+		else {
+			y = 1;
 			//		std::cout << "x ÁÂÇ¥" << objPosition.x << "y ÁÂÇ¥" << objPosition.y << "z ÁÂÇ¥" << objPosition.z << std::endl;
 		}
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveUpCamera(y);
@@ -129,19 +152,40 @@ void Crash3(glm::vec3 objPosition) {
 	else if (objPosition.z > 22 && objPosition.x<-22 && objPosition.x > -39 && objPosition.y < 7) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}
-	else if (objPosition.z > -13.8 && objPosition.z < 0 && objPosition.x>32  && objPosition.y < 7) {
+	else if (objPosition.z > -13.8 && objPosition.z < 0 && objPosition.x>32 && objPosition.y < 7) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}
-	else if ( objPosition.z > 0 && objPosition.x < 32 && objPosition.x > 25 && objPosition.y < 7) {
+	else if (objPosition.z > 0 && objPosition.x < 32 && objPosition.x > 25 && objPosition.y < 7) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}
-	else if (objPosition.z > 0 && objPosition.z> 21 && objPosition.x < 25 &&objPosition.x > 6 && objPosition.y < 7) {
+	else if (objPosition.z > 0 && objPosition.z > 21 && objPosition.x < 25 && objPosition.x > 6 && objPosition.y < 7) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}
-	else if ( objPosition.z >21 && objPosition.x < 25 && objPosition.x > 6 && objPosition.y < 7) {
+	else if (objPosition.z > 21 && objPosition.x < 25 && objPosition.x > 6 && objPosition.y < 7) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}
-	else if (objPosition.z > 32 && objPosition.x < 6 ) {
+	else if (objPosition.z > 32 && objPosition.x < 6) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > -7.5 && objPosition.z < -1.2 && objPosition.x<-28 && objPosition.x > -32.3) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > -7.5 && objPosition.z < -1.2 && objPosition.x<-28 && objPosition.x > -32.3) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > -13 && objPosition.z < 30.4 && objPosition.x < -53.8) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z < -13 && objPosition.x > -53.8 && objPosition.x < -41.4 && y>10) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z < -13 && objPosition.x < -41.4 && y>10) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z < -18 && objPosition.x > -41 && objPosition.x < -20.4 && y>10) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > -10 && objPosition.z < -8 && objPosition.x > -44.0 && objPosition.x <= -38.0 && y > 10) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}
 	else {
