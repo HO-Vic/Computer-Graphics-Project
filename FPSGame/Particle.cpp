@@ -19,3 +19,8 @@ void Particle::setLife()
 {
 	life += 1;
 }
+
+void Particle::initialLife(int l)
+{
+	life = l;
+}

@@ -27,5 +27,6 @@ public:
 	glm::vec3* getDir();
 	int getLife();
 	void setLife();
+	void initialLife(int l);
 };
 

@@ -171,6 +171,7 @@ int main(int argc, char** argv)
 	glutTimerFunc(10, timercall, (int)WALK);
 	glutTimerFunc(17, timercall, (int)CRASH);
 	glutTimerFunc(17, timercall, (int)PARTICLE);
+	glutTimerFunc(17, timercall, (int)ROBOTPARTICLE);
 	glutTimerFunc(10, timercall, (int)FlYROBOT);
 	sounds.backGroundMusic();
 	glutMainLoop();
@@ -260,6 +261,7 @@ void timercall(int value)
 			//	cout << "i" << i << endl;
 				if (flyManager.getFlyRobot()[i].Minushp(Gundamge)) {
 					flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
+					particle.robotParticle(flyManager.getFlyRobot()[i].get_Position());
 				}
 			}
 		}
@@ -268,6 +270,8 @@ void timercall(int value)
 			if (bullets.collideBullet(robotManager.getRobot()[i].get_Position()) == 1) {
 			//	cout << "i" << i << endl;
 				robotManager.getRobot()[i].Gotozero_Positon(100, 100, 100);
+				//particle.robotParticle(robotManager.getRobot()[i].get_Position());
+
 			}
 		}
 		glutPostRedisplay();
@@ -275,6 +279,11 @@ void timercall(int value)
 		break;
 	case PARTICLE:
 		particle.parLife();
+		glutPostRedisplay();
+		glutTimerFunc(20, timercall, value);
+		break;
+	case ROBOTPARTICLE:
+		particle.parRobotLife();
 		glutPostRedisplay();
 		glutTimerFunc(20, timercall, value);
 		break;
@@ -728,14 +737,15 @@ void bindingObj()
 void renderObjs()
 {
 	particle.renderParticles(shaderfunc);
-	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.1f);
+	particle.renderRobotParticles(shaderfunc);
+	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.45f);
 	map->renderMap(shaderfunc);
-	stair->renderMap(shaderfunc);
-	wall->renderMap(shaderfunc);
+	//stair->renderMap(shaderfunc);
+	//wall->renderMap(shaderfunc);
 
+	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.3f);
 	if (changeCrossHead)
 		myGun->renderGun(shaderfunc);
-	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.2f);
 
 	bullets.renderBullets(shaderfunc);
 	flyManager.renderEnemys(shaderfunc);

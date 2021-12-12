@@ -20,9 +20,9 @@ uniform int isTexture;
 
 void main()
 {
-//ambient	
-		vec3 ambient = ambientLight * LightColor;
-		vec3 fragPos = FragPos;
+	//ambient	
+	vec3 ambient = ambientLight * LightColor;
+	vec3 fragPos = FragPos;
 	if(isTexture == 3){
 		//diffuse
 		vec3 MyLightPos = vec3(LightTransform * vec4(LightPos, 1.0f));
@@ -39,7 +39,7 @@ void main()
 		int shininess = 256;
 		vec3 viewDir = normalize(cameraPos - fragPos);
 		viewDir = rotation * viewDir;
-		vec3 reflectDir = reflect(-lightDir , normalDir);//¿‘ªÁ ∫§≈Õ π›ªÁ ∫§≈Õ // -lightDir???
+		vec3 reflectDir = reflect(-lightDir , normalDir);
 		float specularLight = max(dot(viewDir, reflectDir), 0.0f);
 		specularLight = pow(specularLight, shininess);
 		vec3 specular = specularLight * LightColor;
@@ -60,7 +60,7 @@ void main()
 		//specular
 		int shininess = 128;
 		vec3 viewDir = normalize(cameraPos - fragPos);
-		vec3 reflectDir = reflect(-lightDir , normalDir);//¿‘ªÁ ∫§≈Õ π›ªÁ ∫§≈Õ // -lightDir???
+		vec3 reflectDir = reflect(-lightDir , normalDir);
 		float specularLight = max(dot(viewDir, reflectDir), 0.0f);
 		specularLight = pow(specularLight, shininess);
 		vec3 specular = specularLight * LightColor;
@@ -71,7 +71,7 @@ void main()
 		if(isTexture == 1){
 			result = vec3(re.x * texture(textureC, textCoord).x, re.y * texture(textureC, textCoord).y, re.z * texture(textureC, textCoord).z);
 			FragColor = vec4(result, 1.0f);
-			}
+		}
 		else if(isTexture == 2){		
 			result = vec3(texture(textureC, textCoord).x, texture(textureC, textCoord).y, texture(textureC, textCoord).z);
 			FragColor = vec4(result, -1 * (texture(textureC, textCoord).y - 1));
