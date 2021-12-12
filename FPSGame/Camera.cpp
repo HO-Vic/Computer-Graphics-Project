@@ -3,7 +3,7 @@
 Camera* Camera::cameraInst = NULL;
 
 void Camera::setCameraDir()
-{	
+{
 	glm::vec3 tempCameraDir = pos - AT;//n
 	glm::mat4 rotateMat = glm::mat4(1.0f);
 	rotateMat = glm::rotate(rotateMat, glm::radians(rotateAngle.y), glm::vec3(0, 1, 0));
@@ -22,20 +22,20 @@ void Camera::attackMotion(float recoil)
 void Camera::setStatusAttack(bool f, float recoil)
 {
 	isAttack = f;
-	if(isAttack)
+	if (isAttack)
 		attackRotateX += recoil;
 }
 
 Camera* Camera::getInst(glm::vec3 pos)
 {
-	if (cameraInst == NULL) 
+	if (cameraInst == NULL)
 		setInst(pos);
 	return cameraInst;
 }
 
 void Camera::destoy()
 {
-	if(cameraInst)
+	if (cameraInst)
 		delete cameraInst;
 }
 
@@ -46,7 +46,7 @@ void Camera::setInst(glm::vec3 pos)
 
 void Camera::setCameraRight()
 {
-	cameraRight= glm::normalize(glm::cross(up, glm::normalize(-cameraDir)));//v
+	cameraRight = glm::normalize(glm::cross(up, glm::normalize(-cameraDir)));//v
 }
 
 void Camera::setCameraUp()
@@ -54,7 +54,7 @@ void Camera::setCameraUp()
 	cameraUp = glm::cross(glm::normalize(-cameraDir), cameraRight);
 }
 
-void Camera::renderCamera(ShaderFunc&  ShaderID)
+void Camera::renderCamera(ShaderFunc& ShaderID)
 {
 	setCameraDir();
 	setCameraRight();
@@ -110,7 +110,13 @@ void Camera::moveRightCamera()
 void Camera::moveUpCamera(float y)
 {
 	pos.y = y;
-	AT.y = y-0.9f;
+	AT.y = y - 0.9f;
+}
+void Camera::moveCamera(glm::vec3 objPosition)
+{
+	pos = objPosition;
+	//AT.y = objPosition.y - 0.9f;
+	std::cout << "At:" << AT.y << std::endl;
 }
 
 void Camera::runFrontCamera()

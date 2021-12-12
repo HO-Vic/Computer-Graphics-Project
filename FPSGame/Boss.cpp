@@ -65,7 +65,7 @@ void Boss::Apply_Parent(Boss* Parent1) {
 	Parent = Parent1;
 }
 
-void Boss::boss( ShaderFunc* shaderfunc)
+void Boss::boss(ShaderFunc* shaderfunc)
 {
 	///*Bossbody = Body;
 	//Bosslarm = Larm;
@@ -82,7 +82,13 @@ void Boss::boss( ShaderFunc* shaderfunc)
 	//Head->renderEnemy(*shaderfunc);
 	//Lleg->renderEnemy(*shaderfunc);
 	//Rleg->renderEnemy(*shaderfunc);
-};
+}
+void Boss::missile(glm::vec3 missilepo, glm::vec3 missilere, glm::vec3 missilero)
+{
+
+
+}
+;
 
 float Boss::Return_PositionX() {
 	return Position.x;
@@ -104,14 +110,14 @@ Boss* Boss::get_body()
 	return Bossbody;
 }
 ;
-void Boss::renderEnemy(ShaderFunc& shaderID)
+void Boss::renderEnemy(ShaderFunc& shaderID, GLuint texture, int number)
 {
 	glBindVertexArray(BossVAO);
 	BossMatrix = glm::mat4(1.0f);
 	if (Parent)
 		BossMatrix = Parent->Getmatrix();
-	glActiveTexture(GL_TEXTURE9);
-	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE9);
+	glActiveTexture(texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	BossMatrix = glm::rotate(BossMatrix, glm::radians(Revolution.y), glm::vec3(0, 1, 0));
 	BossMatrix = glm::rotate(BossMatrix, glm::radians(Revolution.x), glm::vec3(1, 0, 0));
 	BossMatrix = glm::rotate(BossMatrix, glm::radians(Revolution.z), glm::vec3(0, 0, 1));
@@ -130,7 +136,7 @@ void Boss::renderEnemy(ShaderFunc& shaderID)
 	shaderID.setTransMatrix(BossMatrix);
 	shaderID.setNormalMatrix(normalMatrix);
 	//shaderID.setColorVec(color);
-	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 9);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), number);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
 	glDrawArrays(GL_TRIANGLES, 0, BossVertexData.size());
 }
