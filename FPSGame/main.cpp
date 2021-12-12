@@ -259,6 +259,7 @@ void timercall(int value)
 		Crash(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
 		Crash2(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
 		Crash3(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
+		std::cout << "x ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().x << "y ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().y << "z ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().z << std::endl;
 		myGun->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());

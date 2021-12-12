@@ -48,7 +48,7 @@ void Crash(glm::vec3 objPosition) {
 			Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveUpCamera(y);
 		}
 	}
-	else if (objPosition.x >= -44 && objPosition.z <= 24 && objPosition.z >= 2) {
+	else if (objPosition.x >= -41 && objPosition.z <= 24 && objPosition.z >= 2) {
 		if (objPosition.y >= 1.1) {
 			//	std::cout << y;
 			y -= 0.8;
@@ -118,6 +118,30 @@ void Crash3(glm::vec3 objPosition) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}*/
 	else if (objPosition.z < -14 && objPosition.x > 21.0 && objPosition.x < 30.0 && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z < -22 && objPosition.x<-23 && objPosition.x > -39 && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > -22 && objPosition.z < 22.5 && objPosition.x <= -42 && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > 22 && objPosition.x<-22 && objPosition.x > -39 && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > -13.8 && objPosition.z < 0 && objPosition.x>32  && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if ( objPosition.z > 0 && objPosition.x < 32 && objPosition.x > 25 && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > 0 && objPosition.z> 21 && objPosition.x < 25 &&objPosition.x > 6 && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if ( objPosition.z >21 && objPosition.x < 25 && objPosition.x > 6 && objPosition.y < 7) {
+		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
+	}
+	else if (objPosition.z > 32 && objPosition.x < 6 ) {
 		Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->moveCamera(tempPosition);
 	}
 	else {
