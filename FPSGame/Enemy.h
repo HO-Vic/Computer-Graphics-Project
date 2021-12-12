@@ -23,6 +23,7 @@ protected:
 	glm::mat4 result = glm::mat4(1.0f);
 	Enemy* Parent{ nullptr };
 	bool Crashcheck=0;
+	int hp;
 public:
 	Enemy();
 	Enemy(glm::vec3 Position,

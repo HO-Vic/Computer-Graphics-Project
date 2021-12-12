@@ -46,6 +46,7 @@ public:
 	float Return_PositionZ()override;
 	float Return_PositionY()override;
 	glm::vec3 get_Position()override;
+	bool Minushp(int gundamage);
 	
 	//	
 

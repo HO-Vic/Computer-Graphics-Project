@@ -7,6 +7,7 @@ Flyrobot::Flyrobot() {
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	Color = glm::vec3(0.0f, 0.0f, 1.0f);
 	result = glm::mat4(1.0f);
+	hp = 10;
 };//持失切
 
 Flyrobot::Flyrobot(const Flyrobot& object) {//差紫 持失切
@@ -89,6 +90,18 @@ glm::vec3 Flyrobot::get_Position()
 {
 	return Position+Translate;
 }
+
+bool Flyrobot::Minushp(int gundamage)
+{
+	hp -= gundamage;
+	if (hp < 0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
 
 void Flyrobot::renderEnemy(ShaderFunc& shaderID, GLuint& FlyrobotVAO, int size)
 {

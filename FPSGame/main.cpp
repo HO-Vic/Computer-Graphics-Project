@@ -110,6 +110,7 @@ bool FLZCheck[20] = { 0 };
 glm::vec3 Rpostion[20] = {};
 glm::vec3 RTrpostion[20] = {};
 FlyRobotManager flyManager;
+int Gundamge = 0;
 
 
 //Boss
@@ -268,7 +269,9 @@ void timercall(int value)
 		for (int i = 0; i < 20; i++) {
 			if (bullets.collideBullet(flyManager.getFlyRobot()[i].get_Position()) == 1) {
 			//	cout << "i" << i << endl;
-				flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
+				if (flyManager.getFlyRobot()[i].Minushp(Gundamge)) {
+					flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
+				}
 			}
 		}
 		//for (int i = 0; i < 20; i++) {
@@ -373,17 +376,20 @@ void keyboardCall(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case'1':
+		Gundamge = 2;
 		changeCrossHead = true;				
 		pistol->setRevoluMotion(myGun->getRevolu() , myGun->getMotionX());
 		myGun = dynamic_cast<Pistol*> (pistol);
 		sounds.pauseWalking();
 		break;
 	case'2':
+		Gundamge = 1;
 		changeCrossHead = true;
 		rifle->setRevoluMotion(myGun->getRevolu(), myGun->getMotionX());
 		myGun = dynamic_cast<Rifle*> (rifle);	
 		break;
 	case'3':
+		Gundamge = 6;
 		sniper->setRevoluMotion(myGun->getRevolu(), myGun->getMotionX());
 		myGun = dynamic_cast<Sniper*> (sniper);
 		break;
@@ -717,7 +723,8 @@ void bindingObj()
 
 	flyManager.bindingEnemys(shaderfunc);
 	for (int i = 0; i < 20; i++)
-		flyManager.getFlyRobot()[i].Trans_Positon(RandomFl(-15, 15.0), RandomFl(5.0, 10.0), RandomFl(-15, 15.0));
+
+		flyManager.getFlyRobot()[i].Trans_Positon(RandomFl(-30, 30.0), RandomFl(15.0, 25.0), RandomFl(-30, 30.0));
 	
 	flyManager.setParent();
 	/*for (int i = 0; i < 20; i++) {
