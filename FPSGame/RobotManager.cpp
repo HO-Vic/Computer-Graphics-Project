@@ -28,16 +28,7 @@ void RobotManager::bindingEnemy(ShaderFunc& shaderID, std::string name)
 	}
 }
 
-void RobotManager::bindingEnemys(ShaderFunc& shaderID)
-{
-	bindingEnemy(shaderID, "obj_Robot_body.obj");
-	bindingEnemy(shaderID, "obj_Robot_head.obj");
-	bindingEnemy(shaderID, "obj_Robot_larm.obj");
-	bindingEnemy(shaderID, "obj_Robot_rarm.obj");
-	bindingEnemy(shaderID, "obj_Robot_lleg.obj");
-	bindingEnemy(shaderID, "obj_Robot_rleg.obj");
 
-}
 
 void RobotManager::renderEnemys(ShaderFunc& shaderID)
 {
@@ -50,6 +41,16 @@ void RobotManager::renderEnemys(ShaderFunc& shaderID)
 		robotHead[i].renderEnemy(shaderID, robotHeadVAO, robotHeadVertexData.size());
 
 	}
+}
+
+void RobotManager::bindingEnemys(ShaderFunc& shaderID)
+{
+	bindingEnemy(shaderID, "obj_Robot_body.obj");
+	bindingEnemy(shaderID, "obj_Robot_head.obj");
+	bindingEnemy(shaderID, "obj_Robot_larm.obj");
+	bindingEnemy(shaderID, "obj_Robot_rarm.obj");
+	bindingEnemy(shaderID, "obj_Robot_lleg.obj");
+	bindingEnemy(shaderID, "obj_Robot_rleg.obj");
 }
 
 Robot* RobotManager::getRobot()

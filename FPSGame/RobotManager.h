@@ -65,11 +65,11 @@ class RobotManager
 	Robot robotLegR[20];
 	Robot robotLegL[20];
 
-public:
+private:
 	void bindingEnemy(ShaderFunc& shaderID, std::string name);
-	void bindingEnemys(ShaderFunc& shaderID);
-	void renderEnemys(ShaderFunc& shderID);
 public:
+	void renderEnemys(ShaderFunc& shderID);
+	void bindingEnemys(ShaderFunc& shaderID);
 	Robot* getRobot();
 	void setParent();
 	void MinusHp();

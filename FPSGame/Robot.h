@@ -18,7 +18,6 @@ class Robot :public Enemy
 protected:
 
 	glm::mat4 RobotMatrix = glm::mat4(1.0f);
-	//glm::vec3 RobotPosition;
 	Robot* Parent{ nullptr };
 public:
 	Robot();
