@@ -24,6 +24,7 @@ protected:
 	std::vector<glm::vec3> BossVertexData;
 	std::vector<glm::vec3> BossNormalData;
 	std::vector<glm::vec2> BossTextureData;
+
 	glm::mat4 BossMatrix;
 	Boss* Bossbody;
 	Boss* Bosslarm;
@@ -53,7 +54,6 @@ public:
 	void renderEnemy(ShaderFunc& shaderID, GLuint texture, int number);
 	void Trans_Positon(float x, float y, float z);
 	void Gotozero_Positon(float x, float y, float z);
-	void bindingEnemy(ShaderFunc& shaderID, string name) override;
 	void Apply_Parent(Boss* Parent1);
 	void boss(ShaderFunc* shaderfunc);
 	void missile(glm::vec3 missilepo, glm::vec3 missilere, glm::vec3 missilero);
@@ -62,6 +62,7 @@ public:
 	float Return_PositionY()override;
 	glm::vec3 get_Position()override;
 	Boss* get_body()override;
+	void bindingEnemy(ShaderFunc& shaderID, string name);
 
 	//	
 

@@ -115,6 +115,7 @@ void Camera::moveUpCamera(float y)
 void Camera::moveCamera(glm::vec3 objPosition)
 {
 	pos = objPosition;
+	AT = pos - glm::vec3(0, 0.9f, 2.0f);
 	//AT.y = objPosition.y - 0.9f;
 	std::cout << "At:" << AT.y << std::endl;
 }
