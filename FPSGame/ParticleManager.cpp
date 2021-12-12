@@ -34,10 +34,10 @@ void ParticleManager::renderFlyRobotParticles(ShaderFunc& shaderID)
 {
 	int qsize = flyrobotParticleQ.size();
 	for (int i = 0; i < qsize; i++) {
-		Particle temp = robotParticleQ.front();
-		robotParticleQ.pop();
+		Particle temp = flyrobotParticleQ.front();
+		flyrobotParticleQ.pop();
 		for (int j = 0; j < 20; j++) {
-			flyrenderRobotParticle(shaderID, temp.getPos(), (float)temp.getLife() * temp.getDir()[j]);
+			renderFlyRobotParticle(shaderID, temp.getPos(), (float)temp.getLife() * temp.getDir()[j]);
 		}
 		flyrobotParticleQ.push(temp);
 	}
@@ -96,7 +96,7 @@ void ParticleManager::parFlyRobotLife()
 		Particle temp = flyrobotParticleQ.front();
 		flyrobotParticleQ.pop();
 		temp.setLife();
-		if (temp.getLife() < 20)
+		if (temp.getLife() < 25)
 			flyrobotParticleQ.push(temp);
 	}
 }

@@ -261,7 +261,7 @@ void timercall(int value)
 			//	cout << "i" << i << endl;
 				if (flyManager.getFlyRobot()[i].Minushp(Gundamge)) {
 					flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
-					particle.robotParticle(flyManager.getFlyRobot()[i].get_Position());
+					particle.flyRobotParticle(flyManager.getFlyRobot()[i].get_Position());
 				}
 			}
 		}
@@ -270,7 +270,7 @@ void timercall(int value)
 			if (bullets.collideBullet(robotManager.getRobot()[i].get_Position()) == 1) {
 			//	cout << "i" << i << endl;
 				robotManager.getRobot()[i].Gotozero_Positon(100, 100, 100);
-				//particle.robotParticle(robotManager.getRobot()[i].get_Position());
+				particle.flyRobotParticle(robotManager.getRobot()[i].get_Position() + glm::vec3(0,1,0));
 
 			}
 		}
@@ -283,7 +283,7 @@ void timercall(int value)
 		glutTimerFunc(20, timercall, value);
 		break;
 	case ROBOTPARTICLE:
-		particle.parRobotLife();
+		particle.parFlyRobotLife();
 		glutPostRedisplay();
 		glutTimerFunc(20, timercall, value);
 		break;
@@ -737,7 +737,7 @@ void bindingObj()
 void renderObjs()
 {
 	particle.renderParticles(shaderfunc);
-	particle.renderRobotParticles(shaderfunc);
+	particle.renderFlyRobotParticles(shaderfunc);
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.45f);
 	map->renderMap(shaderfunc);
 	//stair->renderMap(shaderfunc);
