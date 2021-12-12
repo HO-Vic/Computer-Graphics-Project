@@ -169,10 +169,10 @@
       <Filter>소스 파일\obj</Filter>
     </ClCompile>
     <ClCompile Include="FlyRobotManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\obj</Filter>
     </ClCompile>
     <ClCompile Include="RobotManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,10 +270,10 @@
       <Filter>헤더 파일\obj</Filter>
     </ClInclude>
     <ClInclude Include="FlyRobotManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\obj</Filter>
     </ClInclude>
     <ClInclude Include="RobotManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

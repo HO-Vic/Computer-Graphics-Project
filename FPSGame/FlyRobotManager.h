@@ -56,7 +56,7 @@ private:
 public:
 	Flyrobot* getFlyRobot();
 	void setParent();
-	void Minushp();
+	void MinusHp();
 	FlyRobotManager();
 };
 

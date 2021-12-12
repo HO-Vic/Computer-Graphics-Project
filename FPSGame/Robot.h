@@ -16,20 +16,8 @@ using namespace std;
 class Robot :public Enemy
 {
 protected:
-	GLuint RobotVAO;
-	GLuint RobotVertexVBO;
-	GLuint RobotNormalVBO;
-	GLuint RobotTextureVBO;
-	std::vector<glm::vec3> RobotVertexData;
-	std::vector<glm::vec3> RobotNormalData;
-	std::vector<glm::vec2> RobotTextureData;
-	glm::mat4 RobotMatrix;
-	Robot* Robotbody;
-	Robot* Robotlarm;
-	Robot* Robotrarm;
-	Robot* Robotspin;
 
-
+	glm::mat4 RobotMatrix = glm::mat4(1.0f);
 	//glm::vec3 RobotPosition;
 	Robot* Parent{ nullptr };
 public:
@@ -49,7 +37,7 @@ public:
 	void Change_Revoltion(float x, float y, float z);
 	void Change_Scale(float x, float y, float z);
 	void Change_Color(float x, float y, float z);
-	void renderEnemy(ShaderFunc& shaderID);
+	void renderEnemy(ShaderFunc& shaderID, GLuint& RobotVAO, int size);
 	void Trans_Positon(float x, float y, float z);
 	void Gotozero_Positon(float x, float y, float z);
 	void Apply_Parent(Robot* Parent1);
@@ -58,7 +46,8 @@ public:
 	float Return_PositionZ()override;
 	float Return_PositionY()override;
 	glm::vec3 get_Position()override;
-	Robot* get_body()override;
+	//Robot* get_body()override;
+	void move_Positon(float x, float y, float z);
 
 	//	
 

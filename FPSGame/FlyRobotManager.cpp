@@ -48,7 +48,7 @@ void FlyRobotManager::setParent()
 FlyRobotManager::FlyRobotManager()
 {
 	for (int i = 0; i < 20; i++) 
-		flyrobotbody[i].Change_Scale(4, 4, 4);
+		flyrobotbody[i].Change_Scale(4, 4, 4); 
 }
 
 void FlyRobotManager::bindingEnemys(ShaderFunc& shaderID)

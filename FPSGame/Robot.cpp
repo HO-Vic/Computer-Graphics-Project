@@ -67,21 +67,7 @@ void Robot::Apply_Parent(Robot* Parent1) {
 
 void Robot::robot(Robot* Body, Robot* Head, Robot* Larm, Robot* Rarm, Robot* Lleg, Robot* Rleg, ShaderFunc* shaderfunc)
 {
-	/*Robotbody = Body;
-	Robotlarm = Larm;
-	Robotrarm = Rarm;
-	Robotspin = Spin;*/
-	Head->Apply_Parent(Body);
-	Larm->Apply_Parent(Body);
-	Rarm->Apply_Parent(Body);
-	Lleg->Apply_Parent(Body);
-	Rleg->Apply_Parent(Body);
-	Body->renderEnemy(*shaderfunc);
-	Larm->renderEnemy(*shaderfunc);
-	Rarm->renderEnemy(*shaderfunc);
-	Head->renderEnemy(*shaderfunc);
-	Lleg->renderEnemy(*shaderfunc);
-	Rleg->renderEnemy(*shaderfunc);
+
 };
 
 float Robot::Return_PositionX() {
@@ -99,12 +85,12 @@ glm::vec3 Robot::get_Position()
 {
 	return Position + Translate;
 }
-Robot* Robot::get_body()
-{
-	return Robotbody;
-}
+//Robot* Robot::get_body()
+//{
+//	return Robotbody;
+//}
 ;
-void Robot::renderEnemy(ShaderFunc& shaderID)
+void Robot::renderEnemy(ShaderFunc& shaderID, GLuint& RobotVAO, int size)
 {
 	glBindVertexArray(RobotVAO);
 	RobotMatrix = glm::mat4(1.0f);
@@ -132,14 +118,18 @@ void Robot::renderEnemy(ShaderFunc& shaderID)
 	//shaderID.setColorVec(color);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), 9);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
-	glDrawArrays(GL_TRIANGLES, 0, RobotVertexData.size());
+	glDrawArrays(GL_TRIANGLES, 0, size);
 }
 
 void Robot::Trans_Positon(float x, float y, float z)
 {
-	Translate = glm::vec3(x, y, z);
+	Position = glm::vec3(x, y, z);
 	//RobotMatrix = glm::translate(RobotMatrix, Translate);
 
+}
+void Robot::move_Positon(float x, float y, float z)
+{
+	Translate = glm::vec3(x, y, z);
 }
 
 void Robot::Gotozero_Positon(float x, float y, float z)
@@ -147,8 +137,3 @@ void Robot::Gotozero_Positon(float x, float y, float z)
 	GotoZero = glm::vec3(x, y, z);
 }
 
-void Robot::bindingEnemy(ShaderFunc& shaderID, string name)
-{
-	readTriangleObj(name, RobotVertexData, RobotTextureData, RobotNormalData);
-	shaderID.InitBuffer(RobotVAO, RobotVertexVBO, RobotTextureVBO, RobotNormalVBO, RobotVertexData, RobotTextureData, RobotNormalData);
-}
