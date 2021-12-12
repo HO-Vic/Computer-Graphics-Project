@@ -17,20 +17,41 @@ using namespace std;
 class Boss :public Enemy
 {
 protected:
-	GLuint BossVAO;
-	GLuint BossVertexVBO;
-	GLuint BossNormalVBO;
-	GLuint BossTextureVBO;
-	std::vector<glm::vec3> BossVertexData;
-	std::vector<glm::vec3> BossNormalData;
-	std::vector<glm::vec2> BossTextureData;
+	GLuint BossBodyVAO;
+	GLuint BossBodyVertexVBO;
+	GLuint BossBodyNormalVBO;
+	GLuint BossBodyTextureVBO;
+	std::vector<glm::vec3> BossBodyVertexData;
+	std::vector<glm::vec3> BossBodyNormalData;
+	std::vector<glm::vec2> BossBodyTextureData;
+
+	GLuint BossMissileVAO;
+	GLuint BossMissileVertexVBO;
+	GLuint BossMissileNormalVBO;
+	GLuint BossMissileTextureVBO;
+	std::vector<glm::vec3> BossMissileVertexData;
+	std::vector<glm::vec3> BossMissileNormalData;
+	std::vector<glm::vec2> BossMissileTextureData;
+
+	GLuint BossRedVAO;
+	GLuint BossRedVertexVBO;
+	GLuint BossRedNormalVBO;
+	GLuint BossRedTextureVBO;
+	std::vector<glm::vec3> BossRedVertexData;
+	std::vector<glm::vec3> BossRedNormalData;
+	std::vector<glm::vec2> BossRedTextureData;
+
+	GLuint BossRocketVAO;
+	GLuint BossRocketVertexVBO;
+	GLuint BossRocketNormalVBO;
+	GLuint BossRocketTextureVBO;
+	std::vector<glm::vec3> BossRocketVertexData;
+	std::vector<glm::vec3> BossRocketNormalData;
+	std::vector<glm::vec2> BossRocketTextureData;
 
 	glm::mat4 BossMatrix;
-	Boss* Bossbody;
-	Boss* Bosslarm;
-	Boss* Bossrarm;
-	Boss* Bossspin;
 
+	float bossTransy = 0;
 
 	//glm::vec3 BossPosition;
 	Boss* Parent{ nullptr };
@@ -51,7 +72,8 @@ public:
 	void Change_Revoltion(float x, float y, float z);
 	void Change_Scale(float x, float y, float z);
 	void Change_Color(float x, float y, float z);
-	void renderEnemy(ShaderFunc& shaderID, GLuint texture, int number);
+	void renderBossComponent(ShaderFunc& shaderID, GLuint& vao, GLuint texture, int number, int size);
+	void renderBoss(ShaderFunc& shaderID);
 	void Trans_Positon(float x, float y, float z);
 	void Gotozero_Positon(float x, float y, float z);
 	void Apply_Parent(Boss* Parent1);
@@ -61,9 +83,8 @@ public:
 	float Return_PositionZ()override;
 	float Return_PositionY()override;
 	glm::vec3 get_Position()override;
-	Boss* get_body()override;
-	void bindingEnemy(ShaderFunc& shaderID, string name);
+	void bindingEnemys(ShaderFunc& shaderID);
 
 	//	
 
-};
+}; 

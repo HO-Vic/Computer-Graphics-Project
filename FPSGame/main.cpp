@@ -107,13 +107,10 @@ FlyRobotManager flyManager;
 RobotManager robotManager;
 int Gundamge = 0;
 
+Boss boss;
 
 //Boss
-Boss* boss = new Boss;
-Boss* bossrocket = new Boss;
-Boss* bossmissile = new Boss;
-Boss* bossred = new Boss;
-float bossTransy = 0;
+
  
 
 
@@ -150,9 +147,6 @@ int main(int argc, char** argv)
 	glUniform1i(glGetUniformLocation(shaderfunc.getShaderID(), "isTexture"), 0);
 	bindingObj();
 
-	bossrocket->Apply_Parent(boss);
-	bossmissile->Apply_Parent(boss);
-	bossred->Apply_Parent(boss);
 
 
 	//display
@@ -285,9 +279,7 @@ void timercall(int value)
 		glutTimerFunc(20, timercall, value);
 		break;
 	case FlYROBOT:
-		if (bossTransy > -27) {
-			bossTransy -= 0.1;
-		}
+		
 		for (int i = 0; i < 20; i++) {
 			if (FLTrpostion[i].x > 5) {
 				FLXCheck[i] = 1;
@@ -329,7 +321,7 @@ void timercall(int value)
 			robotManager.getRobot()[i].move_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
 
 		}
-		boss->Trans_Positon(0, bossTransy, 0);
+		//boss.Trans_Positon(0, bossTransy, 0);
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
 		break;
@@ -726,15 +718,9 @@ void bindingObj()
 		robotManager.getRobot()[i].Trans_Positon(RandomFl(-30, 30.0), 0, RandomFl(-30, 30.0));
 	robotManager.setParent();
 
+	boss.bindingEnemys(shaderfunc);
 
 	
-	//boss->bindingEnemy(shaderfunc, "obj_boss.obj");
-	//
-
-	boss->bindingEnemy(shaderfunc, "obj_bossbody.obj");
-	bossmissile->bindingEnemy(shaderfunc, "obj_bossmissile.obj");
-	bossred->bindingEnemy(shaderfunc, "obj_bossred.obj");
-	bossrocket->bindingEnemy(shaderfunc, "obj_bossrocket.obj");
 	CR.binding(shaderfunc);
 	particle.bindingParticle(shaderfunc);
 }
@@ -755,14 +741,9 @@ void renderObjs()
 	flyManager.renderEnemys(shaderfunc);
 	robotManager.renderEnemys(shaderfunc);
 
-	//boss->Change_Positon(-10, 3, -5);
-	//boss->renderEnemy(shaderfunc);
-
-	boss->Change_Positon(-10, 50, -5);
-	boss->renderEnemy(shaderfunc, GL_TEXTURE13, 13);
-	bossred->renderEnemy(shaderfunc, GL_TEXTURE10, 10);
-	bossrocket->renderEnemy(shaderfunc, GL_TEXTURE11, 11);
-	bossmissile->renderEnemy(shaderfunc, GL_TEXTURE12, 12);
+	//boss.Change_Positon(-10, 50, -5);
+	boss.renderBoss(shaderfunc);
+	
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);
 	else if (!changeCrossHead) {

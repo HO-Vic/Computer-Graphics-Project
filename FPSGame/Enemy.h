@@ -48,5 +48,4 @@ public:
 	virtual float Return_PositionY();
 	virtual glm::vec3 get_Position();
 	virtual Enemy* get_body();
-
 };

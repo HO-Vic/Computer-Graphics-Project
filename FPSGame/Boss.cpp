@@ -30,8 +30,8 @@ glm::mat4 Boss::Getnormal() {
 	result = glm::mat4(1.0f);
 	if (Parent)
 		result = Parent->Getnormal();
-	result = glm::rotate(result, glm::radians(Rotation.x), glm::vec3(1.0, 0, 0));//자전
 	result = glm::rotate(result, glm::radians(Rotation.y), glm::vec3(0, 1.0, 0));//자전
+	result = glm::rotate(result, glm::radians(Rotation.x), glm::vec3(1.0, 0, 0));//자전
 	result = glm::rotate(result, glm::radians(Rotation.z), glm::vec3(0, 0, 1.0));//자전
 	return result;
 };
@@ -85,8 +85,6 @@ void Boss::boss(ShaderFunc* shaderfunc)
 }
 void Boss::missile(glm::vec3 missilepo, glm::vec3 missilere, glm::vec3 missilero)
 {
-
-
 }
 ;
 
@@ -105,14 +103,23 @@ glm::vec3 Boss::get_Position()
 {
 	return Position + Translate;
 }
-Boss* Boss::get_body()
+
+void Boss::bindingEnemys(ShaderFunc& shaderID)
 {
-	return Bossbody;
+	readTriangleObj("obj_bossbody.obj", BossBodyVertexData, BossBodyTextureData, BossBodyNormalData);
+	shaderID.InitBuffer(BossBodyVAO, BossBodyVertexVBO, BossBodyTextureVBO, BossBodyNormalVBO, BossBodyVertexData, BossBodyTextureData, BossBodyNormalData);
+	readTriangleObj("obj_bossmissile.obj", BossMissileVertexData, BossMissileTextureData, BossMissileNormalData);
+	shaderID.InitBuffer(BossMissileVAO, BossMissileVertexVBO, BossMissileTextureVBO, BossMissileNormalVBO, BossMissileVertexData, BossMissileTextureData, BossMissileNormalData);
+	
+	readTriangleObj("obj_bossred.obj", BossRedVertexData, BossRedTextureData, BossRedNormalData);
+	shaderID.InitBuffer(BossRedVAO, BossRedVertexVBO, BossRedTextureVBO, BossRedNormalVBO, BossRedVertexData, BossRedTextureData, BossRedNormalData);
+	readTriangleObj("obj_bossrocket.obj", BossRocketVertexData, BossRocketTextureData, BossRocketNormalData);
+	shaderID.InitBuffer(BossRocketVAO, BossRocketVertexVBO, BossRocketTextureVBO, BossRocketNormalVBO, BossRocketVertexData, BossRocketTextureData, BossRocketNormalData);
 }
 ;
-void Boss::renderEnemy(ShaderFunc& shaderID, GLuint texture, int number)
+void Boss::renderBossComponent(ShaderFunc& shaderID, GLuint& vao, GLuint texture, int number, int size)
 {
-	glBindVertexArray(BossVAO);
+	glBindVertexArray(vao);
 	BossMatrix = glm::mat4(1.0f);
 	if (Parent)
 		BossMatrix = Parent->Getmatrix();
@@ -138,7 +145,15 @@ void Boss::renderEnemy(ShaderFunc& shaderID, GLuint texture, int number)
 	//shaderID.setColorVec(color);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "textureC"), number);
 	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), 1);
-	glDrawArrays(GL_TRIANGLES, 0, BossVertexData.size());
+	glDrawArrays(GL_TRIANGLES, 0, size);
+}
+
+void Boss::renderBoss(ShaderFunc& shaderID)
+{
+	renderBossComponent(shaderID, BossBodyVAO, GL_TEXTURE13, 13, BossBodyVertexData.size());
+	renderBossComponent(shaderID, BossMissileVAO, GL_TEXTURE12, 13, BossMissileVertexData.size());
+	renderBossComponent(shaderID, BossRedVAO, GL_TEXTURE10, 13, BossRedVertexData.size());
+	renderBossComponent(shaderID, BossRocketVAO, GL_TEXTURE11, 13, BossRocketVertexData.size());
 }
 
 void Boss::Trans_Positon(float x, float y, float z)
@@ -151,10 +166,4 @@ void Boss::Trans_Positon(float x, float y, float z)
 void Boss::Gotozero_Positon(float x, float y, float z)
 {
 	GotoZero = glm::vec3(x, y, z);
-}
-
-void Boss::bindingEnemy(ShaderFunc& shaderID, string name)
-{
-	readTriangleObj(name, BossVertexData, BossTextureData, BossNormalData);
-	shaderID.InitBuffer(BossVAO, BossVertexVBO, BossTextureVBO, BossNormalVBO, BossVertexData, BossTextureData, BossNormalData);
 }
