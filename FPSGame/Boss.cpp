@@ -7,7 +7,7 @@ Boss::Boss() {
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	Color = glm::vec3(0.0f, 0.0f, 1.0f);
 	result = glm::mat4(1.0f);
-	hp = 1;
+	hp = 50;
 };//생성자
 
 Boss::Boss(const Boss& object) {//복사 생성자
@@ -17,7 +17,7 @@ Boss::Boss(const Boss& object) {//복사 생성자
 	Rotation = object.Rotation;
 	Scale = object.Scale;
 	Color = object.Color;
-	hp = 1;
+	hp = 50;
 };
 
 Boss::~Boss()
@@ -175,9 +175,9 @@ void Boss::renderBossComponent(ShaderFunc& shaderID, GLuint& vao, GLuint texture
 void Boss::renderBoss(ShaderFunc& shaderID)
 {
 	renderBossComponent(shaderID, BossBodyVAO, GL_TEXTURE13, 13, BossBodyVertexData.size());
-	renderBossComponent(shaderID, BossMissileVAO, GL_TEXTURE12, 13, BossMissileVertexData.size());
-	renderBossComponent(shaderID, BossRedVAO, GL_TEXTURE10, 13, BossRedVertexData.size());
-	renderBossComponent(shaderID, BossRocketVAO, GL_TEXTURE11, 13, BossRocketVertexData.size());
+	renderBossComponent(shaderID, BossMissileVAO, GL_TEXTURE12, 12, BossMissileVertexData.size());
+	renderBossComponent(shaderID, BossRedVAO, GL_TEXTURE10, 10, BossRedVertexData.size());
+	renderBossComponent(shaderID, BossRocketVAO, GL_TEXTURE11, 11, BossRocketVertexData.size());
 }
 
 void Boss::Trans_Positon(glm::vec3 a)

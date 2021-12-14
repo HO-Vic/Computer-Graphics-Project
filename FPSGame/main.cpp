@@ -185,7 +185,7 @@ int main(int argc, char** argv)
 
 void timercall(int value)
 {
-	int changDoongCnt = 20;
+	int changDoongCnt = 0;
 	int robotCnt = changDoongCnt;
 	//int robotCnt = 20;
 	switch (value)
@@ -346,17 +346,21 @@ void timercall(int value)
 			else {
 				FLTrpostion[i].z += RandomFl(-0.02, 0.08);
 			}
-			if (FLXCheck[i] == 1&& FLZCheck[i] == 1) {
-				robotManager.getRobot()[i].Change_Rotation(0,-90, 0);
+			if (FLXCheck[i] == 1 && FLZCheck[i] == 1) {
+				robotManager.getRobot()[i].Change_Rotation(0, -90, 0);
+				flyManager.getFlyRobot()[i].Change_Rotation(0, -90, 0);
 			}
 			else if (FLXCheck[i] == 1 && FLZCheck[i] == 0) {
 				robotManager.getRobot()[i].Change_Rotation(0, 180, 0);
+				flyManager.getFlyRobot()[i].Change_Rotation(0, 180, 0);
 			}
 			else if (FLXCheck[i] == 0 && FLZCheck[i] == 1) {
 				robotManager.getRobot()[i].Change_Rotation(0, 90, 0);
+				flyManager.getFlyRobot()[i].Change_Rotation(0, 90, 0);
 			}
 			else if (FLXCheck[i] == 0 && FLZCheck[i] == 0) {
 				robotManager.getRobot()[i].Change_Rotation(0, 0, 0);
+				flyManager.getFlyRobot()[i].Change_Rotation(0, 0, 0);
 			}
 
 			flyManager.getFlyRobot()[i].move_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
@@ -373,6 +377,8 @@ void timercall(int value)
 			if (robotManager.getRobot()[i].getHp() <= 0)
 				robotCnt++;
 		}
+		cout << "ch:" << changDoongCnt << endl;
+		cout << "ro:" << robotCnt << endl;
 		if (robotCnt == 20 && changDoongCnt == 20) {
 			isRenderBoss = true;
 			isRenderRobot = false;
