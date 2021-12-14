@@ -1,39 +1,4 @@
-#include<gl/glew.h>
-#include<gl/freeglut.h>
-#include<glm/glm/glm.hpp>
-#include<glm/glm/ext.hpp>
-#include<glm/glm/gtc/matrix_transform.hpp>
-#include<iostream>
-#include<random>
-#include<vector>
-#include<utility>
-#include"filetobuf.h"
-#include"ShaderFunc.h"
-#include"Camera.h"
-#include"Player.h"
-#include"Light.h"
-#include"Projection.h"
-#include"Bullet.h"//weapon
-#include"Pistol.h"//Gun
-#include"Rifle.h"
-#include"Sniper.h"
-#include"Enum.h"
-#include"Map.h"//map
-#include"stair.h"
-#include"Wall.h"
-#include"Enemy.h"
-#include"FlyRobotManager.h"
-#include"GameSound.h"
-#include"Crash.h"
-//#include"Robot.h"
-#include"Boss.h"
-//#include"Random.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include"stb_image.h"
-#include"CrossHead.h"
-#include"ParticleManager.h"
-#include"Random.h"
-#include"RobotManager.h"
+#include"Headers.h"
 
 
 
@@ -106,6 +71,11 @@ glm::vec3 RTrpostion[20] = {};
 FlyRobotManager flyManager;
 RobotManager robotManager;
 int Gundamge = 0;
+bool isRenderChang = false;
+bool isRenderRobot = true;
+bool isRenderBoss = false;
+glm::vec3 bossMove;
+int robotSound = 0;
 
 Boss boss;
 
@@ -173,13 +143,17 @@ int main(int argc, char** argv)
 	glutTimerFunc(17, timercall, (int)PARTICLE);
 	glutTimerFunc(17, timercall, (int)ROBOTPARTICLE);
 	glutTimerFunc(10, timercall, (int)FlYROBOT);
+	glutTimerFunc(10, timercall, (int)CNTROBOTS);
+	glutTimerFunc(10, timercall, (int)BOSSMOVE);
+	glutTimerFunc(10, timercall, (int)RESETROBOTMOVE);
 	sounds.backGroundMusic();
 	glutMainLoop();
-	//Camera::destoy();
 }
 
 void timercall(int value)
 {
+	int changDoongCnt = 0;
+	int robotCnt = changDoongCnt;
 	switch (value)
 	{
 	case MOUSE:
@@ -250,28 +224,32 @@ void timercall(int value)
 		Crash(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
 		Crash2(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
 		Crash3(Camera::getInst(glm::vec3(0, 1, 3))->getPos());
-		std::cout << "x ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().x << "y ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().y << "z ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().z << std::endl;
+		//std::cout << "x ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().x << "y ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().y << "z ÁÂÇ¥" << Camera::getInst(glm::vec3(0, 1, 3))->getPos().z << std::endl;
 		myGun->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		pistol->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(flyManager.getFlyRobot()[i].get_Position()) == 1) {
-			//	cout << "i" << i << endl;
+			if (bullets.collideBullet(flyManager.getFlyRobot()[i].get_Position(), 0.2, 0.3, 0.3) == 1) {
 				if (flyManager.getFlyRobot()[i].Minushp(Gundamge)) {
-					flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
 					particle.flyRobotParticle(flyManager.getFlyRobot()[i].get_Position());
+					flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
 				}
 			}
 		}
-
 		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(robotManager.getRobot()[i].get_Position()) == 1) {
-			//	cout << "i" << i << endl;
-				robotManager.getRobot()[i].Gotozero_Positon(100, 100, 100);
-				particle.flyRobotParticle(robotManager.getRobot()[i].get_Position() + glm::vec3(0,1,0));
-
+			if (bullets.collideBullet(robotManager.getRobot()[i].get_Position(), 0.4, 0.5, 0.4) == 1) {
+				if (robotManager.getRobot()[i].MinusHp(Gundamge)) {
+					particle.flyRobotParticle(robotManager.getRobot()[i].get_Position() + glm::vec3(0, 1, 0));
+					robotManager.getRobot()[i].Gotozero_Positon(0, -1000, 0);
+				}
+			}
+		}
+		if (bullets.collideBullet(boss.get_Position(), 13, 20, 13) == 1) {
+			if (boss.minusHp(Gundamge)) {
+				particle.makeBossParticle(boss.get_Position());
+				boss.Gotozero_Positon(0, -1000, 0);
 			}
 		}
 		glutPostRedisplay();
@@ -279,6 +257,7 @@ void timercall(int value)
 		break;
 	case PARTICLE:
 		particle.parLife();
+		particle.parBossLife();
 		glutPostRedisplay();
 		glutTimerFunc(20, timercall, value);
 		break;
@@ -287,8 +266,7 @@ void timercall(int value)
 		glutPostRedisplay();
 		glutTimerFunc(20, timercall, value);
 		break;
-	case FlYROBOT:
-		
+	case FlYROBOT:		
 		for (int i = 0; i < 20; i++) {
 			if (FLTrpostion[i].x > 5) {
 				FLXCheck[i] = 1;
@@ -328,11 +306,101 @@ void timercall(int value)
 			}
 			flyManager.getFlyRobot()[i].move_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
 			robotManager.getRobot()[i].move_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
-
 		}
-		//boss.Trans_Positon(0, bossTransy, 0);
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
+		break;
+	case CNTROBOTS:		
+		for (int i = 0; i < 20; i++) {
+			if (flyManager.getFlyRobot()[i].getHp() <= 0)
+				changDoongCnt++;
+			if (robotManager.getRobot()[i].getHp() <= 0)
+				robotCnt++;
+		}
+		if (robotCnt == 20 && changDoongCnt == 20) {
+			isRenderBoss = true;
+			isRenderRobot = false;
+			isRenderChang = false;
+		}
+		else if (robotCnt == 20) {
+			isRenderRobot = false;
+			isRenderChang = true;
+			isRenderBoss = false;
+		}
+		else if (changDoongCnt == 20) {
+			isRenderRobot = false;
+			isRenderChang = false;
+			isRenderBoss = false;
+		}
+		glutPostRedisplay();
+		glutTimerFunc(100, timercall, value);
+		break;
+	case BOSSMOVE:
+		if (isRenderBoss) {
+			robotSound++;
+			if (robotSound == 1) {
+				sounds.startBossSound();
+			}
+			if (boss.getBossYF() >= 1.0f)
+				boss.decreaseBossYF();
+			else {
+				sounds.pauseBossSound();	
+				boss.Trans_Positon(bossMove);
+			}
+		}
+		glutPostRedisplay();
+		glutTimerFunc(10, timercall, value);
+		break;
+	case RESETROBOTMOVE:
+		if (boss.get_Position().y >= 25) {
+			if (boss.get_Position().x >= 25) {
+				if (boss.get_Position().z >= 25) {
+					bossMove = glm::vec3(-0.2, -0.1, -0.2);
+				}
+				else if (boss.get_Position().z <= -25) {
+					bossMove = glm::vec3(-0.2, -0.1, 0.2);
+				}
+				else bossMove = glm::vec3(-0.2, -0.1, RandomFl(-0.2, 0.2));
+			}
+			else if (boss.get_Position().x <= -25) {
+				if (boss.get_Position().z >= 25) {
+					bossMove = glm::vec3(0.2, -0.1, -0.2);
+				}
+				else if (boss.get_Position().z <= -25) {
+					bossMove = glm::vec3(0.2, -0.1, 0.2);
+				}
+				else bossMove = glm::vec3(0.2, -0.1, RandomFl(-0.2, 0.2));
+			}
+			else{
+				bossMove = glm::vec3(RandomFl(-0.2, 0.2), -0.1, RandomFl(-0.2, 0.2));
+			}
+		}
+		else if (boss.get_Position().y <= 18) {
+			if (boss.get_Position().x >= 25) {
+				if (boss.get_Position().z >= 25) {
+					bossMove = glm::vec3(-0.2, 0.1, -0.2);
+				}
+				else if (boss.get_Position().z <= -25) {
+					bossMove = glm::vec3(-0.2, 0.1, 0.2);
+				}
+				else bossMove = glm::vec3(-0.2, 0.1, RandomFl(-0.2, 0.2));
+			}
+			else if (boss.get_Position().x <= -25) {
+				if (boss.get_Position().z >= 25) {
+					bossMove = glm::vec3(0.2, 0.1, -0.2);
+				}
+				else if (boss.get_Position().z <= -25) {
+					bossMove = glm::vec3(0.2, 0.1, 0.2);
+				}
+				else bossMove = glm::vec3(0.2, 0.1, RandomFl(-0.2, 0.2));
+			}
+			else {
+				bossMove = glm::vec3(RandomFl(-0.2, 0.2), 0.1, RandomFl(-0.2, 0.2));
+			}
+		}
+		else
+			bossMove = glm::vec3(RandomFl(-0.2, 0.2), RandomFl(-0.05, 0.05), RandomFl(-0.2, 0.2));
+		glutTimerFunc(1500, timercall, value);
 		break;
 	default:
 		break;
@@ -713,10 +781,9 @@ void bindingObj()
 	rifle->bindingGun(shaderfunc);
 	sniper->bindingGun(shaderfunc);
 	map->bindingMap(shaderfunc);
-	//stair->bindingMap(shaderfunc);
 	wall->bindingMap(shaderfunc);
 	bullets.bindingBullet(shaderfunc);
-	//enemy->bindingEnemy(shaderfunc);
+	
 
 	flyManager.bindingEnemys(shaderfunc);
 	robotManager.bindingEnemys(shaderfunc);
@@ -728,7 +795,7 @@ void bindingObj()
 	robotManager.setParent();
 
 	boss.bindingEnemys(shaderfunc);
-
+	boss.Change_Positon(-10, 20, -5);
 	
 	CR.binding(shaderfunc);
 	particle.bindingParticle(shaderfunc);
@@ -740,19 +807,21 @@ void renderObjs()
 	particle.renderFlyRobotParticles(shaderfunc);
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.45f);
 	map->renderMap(shaderfunc);
-	//stair->renderMap(shaderfunc);
-	//wall->renderMap(shaderfunc);
+	
 
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.3f);
-	if (changeCrossHead)
-		myGun->renderGun(shaderfunc);
 
 	bullets.renderBullets(shaderfunc);
-	flyManager.renderEnemys(shaderfunc);
-	robotManager.renderEnemys(shaderfunc);
+	if(isRenderChang)
+		flyManager.renderEnemys(shaderfunc);
+	if(isRenderRobot)
+		robotManager.renderEnemys(shaderfunc);
 
-	//boss.Change_Positon(-10, 50, -5);
+	
 	boss.renderBoss(shaderfunc);
+
+	if (changeCrossHead)
+		myGun->renderGun(shaderfunc);
 	
 	if (changeCrossHead)
 		CR.drawdotCrossHead(shaderfunc);

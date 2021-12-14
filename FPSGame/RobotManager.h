@@ -72,7 +72,6 @@ public:
 	void bindingEnemys(ShaderFunc& shaderID);
 	Robot* getRobot();
 	void setParent();
-	void MinusHp();
 	RobotManager();
 
 

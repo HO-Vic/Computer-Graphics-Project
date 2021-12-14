@@ -275,6 +275,9 @@
     <ClInclude Include="RobotManager.h">
       <Filter>헤더 파일\obj</Filter>
     </ClInclude>
+    <ClInclude Include="Headers.h">
+      <Filter>헤더 파일\obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMap.txt">

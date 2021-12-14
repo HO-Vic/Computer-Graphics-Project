@@ -57,7 +57,7 @@ void Bullet::moveBullets()
 		bullets.push(currentRenderGun);
 	}
 }
-bool Bullet::collideBullet(glm::vec3 Enemypositon)
+bool Bullet::collideBullet(glm::vec3 Enemypositon, int x, int y, int z)
 {
 	bool check = 0;
 
@@ -66,9 +66,9 @@ bool Bullet::collideBullet(glm::vec3 Enemypositon)
 		bullets.pop();
 		//renderBullet(shaderID, currentRenderGun.getPos(), currentRenderGun.getRotateAngle());
 		//만약에 충돌하지 않았다면 또는 사정거리가 안됐다면 다시 넣는다 -> 사정거리는 dir곱한 정도로 계산
-		if (currentRenderGun.getPos().x <= Enemypositon.x + 1.2 && currentRenderGun.getPos().x >= Enemypositon.x - 1.2) {
-			if (currentRenderGun.getPos().y <= Enemypositon.y + 2 && currentRenderGun.getPos().y >= Enemypositon.y - 0.7) {
-				if (currentRenderGun.getPos().z <= Enemypositon.z + 1.2 && currentRenderGun.getPos().z >= Enemypositon.z - 1.2) {
+		if (currentRenderGun.getPos().x <= Enemypositon.x + x && currentRenderGun.getPos().x >= Enemypositon.x - x) {
+			if (currentRenderGun.getPos().y <= Enemypositon.y + y && currentRenderGun.getPos().y >= Enemypositon.y - y) {
+				if (currentRenderGun.getPos().z <= Enemypositon.z + z && currentRenderGun.getPos().z >= Enemypositon.z - z) {
 					cout << "check" << check << endl;
 					cout << currentRenderGun.getPos().x << endl;
 					cout << currentRenderGun.getPos().y << endl;
@@ -78,9 +78,9 @@ bool Bullet::collideBullet(glm::vec3 Enemypositon)
 				}
 			}
 		}
-		else if (currentRenderGun.getPos().x + 0.1f >= Enemypositon.x + 1.2f && currentRenderGun.getPos().x - 0.1f <= Enemypositon.x + 1.2f) {
-			if (currentRenderGun.getPos().y + 0.1f >= Enemypositon.y + 0.7f && currentRenderGun.getPos().y - 0.1f <= Enemypositon.y + 0.7f) {
-				if (currentRenderGun.getPos().z + 0.1f >= Enemypositon.z + 1.2f && currentRenderGun.getPos().z - 0.1f <= Enemypositon.z + 1.2f) {
+		else if (currentRenderGun.getPos().x + 0.1f >= Enemypositon.x + x && currentRenderGun.getPos().x - 0.1f <= Enemypositon.x + x) {
+			if (currentRenderGun.getPos().y + 0.1f >= Enemypositon.y + y && currentRenderGun.getPos().y - 0.1f <= Enemypositon.y + y) {
+				if (currentRenderGun.getPos().z + 0.1f >= Enemypositon.z + z && currentRenderGun.getPos().z - 0.1f <= Enemypositon.z + z) {
 					cout << "check" << check << endl;
 					cout << currentRenderGun.getPos().x << endl;
 					cout << currentRenderGun.getPos().y << endl;
@@ -90,9 +90,9 @@ bool Bullet::collideBullet(glm::vec3 Enemypositon)
 				}
 			}
 		}
-		else if (currentRenderGun.getPos().x + 0.1f >= Enemypositon.x - 1.2f && currentRenderGun.getPos().x - 0.1f <= Enemypositon.x - 1.2f) {
-			if (currentRenderGun.getPos().y + 0.1f >= Enemypositon.y - 0.7f && currentRenderGun.getPos().y - 0.1f <= Enemypositon.y - 0.7f) {
-				if (currentRenderGun.getPos().z + 0.1f >= Enemypositon.z - 1.2f && currentRenderGun.getPos().z - 0.1f <= Enemypositon.z - 1.2f) {
+		else if (currentRenderGun.getPos().x + 0.1f >= Enemypositon.x - x && currentRenderGun.getPos().x - 0.1f <= Enemypositon.x - x) {
+			if (currentRenderGun.getPos().y + 0.1f >= Enemypositon.y - y && currentRenderGun.getPos().y - 0.1f <= Enemypositon.y - y) {
+				if (currentRenderGun.getPos().z + 0.1f >= Enemypositon.z - z && currentRenderGun.getPos().z - 0.1f <= Enemypositon.z - z) {
 					cout << "check" << check << endl;
 					cout << currentRenderGun.getPos().x << endl;
 					cout << currentRenderGun.getPos().y << endl;

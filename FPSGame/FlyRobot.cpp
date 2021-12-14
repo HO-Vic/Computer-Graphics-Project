@@ -7,7 +7,7 @@ Flyrobot::Flyrobot() {
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	Color = glm::vec3(0.0f, 0.0f, 1.0f);
 	result = glm::mat4(1.0f);
-	hp = 10;
+	hp = 15;
 };//생성자
 
 Flyrobot::Flyrobot(const Flyrobot& object) {//복사 생성자
@@ -17,6 +17,7 @@ Flyrobot::Flyrobot(const Flyrobot& object) {//복사 생성자
 	Rotation = object.Rotation;
 	Scale = object.Scale;
 	Color = object.Color;
+	hp = 15;
 };
 
 Flyrobot::~Flyrobot()
@@ -88,7 +89,7 @@ float Flyrobot::Return_PositionY()
 }
 glm::vec3 Flyrobot::get_Position()
 {
-	return Position+Translate;
+	return Position+Translate + GotoZero;
 }
 
 bool Flyrobot::Minushp(int gundamage)

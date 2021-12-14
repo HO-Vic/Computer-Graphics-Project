@@ -7,6 +7,7 @@ Boss::Boss() {
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	Color = glm::vec3(0.0f, 0.0f, 1.0f);
 	result = glm::mat4(1.0f);
+	hp = 50;
 };//생성자
 
 Boss::Boss(const Boss& object) {//복사 생성자
@@ -16,6 +17,7 @@ Boss::Boss(const Boss& object) {//복사 생성자
 	Rotation = object.Rotation;
 	Scale = object.Scale;
 	Color = object.Color;
+	hp = 50;
 };
 
 Boss::~Boss()
@@ -104,6 +106,28 @@ glm::vec3 Boss::get_Position()
 	return Position + Translate;
 }
 
+void Boss::decreaseBossYF()
+{
+	bossTransy -= 0.1f;
+	//std::cout << bossTransy << endl;
+}
+
+float Boss::getBossYF()
+{
+	return bossTransy;
+}
+
+bool Boss::minusHp(int damage)
+{
+	hp -= damage;
+	if (hp < 0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
 void Boss::bindingEnemys(ShaderFunc& shaderID)
 {
 	readTriangleObj("obj_bossbody.obj", BossBodyVertexData, BossBodyTextureData, BossBodyNormalData);
@@ -131,6 +155,7 @@ void Boss::renderBossComponent(ShaderFunc& shaderID, GLuint& vao, GLuint texture
 	BossMatrix = glm::translate(BossMatrix, Position);
 	BossMatrix = glm::translate(BossMatrix, Translate);
 	BossMatrix = glm::translate(BossMatrix, GotoZero);
+	BossMatrix = glm::translate(BossMatrix, glm::vec3(0,bossTransy,0));
 	BossMatrix = glm::rotate(BossMatrix, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
 	BossMatrix = glm::rotate(BossMatrix, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
 	BossMatrix = glm::rotate(BossMatrix, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
@@ -156,9 +181,9 @@ void Boss::renderBoss(ShaderFunc& shaderID)
 	renderBossComponent(shaderID, BossRocketVAO, GL_TEXTURE11, 13, BossRocketVertexData.size());
 }
 
-void Boss::Trans_Positon(float x, float y, float z)
+void Boss::Trans_Positon(glm::vec3 a)
 {
-	Translate = glm::vec3(x, y, z);
+	Translate += a;
 	//BossMatrix = glm::translate(BossMatrix, Translate);
 
 }

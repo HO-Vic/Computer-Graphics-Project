@@ -60,6 +60,36 @@ void ParticleManager::renderFlyRobotParticle(ShaderFunc& shaderID, glm::vec3 pos
 	glDrawArrays(GL_TRIANGLES, 0, vertexData.size());
 }
 
+void ParticleManager::renderBossParticles(ShaderFunc& shaderID)
+{
+	int qsize = bossParticleQ.size();
+	for (int i = 0; i < qsize; i++) {
+		Particle temp = bossParticleQ.front();
+		bossParticleQ.pop();
+		for (int j = 0; j < 20; j++) {
+			renderBossParticle(shaderID, temp.getPos(), (float)temp.getLife() * temp.getDir()[j]);
+		}
+		bossParticleQ.push(temp);
+	}
+}
+
+void ParticleManager::renderBossParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 dir)
+{
+	std::random_device rd;
+	std::default_random_engine dre(rd());
+	std::uniform_real_distribution<float> red(0.8f, 1.0f);
+	std::uniform_real_distribution<float> green(0.1f, 0.5f);
+
+	glBindVertexArray(vao);
+	glm::mat4 matrix = glm::mat4(1.0f);
+	matrix = glm::translate(matrix, pos + dir);
+	matrix = glm::scale(matrix, glm::vec3(0.1f, 0.1f, 0.1f));
+	shaderID.setTransMatrix(matrix);
+	glUniform3f(glGetUniformLocation(shaderID.getShaderID(), "objColor"), red(dre), green(dre), 0);
+	glUniform1i(glGetUniformLocation(shaderID.getShaderID(), "isTexture"), -1);
+	glDrawArrays(GL_TRIANGLES, 0, vertexData.size());
+}
+
 void ParticleManager::bindingParticle(ShaderFunc& shaderID)
 {
 	GLuint temp;
@@ -77,6 +107,21 @@ void  ParticleManager::Makeparticle(glm::vec3 pos, glm::vec3 gunDir, glm::vec3 g
 void ParticleManager::flyRobotParticle(glm::vec3 pos)
 {
 	flyrobotParticleQ.push(Particle(pos, glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+}
+
+void ParticleManager::makeBossParticle(glm::vec3 pos)
+{
+	std::random_device rd;
+	std::default_random_engine dre(rd());
+	std::uniform_real_distribution<float> ureX(-10, 10);
+	std::uniform_real_distribution<float> ureY(-20, 20);
+	std::uniform_real_distribution<float> ureZ(-5, 5);
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
 }
 
 void ParticleManager::parLife()
@@ -98,5 +143,16 @@ void ParticleManager::parFlyRobotLife()
 		temp.setLife();
 		if (temp.getLife() < 25)
 			flyrobotParticleQ.push(temp);
+	}
+}
+
+void ParticleManager::parBossLife()
+{
+	for (int i = 0; i < bossParticleQ.size(); i++) {
+		Particle temp = bossParticleQ.front();
+		bossParticleQ.pop();
+		temp.setLife();
+		if (temp.getLife() < 200)
+			bossParticleQ.push(temp);
 	}
 }

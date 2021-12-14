@@ -7,6 +7,7 @@ Robot::Robot() {
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	Color = glm::vec3(0.0f, 0.0f, 1.0f);
 	result = glm::mat4(1.0f);
+	hp = 10;
 };//생성자
 
 Robot::Robot(const Robot& object) {//복사 생성자
@@ -16,6 +17,7 @@ Robot::Robot(const Robot& object) {//복사 생성자
 	Rotation = object.Rotation;
 	Scale = object.Scale;
 	Color = object.Color;
+	hp = 10;
 };
 
 Robot::~Robot()
@@ -83,7 +85,7 @@ float Robot::Return_PositionY()
 }
 glm::vec3 Robot::get_Position()
 {
-	return Position + Translate;
+	return Position + Translate + GotoZero;
 }
 //Robot* Robot::get_body()
 //{
@@ -130,6 +132,17 @@ void Robot::Trans_Positon(float x, float y, float z)
 void Robot::move_Positon(float x, float y, float z)
 {
 	Translate = glm::vec3(x, y, z);
+}
+
+bool Robot::MinusHp(int damage)
+{
+	hp -= damage;
+	if (hp < 0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 void Robot::Gotozero_Positon(float x, float y, float z)

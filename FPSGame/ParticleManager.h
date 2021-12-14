@@ -14,6 +14,7 @@ class ParticleManager
 {
 	std::queue<Particle> particleQ;
 	std::queue<Particle> flyrobotParticleQ;
+	std::queue<Particle> bossParticleQ;
 	GLuint vao;
 	GLuint vertexVbo;
 	GLuint normalVbo;
@@ -24,12 +25,16 @@ public://render
 	void renderParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 dir);
 	void renderFlyRobotParticles(ShaderFunc& shaderID);
 	void renderFlyRobotParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 dir);
+	void renderBossParticles(ShaderFunc& shaderID);
+	void renderBossParticle(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 dir);
 public://binding
 	void bindingParticle(ShaderFunc& shaderID);
 public:
 	void Makeparticle(glm::vec3 pos,  glm::vec3 gunDir, glm::vec3 gunRight, glm::vec3 gunUp);
 	void flyRobotParticle(glm::vec3 pos);
+	void makeBossParticle(glm::vec3 pos);
 	void parLife();
 	void parFlyRobotLife();
+	void parBossLife();
 };
 

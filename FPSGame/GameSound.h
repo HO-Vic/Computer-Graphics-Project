@@ -19,6 +19,9 @@ private:
 	FMOD::Sound* runSound;
 	FMOD::Channel* runChannel;
 
+	FMOD::Sound* bossSound;
+	FMOD::Channel* bossChannel;
+
 	FMOD_RESULT       result;
 	void* extradriverdata = 0;
 	
@@ -32,4 +35,6 @@ public:
 	void pauseWalking();
 	void runningSound();
 	void pauseRunning();
+	void startBossSound();
+	void pauseBossSound();
 };

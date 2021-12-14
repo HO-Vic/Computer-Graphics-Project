@@ -99,6 +99,10 @@ Enemy* Enemy::get_body()
 {
 	return nullptr;
 }
+int Enemy::getHp()
+{
+	return hp;
+}
 ;
 //void Enemy::renderEnemy(ShaderFunc& shaderID)
 //{

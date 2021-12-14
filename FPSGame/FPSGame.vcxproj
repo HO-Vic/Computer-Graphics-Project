@@ -216,6 +216,7 @@
     <ClInclude Include="FlyRobotManager.h" />
     <ClInclude Include="GameSound.h" />
     <ClInclude Include="Gun.h" />
+    <ClInclude Include="Headers.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Particle.h" />

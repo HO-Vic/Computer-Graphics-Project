@@ -47,6 +47,8 @@ public:
 	glm::vec3 get_Position()override;
 	//Robot* get_body()override;
 	void move_Positon(float x, float y, float z);
+	bool MinusHp(int damage);
+
 
 	//	
 

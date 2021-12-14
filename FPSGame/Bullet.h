@@ -26,7 +26,7 @@ private:
 	void renderBullet(ShaderFunc& shaderID, glm::vec3 pos, glm::vec3 rotateAngle);
 public://render
 	void renderBullets(ShaderFunc& shaderID);
-	bool collideBullet(glm::vec3 Enemypositon);
+	bool collideBullet(glm::vec3 Enemypositon, int x, int y, int z);
 public://binding
 	void bindingBullet(ShaderFunc& shaderID);
 public:

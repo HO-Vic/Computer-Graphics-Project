@@ -51,7 +51,7 @@ protected:
 
 	glm::mat4 BossMatrix;
 
-	float bossTransy = 0;
+	float bossTransy = 100.0f;
 
 	//glm::vec3 BossPosition;
 	Boss* Parent{ nullptr };
@@ -74,7 +74,7 @@ public:
 	void Change_Color(float x, float y, float z);
 	void renderBossComponent(ShaderFunc& shaderID, GLuint& vao, GLuint texture, int number, int size);
 	void renderBoss(ShaderFunc& shaderID);
-	void Trans_Positon(float x, float y, float z);
+	void Trans_Positon(glm::vec3 a);
 	void Gotozero_Positon(float x, float y, float z);
 	void Apply_Parent(Boss* Parent1);
 	void boss(ShaderFunc* shaderfunc);
@@ -84,7 +84,9 @@ public:
 	float Return_PositionY()override;
 	glm::vec3 get_Position()override;
 	void bindingEnemys(ShaderFunc& shaderID);
-
+	void decreaseBossYF();
+	float getBossYF();
+	bool minusHp(int damage);
 	//	
 
 }; 
