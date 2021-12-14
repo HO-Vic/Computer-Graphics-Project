@@ -118,7 +118,6 @@ int main(int argc, char** argv)
 	bindingObj();
 
 
-
 	//display
 	glutDisplayFunc(DrawSceneCall);
 	glutReshapeFunc(ReshapeCall);
@@ -152,7 +151,7 @@ int main(int argc, char** argv)
 
 void timercall(int value)
 {
-	int changDoongCnt = 20;
+	int changDoongCnt = 0;
 	int robotCnt = changDoongCnt;
 	//int robotCnt = 20;
 	switch (value)
@@ -826,8 +825,8 @@ void renderObjs()
 		robotManager.renderEnemys(shaderfunc);
 	particle.renderFlyRobotParticles(shaderfunc);
 	particle.renderBossParticles(shaderfunc);
-	
-	boss.renderBoss(shaderfunc);
+	if(isRenderBoss)
+		boss.renderBoss(shaderfunc);
 
 	if (changeCrossHead)
 		myGun->renderGun(shaderfunc);
