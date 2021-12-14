@@ -33,7 +33,7 @@ public:
 		std::cout << AT.x << ' ' << AT.y << ' ' << AT.z << std::endl;
 	}
 public:
-	const float walkRatio = 0.14f;
+	const float walkRatio = 0.18f;
 	const float runRatio = 0.32f;
 public:
 	void setCameraDir();
