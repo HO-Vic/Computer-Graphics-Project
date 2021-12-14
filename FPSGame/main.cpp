@@ -154,6 +154,7 @@ void timercall(int value)
 {
 	int changDoongCnt = 0;
 	int robotCnt = changDoongCnt;
+	//int robotCnt = 20;
 	switch (value)
 	{
 	case MOUSE:
@@ -230,26 +231,34 @@ void timercall(int value)
 		rifle->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		sniper->setPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
 		defaultLight.setLightPos(Camera::getInst(glm::vec3(0, 1.0f, 3.0f))->getPos());
-		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(flyManager.getFlyRobot()[i].get_Position(), 0.2, 0.3, 0.3) == 1) {
-				if (flyManager.getFlyRobot()[i].Minushp(Gundamge)) {
-					particle.flyRobotParticle(flyManager.getFlyRobot()[i].get_Position());
-					flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
+		if (isRenderChang) {
+			for (int i = 0; i < 20; i++) {
+				if (bullets.collideBullet(flyManager.getFlyRobot()[i].get_Position() + glm::vec3(0, 0.4, 0), 0.8, 1.3, 0.8) == 1) {
+					if (flyManager.getFlyRobot()[i].Minushp(Gundamge)) {
+						particle.flyRobotParticle(flyManager.getFlyRobot()[i].get_Position());
+						flyManager.getFlyRobot()[i].Gotozero_Positon(0, -1000, 0);
+					}
 				}
 			}
 		}
-		for (int i = 0; i < 20; i++) {
-			if (bullets.collideBullet(robotManager.getRobot()[i].get_Position(), 0.4, 0.5, 0.4) == 1) {
-				if (robotManager.getRobot()[i].MinusHp(Gundamge)) {
-					particle.flyRobotParticle(robotManager.getRobot()[i].get_Position() + glm::vec3(0, 1, 0));
-					robotManager.getRobot()[i].Gotozero_Positon(0, -1000, 0);
+		if (isRenderRobot) {
+			for (int i = 0; i < 20; i++) {
+				//cout << "damage1: " << Gundamge << endl;
+				if (bullets.collideBullet(robotManager.getRobot()[i].get_Position() + glm::vec3(0, 1.3, 0), 1.3, 1.5, 1.3) == 1) {
+					//cout << "damage2: " << Gundamge << endl;
+					if (robotManager.getRobot()[i].MinusHp(Gundamge)) {
+						particle.flyRobotParticle(robotManager.getRobot()[i].get_Position() + glm::vec3(0, 1, 0));
+						robotManager.getRobot()[i].Gotozero_Positon(0, -1000, 0);
+					}
 				}
 			}
 		}
-		if (bullets.collideBullet(boss.get_Position(), 13, 20, 13) == 1) {
-			if (boss.minusHp(Gundamge)) {
-				particle.makeBossParticle(boss.get_Position());
-				boss.Gotozero_Positon(0, -1000, 0);
+		if (isRenderBoss) {
+			if (bullets.collideBullet(boss.get_Position(), 15, 23, 15) == 1) {
+				if (boss.minusHp(Gundamge)) {
+					particle.makeBossParticle(boss.get_Position());
+					boss.Gotozero_Positon(0, -1000, 0);
+				}
 			}
 		}
 		glutPostRedisplay();

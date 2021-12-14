@@ -57,7 +57,7 @@ void Bullet::moveBullets()
 		bullets.push(currentRenderGun);
 	}
 }
-bool Bullet::collideBullet(glm::vec3 Enemypositon, int x, int y, int z)
+bool Bullet::collideBullet(glm::vec3 Enemypositon, float x, float y, float z)
 {
 	bool check = 0;
 
@@ -101,8 +101,6 @@ bool Bullet::collideBullet(glm::vec3 Enemypositon, int x, int y, int z)
 					return check;
 				}
 			}
-
-
 		}
 		bullets.push(currentRenderGun);
 	}
