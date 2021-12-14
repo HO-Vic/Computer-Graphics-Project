@@ -113,9 +113,12 @@ void ParticleManager::makeBossParticle(glm::vec3 pos)
 {
 	std::random_device rd;
 	std::default_random_engine dre(rd());
-	std::uniform_real_distribution<float> ureX(-10, 10);
-	std::uniform_real_distribution<float> ureY(-20, 20);
+	std::uniform_real_distribution<float> ureX(-5, 5);
+	std::uniform_real_distribution<float> ureY(-4, 1);
 	std::uniform_real_distribution<float> ureZ(-5, 5);
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
+	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
 	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
 	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));
 	bossParticleQ.push(Particle(pos+glm::vec3(ureX(dre), ureY(dre), ureZ(dre)), glm::vec3(0, 0, 1.3), glm::vec3(1.3, 0, 0), glm::vec3(0, 1.3, 0)));

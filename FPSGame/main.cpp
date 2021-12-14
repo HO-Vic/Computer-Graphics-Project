@@ -152,7 +152,7 @@ int main(int argc, char** argv)
 
 void timercall(int value)
 {
-	int changDoongCnt = 0;
+	int changDoongCnt = 20;
 	int robotCnt = changDoongCnt;
 	//int robotCnt = 20;
 	switch (value)
@@ -256,7 +256,7 @@ void timercall(int value)
 		if (isRenderBoss) {
 			if (bullets.collideBullet(boss.get_Position(), 15, 23, 15) == 1) {
 				if (boss.minusHp(Gundamge)) {
-					particle.makeBossParticle(boss.get_Position());
+					particle.makeBossParticle(boss.get_Position() + glm::vec3(0,10,0));
 					boss.Gotozero_Positon(0, -1000, 0);
 				}
 			}
@@ -813,7 +813,6 @@ void bindingObj()
 void renderObjs()
 {
 	particle.renderParticles(shaderfunc);
-	particle.renderFlyRobotParticles(shaderfunc);
 	glUniform1f(glGetUniformLocation(shaderfunc.getShaderID(), "ambientLight"), 0.45f);
 	map->renderMap(shaderfunc);
 	
@@ -825,7 +824,8 @@ void renderObjs()
 		flyManager.renderEnemys(shaderfunc);
 	if(isRenderRobot)
 		robotManager.renderEnemys(shaderfunc);
-
+	particle.renderFlyRobotParticles(shaderfunc);
+	particle.renderBossParticles(shaderfunc);
 	
 	boss.renderBoss(shaderfunc);
 

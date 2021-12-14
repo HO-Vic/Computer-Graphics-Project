@@ -7,7 +7,7 @@ Boss::Boss() {
 	Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	Color = glm::vec3(0.0f, 0.0f, 1.0f);
 	result = glm::mat4(1.0f);
-	hp = 50;
+	hp = 1;
 };//생성자
 
 Boss::Boss(const Boss& object) {//복사 생성자
@@ -17,7 +17,7 @@ Boss::Boss(const Boss& object) {//복사 생성자
 	Rotation = object.Rotation;
 	Scale = object.Scale;
 	Color = object.Color;
-	hp = 50;
+	hp = 1;
 };
 
 Boss::~Boss()
@@ -54,7 +54,6 @@ void Boss::Change_Scale(float x, float y, float z) {
 	Scale = glm::vec3(x, y, z);
 }
 
-
 void Boss::Change_Color(float x, float y, float z) {
 	Color = glm::vec3(x, y, z);
 };
@@ -64,7 +63,7 @@ glm::vec3 Boss::GetColor() {
 };
 
 void Boss::Apply_Parent(Boss* Parent1) {
-	Parent = Parent1;
+	//Parent = Parent1;
 }
 
 void Boss::boss(ShaderFunc* shaderfunc)
@@ -103,7 +102,7 @@ float Boss::Return_PositionY()
 }
 glm::vec3 Boss::get_Position()
 {
-	return Position + Translate;
+	return Position + Translate + glm::vec3(0, bossTransy, 0);
 }
 
 void Boss::decreaseBossYF()
