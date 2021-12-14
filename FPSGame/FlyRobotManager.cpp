@@ -7,6 +7,7 @@ void FlyRobotManager::renderEnemys(ShaderFunc& shaderID)
 		flyrobotlarm[i].renderEnemy(shaderID, robotArmLVAO, robotArmLVertexData.size());
 		flyrobotrarm[i].renderEnemy(shaderID, robotArmRVAO, robotArmRVertexData.size());
 		flyrobotspin[i].renderEnemy(shaderID, robotSpinVAO, robotSpinVertexData.size());
+		flyrobotweapon[i].renderEnemy(shaderID, robotWeaponVAO, robotWeaponVertexData.size());
 	}
 }
 
@@ -28,6 +29,10 @@ void FlyRobotManager::bindingEnemy(ShaderFunc& shaderID, string name)
 		readTriangleObj(name, robotSpinVertexData, robotSpinTextureData, robotSpinNormalData);
 		shaderID.InitBuffer(robotSpinVAO, robotSpinVertexVBO, robotSpinTextureVBO, robotSpinNormalVBO, robotSpinVertexData, robotSpinTextureData, robotSpinNormalData);
 	}
+	if (name == "Obj_weapon.obj") {
+		readTriangleObj(name, robotWeaponVertexData, robotWeaponTextureData, robotWeaponNormalData);
+		shaderID.InitBuffer(robotWeaponVAO, robotWeaponVBO, robotWeaponTextureVBO, robotWeaponNormalVBO, robotWeaponVertexData, robotWeaponTextureData, robotWeaponNormalData);
+	}
 
 }
 
@@ -42,13 +47,16 @@ void FlyRobotManager::setParent()
 		flyrobotlarm[i].Apply_Parent(&flyrobotbody[i]);
 		flyrobotrarm[i].Apply_Parent(&flyrobotbody[i]);
 		flyrobotspin[i].Apply_Parent(&flyrobotbody[i]);
+		flyrobotweapon[i].Apply_Parent(&flyrobotbody[i]);
 	}
 }
 
 FlyRobotManager::FlyRobotManager()
 {
-	for (int i = 0; i < 20; i++) 
-		flyrobotbody[i].Change_Scale(4, 4, 4); 
+	for (int i = 0; i < 20; i++){
+		flyrobotbody[i].Change_Scale(4, 4, 4);
+		flyrobotweapon[i].Change_Scale(0.2, 0.2, 0.2);
+}
 }
 
 void FlyRobotManager::bindingEnemys(ShaderFunc& shaderID)
@@ -57,4 +65,5 @@ void FlyRobotManager::bindingEnemys(ShaderFunc& shaderID)
 	bindingEnemy(shaderID, "Obj_FlyRobot_Larm.obj");
 	bindingEnemy(shaderID, "Obj_FlyRobot_Spin.obj");
 	bindingEnemy(shaderID, "Obj_FlyRobot_Rarm.obj");
+	bindingEnemy(shaderID, "Obj_weapon.obj");
 }

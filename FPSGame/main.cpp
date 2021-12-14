@@ -1,5 +1,39 @@
-#include"Headers.h"
-
+#include<gl/glew.h>
+#include<gl/freeglut.h>
+#include<glm/glm/glm.hpp>
+#include<glm/glm/ext.hpp>
+#include<glm/glm/gtc/matrix_transform.hpp>
+#include<iostream>
+#include<random>
+#include<vector>
+#include<utility>
+#include"filetobuf.h"
+#include"ShaderFunc.h"
+#include"Camera.h"
+#include"Player.h"
+#include"Light.h"
+#include"Projection.h"
+#include"Bullet.h"//weapon
+#include"Pistol.h"//Gun
+#include"Rifle.h"
+#include"Sniper.h"
+#include"Enum.h"
+#include"Map.h"//map
+#include"stair.h"
+#include"Wall.h"
+#include"Enemy.h"
+#include"FlyRobotManager.h"
+#include"GameSound.h"
+#include"Crash.h"
+//#include"Robot.h"
+#include"Boss.h"
+#include"RobotManager.h"
+//#include"Random.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include"stb_image.h"
+#include"CrossHead.h"
+#include"ParticleManager.h"
+#include"Random.h"
 
 
 using namespace std;
@@ -151,7 +185,7 @@ int main(int argc, char** argv)
 
 void timercall(int value)
 {
-	int changDoongCnt = 0;
+	int changDoongCnt = 20;
 	int robotCnt = changDoongCnt;
 	//int robotCnt = 20;
 	switch (value)
@@ -276,10 +310,10 @@ void timercall(int value)
 		break;
 	case FlYROBOT:		
 		for (int i = 0; i < 20; i++) {
-			if (FLTrpostion[i].x > 5) {
+			if (FLTrpostion[i].x > 3) {
 				FLXCheck[i] = 1;
 			}
-			else if (FLTrpostion[i].x < -5) {
+			else if (FLTrpostion[i].x < -3) {
 				FLXCheck[i] = 0;
 			}
 			if (FLTrpostion[i].y > 3) {
@@ -288,32 +322,46 @@ void timercall(int value)
 			else if (FLTrpostion[i].y < -3) {
 				FLYCheck[i] = 0;
 			}
-			if (FLTrpostion[i].z > 5) {
+			if (FLTrpostion[i].z > 3) {
 				FLZCheck[i] = 1;
 			}
-			else if (FLTrpostion[i].z < -5) {
+			else if (FLTrpostion[i].z < -3) {
 				FLZCheck[i] = 0;
 			}
 			if (FLXCheck[i] == 1) {
-				FLTrpostion[i].x -= RandomFl(0, 0.03);
+				FLTrpostion[i].x -= RandomFl(-0.02, 0.08);
 			}
 			else if (FLXCheck[i] == 0) {
-				FLTrpostion[i].x += RandomFl(0, 0.03);
+				FLTrpostion[i].x += RandomFl(-0.02, 0.05);
 			}
 			if (FLYCheck[i] == 1) {
 				FLTrpostion[i].y -= RandomFl(0, 0.03);;
 			}
 			else {
-				FLTrpostion[i].y += RandomFl(0, 0.03);;
+				FLTrpostion[i].y += RandomFl(-0.02, 0.06);
 			}
 			if (FLZCheck[i] == 1) {
-				FLTrpostion[i].z -= RandomFl(0, 0.03);
+				FLTrpostion[i].z -= RandomFl(-0.02, 0.05);
 			}
 			else {
-				FLTrpostion[i].z += RandomFl(0, 0.03);
+				FLTrpostion[i].z += RandomFl(-0.02, 0.08);
 			}
+			if (FLXCheck[i] == 1&& FLZCheck[i] == 1) {
+				robotManager.getRobot()[i].Change_Rotation(0,-90, 0);
+			}
+			else if (FLXCheck[i] == 1 && FLZCheck[i] == 0) {
+				robotManager.getRobot()[i].Change_Rotation(0, 180, 0);
+			}
+			else if (FLXCheck[i] == 0 && FLZCheck[i] == 1) {
+				robotManager.getRobot()[i].Change_Rotation(0, 90, 0);
+			}
+			else if (FLXCheck[i] == 0 && FLZCheck[i] == 0) {
+				robotManager.getRobot()[i].Change_Rotation(0, 0, 0);
+			}
+
 			flyManager.getFlyRobot()[i].move_Positon(FLTrpostion[i].x, FLTrpostion[i].y, FLTrpostion[i].z);
 			robotManager.getRobot()[i].move_Positon(FLTrpostion[i].x, 0, FLTrpostion[i].z);
+
 		}
 		glutPostRedisplay();
 		glutTimerFunc(10, timercall, value);
@@ -798,8 +846,27 @@ void bindingObj()
 	for (int i = 0; i < 20; i++)
 		flyManager.getFlyRobot()[i].Trans_Positon(RandomFl(-30, 30.0), RandomFl(15.0, 25.0), RandomFl(-30, 30.0));
 	flyManager.setParent();
-	for (int i = 0; i < 20; i++)
-		robotManager.getRobot()[i].Trans_Positon(RandomFl(-30, 30.0), 0, RandomFl(-30, 30.0));
+		robotManager.getRobot()[0].Trans_Positon(7, -2, -5);
+		robotManager.getRobot()[1].Trans_Positon(-18, -2, -3);
+		robotManager.getRobot()[2].Trans_Positon(14, -2, -6);
+		robotManager.getRobot()[3].Trans_Positon(0, -2, -5);
+		robotManager.getRobot()[4].Trans_Positon(-32, -2, 11);
+		robotManager.getRobot()[5].Trans_Positon(-35, -1.8, -18);
+		robotManager.getRobot()[6].Trans_Positon(-50, 7.5, 28);
+		robotManager.getRobot()[7].Trans_Positon(-40, 9, 28);
+		robotManager.getRobot()[8].Trans_Positon(-25, -2, -4);
+		robotManager.getRobot()[9].Trans_Positon(27, -2, -10);
+		robotManager.getRobot()[10].Trans_Positon(25, -2, -4);
+		robotManager.getRobot()[11].Trans_Positon(23, -2, -8);
+		robotManager.getRobot()[12].Trans_Positon(-30, 9, 28);
+		robotManager.getRobot()[13].Trans_Positon(-50, 8, 15);
+		robotManager.getRobot()[14].Trans_Positon(-50, -5, -3);
+		robotManager.getRobot()[15].Trans_Positon(-51, -5, -5);
+		robotManager.getRobot()[16].Trans_Positon(-1, -4, -26);
+		robotManager.getRobot()[17].Trans_Positon(-4, -4, -24);
+		robotManager.getRobot()[18].Trans_Positon(-10, -4, -27);
+		robotManager.getRobot()[19].Trans_Positon(-16, -3.5, -32);
+		
 	robotManager.setParent();
 
 	boss.bindingEnemys(shaderfunc);
@@ -824,6 +891,10 @@ void renderObjs()
 	if(isRenderRobot)
 		robotManager.renderEnemys(shaderfunc);
 	particle.renderFlyRobotParticles(shaderfunc);
+	for (int i = 0; i < 20; i++) {
+		FLXCheck[i] == RandomIN(0, 1);
+		FLZCheck[i] == RandomIN(0, 1);
+	}
 	particle.renderBossParticles(shaderfunc);
 	if(isRenderBoss)
 		boss.renderBoss(shaderfunc);

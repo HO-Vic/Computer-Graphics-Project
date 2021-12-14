@@ -43,10 +43,20 @@ class FlyRobotManager
 	std::vector<glm::vec3> robotSpinVertexData;
 	std::vector<glm::vec3> robotSpinNormalData;
 	std::vector<glm::vec2> robotSpinTextureData;
+
+	GLuint robotWeaponVAO;
+	GLuint robotWeaponVBO;
+	GLuint robotWeaponNormalVBO;
+	GLuint robotWeaponTextureVBO;
+	std::vector<glm::vec3> robotWeaponVertexData;
+	std::vector<glm::vec3> robotWeaponNormalData;
+	std::vector<glm::vec2> robotWeaponTextureData;
+
 	Flyrobot flyrobotlarm[20];
 	Flyrobot flyrobotrarm[20];
 	Flyrobot flyrobotspin[20];
 	Flyrobot flyrobotbody[20];
+	Flyrobot flyrobotweapon[20];
 
 public:
 	void renderEnemys(ShaderFunc& shaderID);

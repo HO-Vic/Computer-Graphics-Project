@@ -149,5 +149,15 @@ void Flyrobot::move_Positon(float x, float y, float z)
 void Flyrobot::Gotozero_Positon(float x, float y, float z)
 {
 	GotoZero = glm::vec3(x, y, z);
+}
+
+void Flyrobot::Attack_Player(glm::vec3 PlayerPosition, glm::vec3 RobotPosition,float time)
+{
+	float x = 0,y=0,z=0;
+	x = (PlayerPosition.x- RobotPosition.x)/10;
+	y = (PlayerPosition.x - RobotPosition.y) / 10;
+	z = (PlayerPosition.x - RobotPosition.z) / 10;
 
 }
+
+

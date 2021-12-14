@@ -40,6 +40,7 @@ public:
 	void Trans_Positon(float x, float y, float z);
 	void move_Positon(float x, float y, float z);
 	void Gotozero_Positon(float x, float y, float z);
+	void Attack_Player(glm::vec3 PlayerPosition, glm::vec3 RobotPosition, float time);
 	void Apply_Parent(Flyrobot* Parent1);
 	void FlyRobot(Flyrobot* Body, Flyrobot* Spin, Flyrobot* Larm, Flyrobot* Rarm, ShaderFunc* shaderfunc);
 	float Return_PositionX()override;
