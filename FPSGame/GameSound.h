@@ -1,6 +1,6 @@
 #pragma once
-#include <fmod.hpp>
-#include <fmod_errors.h>
+#include "include/fmod/fmod.hpp"
+#include "include/fmod/fmod_errors.h"
 
 
 class GameSound

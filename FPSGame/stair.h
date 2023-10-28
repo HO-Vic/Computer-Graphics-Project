@@ -1,10 +1,10 @@
 #pragma once
 #pragma once
-#include<gl/glew.h>
-#include<gl/freeglut.h>
-#include<glm/glm/glm.hpp>
-#include<glm/glm/ext.hpp>
-#include<glm/glm/gtc/matrix_transform.hpp>
+#include"include/glew.h"
+#include"include/freeglut.h"
+#include"include/glm/glm.hpp"
+#include"include/glm/ext.hpp"
+#include"include/glm/gtc/matrix_transform.hpp"
 #include"ShaderFunc.h"
 #include"readTriangleObj.h"
 #include"Map.h"

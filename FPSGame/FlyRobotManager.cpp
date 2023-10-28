@@ -29,7 +29,7 @@ void FlyRobotManager::bindingEnemy(ShaderFunc& shaderID, string name)
 		readTriangleObj(name, robotSpinVertexData, robotSpinTextureData, robotSpinNormalData);
 		shaderID.InitBuffer(robotSpinVAO, robotSpinVertexVBO, robotSpinTextureVBO, robotSpinNormalVBO, robotSpinVertexData, robotSpinTextureData, robotSpinNormalData);
 	}
-	if (name == "Obj_weapon.obj") {
+	if (name == "obj_bossmissileweapon.obj") {
 		readTriangleObj(name, robotWeaponVertexData, robotWeaponTextureData, robotWeaponNormalData);
 		shaderID.InitBuffer(robotWeaponVAO, robotWeaponVBO, robotWeaponTextureVBO, robotWeaponNormalVBO, robotWeaponVertexData, robotWeaponTextureData, robotWeaponNormalData);
 	}
@@ -65,5 +65,5 @@ void FlyRobotManager::bindingEnemys(ShaderFunc& shaderID)
 	bindingEnemy(shaderID, "Obj_FlyRobot_Larm.obj");
 	bindingEnemy(shaderID, "Obj_FlyRobot_Spin.obj");
 	bindingEnemy(shaderID, "Obj_FlyRobot_Rarm.obj");
-	bindingEnemy(shaderID, "Obj_weapon.obj");
+	bindingEnemy(shaderID, "obj_bossmissileweapon.obj");
 }
